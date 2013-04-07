@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenRcp;
 using Caliburn.Micro;
 using Microsoft.Win32;
+using OpenRcp;
+using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Util;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument
 {
@@ -30,7 +32,9 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             dialog.Title = "新建文件";
             dialog.ShowDialog();
 
-            System.IO.File.Create(dialog.FileName);
+            // 保存空Exhibition xml内容到新建的文件中
+            Exhibition contentObject = new Exhibition();
+            XmlSerializerUtil.SaveXml(contentObject, dialog.FileName);
 
             yield return ResultsHelper.OpenDocument(dialog.FileName);
         }

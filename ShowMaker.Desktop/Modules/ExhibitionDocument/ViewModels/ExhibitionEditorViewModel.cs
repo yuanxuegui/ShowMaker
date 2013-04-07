@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using OpenRcp;
-using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
-using ICSharpCode.AvalonEdit.Highlighting;
 using Caliburn.Micro;
+using ICSharpCode.AvalonEdit.Highlighting;
+using OpenRcp;
+using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
 using ShowMaker.Desktop.Modules.Storyboard.ViewModels;
 using ShowMaker.Desktop.Parser;
-using ShowMaker.Desktop.Domain;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 {
@@ -94,7 +94,6 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         protected override void OnViewLoaded(object view)
         {
-           
             using (var stream = File.OpenText(_path))
             {
                 _originalText = stream.ReadToEnd();
