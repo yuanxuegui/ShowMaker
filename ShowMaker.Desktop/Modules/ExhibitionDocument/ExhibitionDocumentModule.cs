@@ -28,7 +28,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
         private IEnumerable<IResult> newFile()
         {
             var dialog = new SaveFileDialog();
-            dialog.Filter = "新建展会定义文件(*.show)|*.show";
+            dialog.Filter = "展会定义文件(*.show)|*.show";
             dialog.Title = "新建展会定义文件(.show)";
             dialog.ShowDialog();
 
