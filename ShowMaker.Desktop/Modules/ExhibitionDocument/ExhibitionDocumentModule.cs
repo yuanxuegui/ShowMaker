@@ -13,19 +13,19 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
     [ExportModule]
     public class ExhibitionDocumentModule : ModuleBase
     {
-        public const string MENU_FILE_NEW = "MENU_FILE_NEW";
+        public const string MENU_FILE_NEW_SHOW = "MENU_FILE_NEW_SHOW";
 
         #region Override ModuleBase Methods
 
         protected override void RegisterMenus()
         {
             MainMenu[ShellModule.MENU_FILE].Add(
-                new MenuItem(MENU_FILE_NEW, newFile));
+                new MenuItem(MENU_FILE_NEW_SHOW, newShowFile));
         }
 
         #endregion
 
-        private IEnumerable<IResult> newFile()
+        private IEnumerable<IResult> newShowFile()
         {
             var dialog = new SaveFileDialog();
             dialog.Filter = "展会定义文件(*.show)|*.show";
