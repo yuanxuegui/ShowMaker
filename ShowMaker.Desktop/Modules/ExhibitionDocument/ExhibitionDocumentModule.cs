@@ -28,8 +28,8 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
         private IEnumerable<IResult> newFile()
         {
             var dialog = new SaveFileDialog();
-            dialog.Filter = "所有文件|*.*|文本文件(*.txt)|*.txt|XML文件(*.xml)|*.xml";
-            dialog.Title = "新建文件";
+            dialog.Filter = "新建展会定义文件(*.show)|*.show";
+            dialog.Title = "新建展会定义文件(.show)";
             dialog.ShowDialog();
 
             // 保存空Exhibition xml内容到新建的文件中
