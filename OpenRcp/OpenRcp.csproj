@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0E9CF658-EFE0-41C0-AFBD-A9C907A5C6B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenRcp</RootNamespace>
+    <AssemblyName>OpenRcp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AvalonDock">
+      <HintPath>..\packages\AvalonDock.2.0.1114\lib\net40\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\AvalonDock.2.0.1114\lib\net40\AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro, Version=1.5.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.1.5.1\lib\net40\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=4.3.0.9390, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AvalonEdit.4.3.0.9390\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.0.20823\lib\Net40\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.0.20823\lib\Net40\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.0.20823\lib\Net40\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.10.1.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.7.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DisplayBase.cs" />
+    <Compile Include="Common\ExportResourceAttribute.cs" />
+    <Compile Include="Common\ILocalizableDisplay.cs" />
+    <Compile Include="Common\IResource.cs" />
+    <Compile Include="Common\ExportModuleAttribute.cs" />
+    <Compile Include="Common\ResourceBase.cs" />
+    <Compile Include="Common\IDisplay.cs" />
+    <Compile Include="Common\IHaveName.cs" />
+    <Compile Include="Common\Workbench\IPropertySelectable.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Common\Menus\RadioMenuItem.cs" />
+    <Compile Include="Common\Results\ICloseResult.cs" />
+    <Compile Include="Common\Results\HideToolResult.cs" />
+    <Compile Include="Common\Results\CloseResultBase.cs" />
+    <Compile Include="Common\Results\CloseDocumentResult.cs" />
+    <Compile Include="Modules\Theme\ThemeModule.cs" />
+    <Compile Include="Services\IMenuManger.cs" />
+    <Compile Include="Controls\LayoutInitializer.cs" />
+    <Compile Include="Controls\Menu.cs" />
+    <Compile Include="Controls\MenuItem.cs" />
+    <Compile Include="Controls\PanesStyleSelector.cs" />
+    <Compile Include="Common\Converters\ActiveDocumentConverter.cs" />
+    <Compile Include="Common\Converters\LayoutItemViewConverter.cs" />
+    <Compile Include="Common\Converters\PercentToFontSizeConverter.cs" />
+    <Compile Include="Common\Workbench\Document.cs" />
+    <Compile Include="Common\Workbench\IDocument.cs" />
+    <Compile Include="Common\Messages\IMessage.cs" />
+    <Compile Include="Common\IModule.cs" />
+    <Compile Include="Common\ITheme.cs" />
+    <Compile Include="Services\IThemeManager.cs" />
+    <Compile Include="Common\Workbench\ITool.cs" />
+    <Compile Include="Common\Menus\CheckableMenuItem.cs" />
+    <Compile Include="Common\Menus\IMenu.cs" />
+    <Compile Include="Common\Menus\MenuItem.cs" />
+    <Compile Include="Common\Menus\MenuItemBase.cs" />
+    <Compile Include="Common\Menus\MenuItemSeparator.cs" />
+    <Compile Include="Common\Menus\MenuModel.cs" />
+    <Compile Include="Common\Menus\StandardMenuItem.cs" />
+    <Compile Include="Common\Messages\LanguageChangedMessage.cs" />
+    <Compile Include="Common\Messages\ModuleInitMessage.cs" />
+    <Compile Include="Common\MessageBase.cs" />
+    <Compile Include="Common\Messages\ModulesInitedMessage.cs" />
+    <Compile Include="Modules\Splash\Messages\SplashCloseMessage.cs" />
+    <Compile Include="Modules\Theme\Messages\ThemeChangeMessage.cs" />
+    <Compile Include="Common\ModuleBase.cs" />
+    <Compile Include="Common\ModuleInfoItem.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\Results\IOpenResult.cs" />
+    <Compile Include="Common\Results\OpenDocumentResult.cs" />
+    <Compile Include="Common\Results\OpenResultBase.cs" />
+    <Compile Include="Common\Results\ResultsHelper.cs" />
+    <Compile Include="Common\Results\ShowCommonDialogResult.cs" />
+    <Compile Include="Common\Results\ShowToolResult.cs" />
+    <Compile Include="Modules\Theme\Results\ChangeThemeResult.cs" />
+    <Compile Include="Services\ExtensionMethods.cs" />
+    <Compile Include="Services\IEditorProvider.cs" />
+    <Compile Include="Services\IInputManager.cs" />
+    <Compile Include="Services\InputBindingTrigger.cs" />
+    <Compile Include="Services\InputManager.cs" />
+    <Compile Include="Common\Workbench\IPropertyGrid.cs" />
+    <Compile Include="Services\IResourceService.cs" />
+    <Compile Include="Common\Workbench\IShell.cs" />
+    <Compile Include="Common\IStatusBar.cs" />
+    <Compile Include="Services\IToolbarService.cs" />
+    <Compile Include="Services\MetroWindowManager.cs" />
+    <Compile Include="Common\PaneLocation.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\ThemeManager.cs" />
+    <Compile Include="Modules\Theme\DefaultTheme.cs" />
+    <Compile Include="Modules\Theme\VS2010.cs" />
+    <Compile Include="Common\Workbench\Tool.cs" />
+    <Compile Include="Common\Workbench\IOutput.cs" />
+    <Compile Include="Modules\Output\OutputModule.cs" />
+    <Compile Include="Modules\Output\ViewModels\OutputViewModel.cs" />
+    <Compile Include="Modules\Output\ViewModels\OutputWriter.cs" />
+    <Compile Include="Modules\Output\Views\IOutputView.cs" />
+    <Compile Include="Modules\Output\Views\OutputView.xaml.cs">
+      <DependentUpon>OutputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PropertyGrid\PropertyModule.cs" />
+    <Compile Include="Modules\PropertyGrid\ViewModels\PropertyGridViewModel.cs" />
+    <Compile Include="Modules\PropertyGrid\Views\PropertyGridView.xaml.cs">
+      <DependentUpon>PropertyGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Shell\ShellModule.cs" />
+    <Compile Include="Modules\Shell\ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="Modules\Shell\ViewModels\ShellViewModel.cs" />
+    <Compile Include="Modules\Shell\Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Splash\Behaviours\SplashBehaviour.cs" />
+    <Compile Include="Modules\Splash\ISplash.cs" />
+    <Compile Include="Modules\Splash\SplashModule.cs" />
+    <Compile Include="Modules\Splash\Views\SplashView.xaml.cs">
+      <DependentUpon>SplashView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Splash\ViewModels\SplashViewModel.cs" />
+    <Compile Include="Modules\Shell\ViewModels\StatusBarViewModel.cs" />
+    <Page Include="Modules\Theme\Resources\Styles\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Theme\Resources\Styles\ControlsMetro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Theme\Resources\Styles\VS2010\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Theme\Resources\Styles\VS2010\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Theme\Resources\Styles\VS2010\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Theme\Resources\Styles\VS2010\Toolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Shell\Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Output\Views\OutputView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PropertyGrid\Views\PropertyGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Shell\Resources\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Shell\Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Shell\Views\ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Splash\Views\SplashView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Modules\Shell\Resources\Entypo.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Shell\Resources\Icons\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\PropertyGrid\Resources\Icons\Properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Shell\Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Localization\" />
+    <Folder Include="Threading\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
