@@ -7,13 +7,14 @@ using Caliburn.Micro;
 using ICSharpCode.AvalonEdit.Highlighting;
 using OpenRcp;
 using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
 using ShowMaker.Desktop.Modules.Storyboard.ViewModels;
 using ShowMaker.Desktop.Parser;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 {
-    public class ExhibitionEditorViewModel : Document, IPropertySelectable
+    public class ExhibitionEditorViewModel : Document, IPropertySelectable, IHandle<ContentChangedMessage>
     {
         private string _originalText;
         private string _path;
@@ -21,6 +22,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
         private bool _isDirty;
 
         private Exhibition contentObject;
+        private ExhibitionEditorView editor;
 
         public bool IsDirty
         {
@@ -65,6 +67,13 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     // 保存修改后关闭
+                    using(FileStream fs = new FileStream(_path, FileMode.Truncate, FileAccess.Write))
+                    {
+                        using(StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
+                        {
+                            sw.Write(editor.textEditor.Text);
+                        }
+                    }
                     // TODO. 保存文件
                     callback(true);
                 }
@@ -90,7 +99,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                 _originalText = stream.ReadToEnd();
             }
   
-            var editor = (ExhibitionEditorView)view;
+            editor = (ExhibitionEditorView)view;
             string ext = Path.GetExtension(_path);
             editor.textEditor.Text = _originalText;
             editor.textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(_path));
@@ -107,6 +116,8 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                 contentObject = parser.Parse(_path);
                 IoC.Get<StoryboardViewModel>().SelectedExhibition = contentObject;
             }
+
+            IoC.Get<IEventAggregator>().Subscribe(this);
         }
 
         #endregion
@@ -131,6 +142,15 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
         public object SelectProperty()
         {
             return this;
+        }
+
+        public void Handle(ContentChangedMessage message)
+        {
+            if (message.Content == this.contentObject)
+            {
+                editor.textEditor.Text = ShowMaker.Desktop.Util.XmlSerializerUtil.SaveXmlToString(contentObject);
+                this.IsDirty = true;
+            }
         }
     }
 }

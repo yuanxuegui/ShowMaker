@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
-using OpenRcp;
 using System.Windows;
 using Caliburn.Micro;
+using OpenRcp;
 using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Parser;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
@@ -69,6 +70,14 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
 			MessageBox.Show("" + dev.Type);
+        }
+
+        public void OnSyncExhibition()
+        {
+            IoC.Get<IEventAggregator>().Publish(new ContentChangedMessage()
+            {
+                Content = SelectedExhibition
+            });
         }
 
         public void OnExhibitionClick(object sender, EventArgs e)

@@ -39,6 +39,8 @@
             <Button x:Name="OnAddNewDevice" Content="器" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加设备"/>
             <!-- 删除 -->
             <Button Content="删" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除"/>
+            <!-- 同步 -->
+            <Button x:Name="OnSyncExhibition" Content="同" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="同步"/>
         </StackPanel>
         <!-- 展区、设备、操作树 -->
         <TreeView x:Name="ShowAreaTree" Margin="0,0,0.2,0" AllowDrop="True" Grid.Row="1">

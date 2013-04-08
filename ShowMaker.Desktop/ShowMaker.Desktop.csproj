@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Modules\ExhibitionDocument\ExhibitionDocumentModule.cs" />
     <Compile Include="Modules\ExhibitionDocument\ExhibitionEditorProvider.cs" />
+    <Compile Include="Modules\ExhibitionDocument\Messages\ContentChangedMessage.cs" />
     <Compile Include="Modules\ExhibitionDocument\ViewModels\ExhibitionEditorViewModel.cs" />
     <Compile Include="Modules\ExhibitionDocument\Views\ExhibitionEditorView.xaml.cs">
       <DependentUpon>ExhibitionEditorView.xaml</DependentUpon>
