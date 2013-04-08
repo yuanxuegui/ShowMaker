@@ -136,8 +136,8 @@
             <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
         </StackPanel>
         <!-- 时间线 -->
-        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,21,0,0" Grid.Row="1">
-            <Path Stroke="Black" Data="M 0,20 H 150,20 V 80" Height="277" Canvas.Top="-21" Width="179" />
+        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
+            <Path Stroke="Black" Data="M 0,30 H 200,20 L 20,35" Height="277" Canvas.Top="-21" Width="179" />
         </Canvas>
     </Grid>
 </UserControl>
