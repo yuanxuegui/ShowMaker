@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
-using System.Windows;
 using Caliburn.Micro;
 using OpenRcp;
 using ShowMaker.Desktop.Domain;
@@ -63,13 +62,15 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnAddNewDevice()
         {
-            selectedArea.DeviceItems.Add(new Device());
+            if (selectedArea != null)
+                selectedArea.DeviceItems.Add(new Device());
+            else
+                Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
-        public void OnDeviceItemDrop(object sender, DragEventArgs e)
+        public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
-			MessageBox.Show("" + dev.Type);
         }
 
         public void OnSyncExhibition()
