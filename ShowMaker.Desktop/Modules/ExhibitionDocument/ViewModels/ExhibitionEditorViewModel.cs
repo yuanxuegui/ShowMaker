@@ -22,15 +22,6 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         private Exhibition contentObject;
 
-        public string FirstName
-        {
-            get
-            {
-                return "Hello";
-            }
-            set { }
-        }
-
         public bool IsDirty
         {
             get { return _isDirty; }
