@@ -31,13 +31,13 @@
             <ad:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-
+    <!--
     <metro:MetroWindow.WindowCommands>
         <metro:WindowCommands>
             <Button Content="settings" />
         </metro:WindowCommands>
     </metro:MetroWindow.WindowCommands>
- 
+    -->
     <metro:MetroContentControl>
         <DockPanel>
             <!--Menu-->
