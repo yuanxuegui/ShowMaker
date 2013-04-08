@@ -66,8 +66,9 @@ namespace OpenRcp
         {
             if (isChecked)
             {
-                MahApps.Metro.ThemeManager.ChangeTheme(Application.Current.MainWindow, MahApps.Metro.ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), MahApps.Metro.Theme.Dark);
                 yield return ResultsHelper.ChangeTheme("Default");
+                MahApps.Metro.ThemeManager.ChangeTheme(Application.Current.MainWindow, MahApps.Metro.ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), MahApps.Metro.Theme.Dark);
+                yield break;
             }
             else
             {
@@ -79,8 +80,9 @@ namespace OpenRcp
         {
             if (isChecked)
             {
-                MahApps.Metro.ThemeManager.ChangeTheme(Application.Current.MainWindow, MahApps.Metro.ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), MahApps.Metro.Theme.Light);
                 yield return ResultsHelper.ChangeTheme("Default");
+                MahApps.Metro.ThemeManager.ChangeTheme(Application.Current.MainWindow, MahApps.Metro.ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), MahApps.Metro.Theme.Light);
+                yield break;
             }
             else
             {

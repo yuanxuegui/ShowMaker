@@ -74,12 +74,13 @@ namespace OpenRcp
                         appTheme.MergedDictionaries.Add(new ResourceDictionary { Source = uri });
                     }
                 }
-                IoC.Get<ILog>().Info("Theme set to {0}" + name);
+                /*
                 IoC.Get<IOutput>().AppendLine("Theme set to " + name);
                 IoC.Get<IEventAggregator>().Publish(new ThemeChangeMessage()
                 {
                     NewTheme = newTheme
                 });
+                */
                 return true;
             }
             return false;
