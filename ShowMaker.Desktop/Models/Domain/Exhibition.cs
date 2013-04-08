@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using System.ComponentModel;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -15,7 +15,7 @@ namespace ShowMaker.Desktop.Domain
         [XmlElement("description")]
         [Category("信息")]
         [DisplayName("描述")]
-        [Description("展会的描述信息")]
+        [Description("展会的描述")]
         public string Description
         {
             get { return descriptionField; }
@@ -26,7 +26,7 @@ namespace ShowMaker.Desktop.Domain
         [XmlElement("property")]
         [Category("信息")]
         [DisplayName("属性")]
-        [Description("展会的属性信息")]
+        [Description("展会的属性")]
         public ObservableCollection<Property> PropertyItems
         {
             get { return propertyItemsField; }
