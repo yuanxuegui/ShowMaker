@@ -28,9 +28,6 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
             }
         }
 
-        private string hello;
-
-
         public DevicesToolBoxViewModel()
         {
             DeviceItems = new Device[2];
