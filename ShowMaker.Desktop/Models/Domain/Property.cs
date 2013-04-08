@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -11,6 +12,9 @@ namespace ShowMaker.Desktop.Domain
         private string name;
 
         [XmlAttribute("name")]
+        [Category("信息")]
+        [DisplayName("名称")]
+        [Description("属性的名称")]
         public string Name
         {
             get { return name; }
@@ -19,6 +23,9 @@ namespace ShowMaker.Desktop.Domain
         private string value;
 
         [XmlAttribute("value")]
+        [Category("信息")]
+        [DisplayName("值")]
+        [Description("属性的值")]
         public string Value
         {
             get { return this.value; }
