@@ -30,18 +30,9 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 
         private string hello;
 
-        [Category("Information")]
-        [DisplayName("Hello String")]
-        [Description("This property uses a TextBox as the default editor.")]
-        public string Hello
-        {
-            get { return hello; }
-            set { hello = value; }
-        }
 
         public DevicesToolBoxViewModel()
         {
-            hello = "Hello World";
             DeviceItems = new Device[2];
             DeviceItems[0] = new Device();
             DeviceItems[1] = new Device();
