@@ -19,11 +19,6 @@ namespace OpenRcp
 			get { return PaneLocation.Right; }
 		}
 
-		public override Uri IconSource
-		{
-			get { return new Uri("pack://application:,,,/OpenRcp;component/Workbench/Resources/Icons/Properties.png"); }
-		}
-
         #endregion
 
         private object _selectedObject;
