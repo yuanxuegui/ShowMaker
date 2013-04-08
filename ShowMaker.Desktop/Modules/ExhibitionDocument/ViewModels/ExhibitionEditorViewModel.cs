@@ -97,7 +97,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             editor = (ExhibitionEditorView)view;
             string ext = Path.GetExtension(_path);
             editor.textEditor.Text = _originalText;
-            editor.textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(_path));
+            editor.textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(ShowMakerDesktopModule.SHOW_FILE_EXTENSION.Equals(ext) ? ".xml" : Path.GetExtension(_path));
             
             editor.textEditor.TextChanged += delegate
             {
