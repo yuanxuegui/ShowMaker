@@ -16,8 +16,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.11*"/>
-            <RowDefinition Height="0.89*"/>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="278*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.405*" />
@@ -26,20 +26,22 @@
         </Grid.ColumnDefinitions>
         <!-- 左侧 -->
         <!-- 展区、设备、操作工具面板 -->
-        <StackPanel x:Name="itemToolsPanel" Margin="0,0,0.2,0" Orientation="Horizontal">
+        <StackPanel x:Name="ItemToolsPanel" Margin="0,0,0.2,3" Orientation="Horizontal">
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="#FF707070" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <!-- 添加(展区、设备) -->
-            <Button Content="+" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加"/>
+            <!-- 添加展区 -->
+            <Button x:Name="OnAddNewArea" Content="区" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加展区"/>
+            <!-- 添加设备 -->
+            <Button x:Name="OnAddNewDevice" Content="器" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加设备"/>
             <!-- 删除 -->
-            <Button Content="-" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除"/>
+            <Button Content="删" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除"/>
         </StackPanel>
         <!-- 展区、设备、操作树 -->
-        <TreeView x:Name="showAreaTree" Grid.ColumnSpan="2" Margin="0,0,0.2,0" Grid.Row="1" AllowDrop="True">
+        <TreeView x:Name="ShowAreaTree" Margin="0,0,0.2,0" AllowDrop="True" Grid.Row="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Drop">
                     <cal:ActionMessage MethodName="OnDeviceItemDrop">
@@ -119,7 +121,7 @@
 
         <!-- 右侧 -->
         <!-- 播放工具面板 -->
-        <StackPanel x:Name="playToolsPanel" Grid.Column="2" Margin="0.6,0,0,0" Orientation="Horizontal">
+        <StackPanel x:Name="PlayToolsPanel" Grid.Column="2" Margin="0.6,0,0,3" Orientation="Horizontal">
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -127,15 +129,15 @@
                 </LinearGradientBrush>
             </StackPanel.Background>
             <!-- 播放 -->
-            <Button Content="B" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="播放"/>
+            <Button Content="播" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="播放"/>
             <!-- 暂停 -->
-            <Button Content="P" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="暂停"/>
+            <Button Content="暂" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="暂停"/>
             <!-- 停止 -->
-            <Button Content="S" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
+            <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
         </StackPanel>
         <!-- 时间线 -->
-        <Canvas x:Name="timelineCanvas" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-            <Path Stroke="Black" Data="M 0,20 H 150,20 V 80" />
+        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,21,0,0" Grid.Row="1">
+            <Path Stroke="Black" Data="M 0,20 H 150,20 V 80" Height="277" Canvas.Top="-21" Width="179" />
         </Canvas>
     </Grid>
 </UserControl>

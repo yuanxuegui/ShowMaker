@@ -34,6 +34,13 @@ namespace ShowMaker.Desktop.Domain
             set { timeline = value; }
         }
 
+        public Area() { }
+
+        public Area(string name)
+        {
+            Name = name;
+        }
+
         public Device GetItemByKey(string key)
         {
             foreach (Device device in deviceItems)

@@ -27,6 +27,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             }
         }
 
+        private Area selectedArea;
+        private Device selectedDevice;
+
         #endregion
 
         public StoryboardViewModel()
@@ -52,6 +55,16 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Interaction
 
+        public void OnAddNewArea()
+        {
+            SelectedExhibition.AreaItems.Add(new Area("某展区"));
+        }
+
+        public void OnAddNewDevice()
+        {
+            selectedArea.DeviceItems.Add(new Device());
+        }
+
         public void OnDeviceItemDrop(object sender, DragEventArgs e)
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
@@ -65,11 +78,13 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnAreaItemClick(object sender, EventArgs e, Area area)
         {
+            selectedArea = area;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
         }
 
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
         {
+            selectedDevice = device;
             IoC.Get<IPropertyGrid>().SelectedObject = device;
         }
 
