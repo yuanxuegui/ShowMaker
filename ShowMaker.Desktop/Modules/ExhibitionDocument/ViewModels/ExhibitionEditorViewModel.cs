@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Caliburn.Micro;
 using ICSharpCode.AvalonEdit.Highlighting;
 using OpenRcp;
@@ -67,13 +68,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     // 保存修改后关闭
-                    using(FileStream fs = new FileStream(_path, FileMode.Truncate, FileAccess.Write))
-                    {
-                        using(StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
-                        {
-                            sw.Write(editor.textEditor.Text);
-                        }
-                    }
+                    Save();
                     // TODO. 保存文件
                     callback(true);
                 }
@@ -118,14 +113,39 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             }
 
             IoC.Get<IEventAggregator>().Subscribe(this);
+
+            CommandBinding saveCommandBinding = new CommandBinding(ApplicationCommands.Save, SaveHandler, CanSaveHandler);
+            editor.CommandBindings.Add(saveCommandBinding);
         }
 
         #endregion
+
+        public void SaveHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            Save();
+            IsDirty = false;
+        }
+
+        public void CanSaveHandler(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = IsDirty;
+        }
 
         public void Open(string path)
         {
             _path = path;
             _fileName = Path.GetFileName(_path);
+        }
+
+        public void Save()
+        {
+            using (FileStream fs = new FileStream(_path, FileMode.Truncate, FileAccess.Write))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
+                {
+                    sw.Write(editor.textEditor.Text);
+                }
+            }
         }
         
         public override bool Equals(object obj)
