@@ -32,7 +32,7 @@ namespace ShowMaker.Desktop.Domain
             get { return deviceItems; }
             set { deviceItems = value; }
         }
-        private Timeline timeline;
+        private Timeline timeline = new Timeline();
 
         [XmlElement("timeline")]
         [Category("信息")]
