@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
+using System.Windows.Shapes;
 using Caliburn.Micro;
 using OpenRcp;
 using ShowMaker.Desktop.Domain;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
+using ShowMaker.Desktop.Modules.Storyboard.Views;
 using ShowMaker.Desktop.Parser;
+using System.Windows.Input;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -21,7 +25,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public Exhibition SelectedExhibition
         {
             get { return exhibition; }
-            set{
+            set
+            {
                 exhibition = value;
                 NotifyOfPropertyChange(() => SelectedExhibition);
             }
@@ -29,6 +34,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         private Area selectedArea;
         private Device selectedDevice;
+        private Operation selectedOperation;
+        private int selectedTick;
 
         #endregion
 
@@ -86,10 +93,26 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             IoC.Get<IPropertyGrid>().SelectedObject = SelectedExhibition;
         }
 
-        public void OnAreaItemClick(object sender, EventArgs e, Area area)
+        public void OnAreaItemClick(object sender, EventArgs e, Area area, StoryboardView view)
         {
             selectedArea = area;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
+            // TODO. 加载时间线
+            Canvas tlc = view.TimelineCanvas;
+            tlc.Children.Clear();
+            foreach (TimePoint tp in area.Timeline.TimePointItems)
+            {
+                foreach (Command cmd in tp.CommandItems)
+                {
+                    // 绘制时间点图形
+                    Ellipse tpg = DrawCommandGraph(tlc, tp.Tick, 100);
+                    // 时间点图形添加点击事件
+                    tpg.MouseLeftButtonUp += (s, evt) =>
+                    {
+                        IoC.Get<IPropertyGrid>().SelectedObject = cmd;
+                    };
+                }
+            }
         }
 
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
@@ -100,11 +123,61 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnOperationItemClick(object sender, EventArgs e, Operation operation)
         {
+            selectedOperation = operation;
             IoC.Get<IPropertyGrid>().SelectedObject = operation;
+        }
+
+        public void OnAddNewCommand(object sender, EventArgs e, StoryboardView view)
+        {
+            if (selectedArea != null && selectedDevice != null && selectedOperation != null)
+            {
+                Command cmd = new Command();
+                cmd.DeviceId = selectedDevice.Id;
+                cmd.OperationName = selectedOperation.Name;
+                // TODO. 获取选择的时间点
+                Timeline tl = selectedArea.Timeline;
+                TimePoint tp = tl.GetItemByKey(selectedTick);
+                if (tp == null)
+                {
+                    tp = new TimePoint(selectedTick);
+                    tp.CommandItems.Add(cmd);
+                    tl.TimePointItems.Add(tp);
+                }
+                else
+                {
+                    tp.CommandItems.Add(cmd);
+                }
+                // 绘制时间点图形
+                Ellipse tpg = DrawCommandGraph(view.TimelineCanvas, selectedTick, 100);
+                // 时间点图形添加点击事件
+                tpg.MouseLeftButtonUp += (s, evt) =>
+                {
+                    IoC.Get<IPropertyGrid>().SelectedObject = cmd;
+                };
+            }
+        }
+        
+        /// <summary>
+        /// 指定位置绘制时间点图形
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="tick"></param>
+        /// <param name="position"></param>
+        public Ellipse DrawCommandGraph(Canvas canvas, int tick, int position)
+        {
+            Ellipse tpg = new Ellipse();
+            tpg.Fill = System.Windows.Media.Brushes.Black;
+            tpg.Width = 20;
+            tpg.Height = 50;
+            Canvas.SetLeft(tpg, 100 + selectedTick);
+            Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
+            canvas.Children.Add(tpg);
+
+            return tpg;   
         }
 
         #endregion
 
-        
+
     }
 }

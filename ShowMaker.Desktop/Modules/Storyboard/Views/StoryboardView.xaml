@@ -78,6 +78,7 @@
                                         <cal:Parameter Value="$source"/>
                                         <cal:Parameter Value="$eventArgs"/>
                                         <cal:Parameter Value="{Binding Path=.}"/>
+                                        <cal:Parameter Value="$view"/>
                                     </cal:ActionMessage>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
@@ -130,6 +131,20 @@
                     <GradientStop Color="#FF707070" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
+            <!-- 添加命令 -->
+            <Button Content="命" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加命令">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="OnAddNewCommand">
+                            <cal:Parameter Value="$source"/>
+                            <cal:Parameter Value="$eventArgs"/>
+                            <cal:Parameter Value="$view"/>
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <!-- 删除命令 -->
+            <Button Content="删" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除命令"/>
             <!-- 播放 -->
             <Button Content="播" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="播放"/>
             <!-- 暂停 -->
@@ -138,7 +153,8 @@
             <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
         </StackPanel>
         <!-- 时间线 -->
-        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
+        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" DataContext="{Binding}">
+            <!-- 时间轴 -->
             <Path Stroke="Black" Data="M 0,30 H 200,20 L 20,35" Height="277" Canvas.Top="-21" Width="179" />
         </Canvas>
     </Grid>
