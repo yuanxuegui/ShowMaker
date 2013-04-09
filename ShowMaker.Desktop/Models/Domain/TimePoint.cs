@@ -25,5 +25,12 @@ namespace ShowMaker.Desktop.Domain
             get { return commandItemsField; }
             set { commandItemsField = value; }
         }
+
+        public TimePoint() { }
+
+        public TimePoint(int tick)
+        {
+            Tick = tick;
+        }
     }
 }
