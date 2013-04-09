@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -13,6 +14,9 @@ namespace ShowMaker.Desktop.Domain
         private string deviceIdField;
 
         [XmlAttribute("deviceId")]
+        [Category("信息")]
+        [DisplayName("设备ID")]
+        [Description("命令的所属设备ID")]
         public string DeviceId
         {
             get { return deviceIdField; }
@@ -21,6 +25,9 @@ namespace ShowMaker.Desktop.Domain
         private string operationNameField;
 
         [XmlAttribute("operationName")]
+        [Category("信息")]
+        [DisplayName("操作名称")]
+        [Description("命令绑定的设备操作")]
         public string OperationName
         {
             get { return operationNameField; }
@@ -30,6 +37,9 @@ namespace ShowMaker.Desktop.Domain
         private ObservableCollection<Property> propertyItemsField = new ObservableCollection<Property>();
 
         [XmlElement("property")]
+        [Category("信息")]
+        [DisplayName("属性")]
+        [Description("命令的属性集合")]
         public ObservableCollection<Property> PropertyItems
         {
             get { return propertyItemsField; }
