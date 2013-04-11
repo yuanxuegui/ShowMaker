@@ -64,15 +64,33 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnAddNewArea()
         {
-            SelectedExhibition.AreaItems.Add(new Area("某展区"));
+            Area a = new Area("某展区");
+            a.SetParent(SelectedExhibition);
+            SelectedExhibition.AreaItems.Add(a);
         }
 
         public void OnAddNewDevice()
         {
             if (selectedArea != null)
-                selectedArea.DeviceItems.Add(new Device());
+            {
+                Device dev = new Device();
+                dev.SetParent(selectedArea);
+                selectedArea.DeviceItems.Add(dev);
+            }
             else
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
+        }
+
+        public void OnAddNewOperation()
+        {
+            if (selectedDevice != null)
+            {
+                Operation op = new Operation();
+                op.SetParent(selectedDevice);
+                selectedDevice.OperationItems.Add(op);
+            }
+            else
+                Xceed.Wpf.Toolkit.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);
         }
 
         public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
@@ -129,7 +147,15 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnAddNewCommand(object sender, EventArgs e, StoryboardView view)
         {
-            if (selectedArea != null && selectedDevice != null && selectedOperation != null)
+            // 自动关联层次结构
+            if (selectedDevice == null)
+            {
+                selectedDevice = selectedOperation.GetParent();
+
+                if (selectedDevice != null && selectedArea == null)
+                    selectedArea = selectedDevice.GetParent();
+            }
+            if (selectedDevice != null && selectedOperation != null)
             {
                 Command cmd = new Command();
                 cmd.DeviceId = selectedDevice.Id;
@@ -156,7 +182,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 };
             }
         }
-        
+
         /// <summary>
         /// 指定位置绘制时间点图形
         /// </summary>
@@ -173,7 +199,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
             canvas.Children.Add(tpg);
 
-            return tpg;   
+            return tpg;
         }
 
         #endregion
