@@ -55,5 +55,15 @@ namespace ShowMaker.Desktop.Domain
             }
             return null;
         }
+
+        private Device _parent;
+        public void SetParent(Device parent)
+        {
+            _parent = parent;
+        }
+        public Device GetParent()
+        {
+            return _parent;
+        }
     }
 }

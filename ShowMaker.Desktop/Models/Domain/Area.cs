@@ -60,5 +60,15 @@ namespace ShowMaker.Desktop.Domain
             }
             return null;
         }
+
+        private Exhibition _parent;
+        public void SetParent(Exhibition parent)
+        {
+            _parent = parent;
+        }
+        public Exhibition GetParent()
+        {
+            return _parent;
+        }
     }
 }

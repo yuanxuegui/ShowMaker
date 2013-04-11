@@ -54,5 +54,15 @@ namespace ShowMaker.Desktop.Domain
             }
             return null;
         }
+
+        private Area _parent;
+        public void SetParent(Area parent)
+        {
+            _parent = parent;
+        }
+        public Area GetParent()
+        {
+            return _parent;
+        }
     }
 }
