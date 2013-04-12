@@ -21,6 +21,19 @@ namespace ShowMaker.Desktop.Domain
             get { return idField; }
             set { idField = value; }
         }
+
+        private string nameField;
+
+        [XmlAttribute("name")]
+        [Category("信息")]
+        [DisplayName("名称")]
+        [Description("设备的名称")]
+        public string Name
+        {
+            get { return nameField; }
+            set { nameField = value; }
+        }
+
         private DeviceType typeField;
 
         [XmlAttribute("type")]
@@ -32,6 +45,7 @@ namespace ShowMaker.Desktop.Domain
             get { return typeField; }
             set { typeField = value; }
         }
+
         private ObservableCollection<Operation> operationItemsField = new ObservableCollection<Operation>();
 
         [XmlElement("operation")]

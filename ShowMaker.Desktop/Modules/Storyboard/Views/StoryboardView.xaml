@@ -89,7 +89,7 @@
                         <HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding OperationItems}">
                                 <!-- 设备 -->
-                                <TextBlock Text="{Binding Path=Type}">
+                                <TextBlock Text="{Binding Path=Name}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
                                             <cal:ActionMessage MethodName="OnDeviceItemClick">

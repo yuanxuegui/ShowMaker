@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <devices xmlns="http://www.sec.ac.cn/devices-1.2">
-    <device id="1-CURTAIN-1" type="CURTAIN">
+    <device id="1-CURTAIN-1" name="幕布" type="CURTAIN">
         <!-- 开启关闭开关设备 -->
         <operation command="s{server.id}C{length}{deviceId}{onoff}\n"
             name="开关">
@@ -9,7 +9,7 @@
         </operation>
     </device>
     <!-- 投影机 -->
-    <device id="1-SHADOW-1" type="SHADOW">
+    <device id="1-SHADOW-1" name="投影机" type="SHADOW">
         <!-- 开启关闭具有中控代码设备 -->
         <operation command="s{server.id}D{length}{deviceId}{code}\n"
             name="开关">
@@ -18,7 +18,7 @@
         </operation>
     </device>
     <!-- 多媒体计算机 -->
-    <device id="1-PC-1" type="PC">
+    <device id="1-PC-1" name="多媒体计算机" type="PC">
         <!-- 人机互动键值发送 -->
         <operation command="s{server.id}I{length}{deviceId}{key}\n"
             name="键值">
@@ -54,7 +54,7 @@
         </operation>
     </device>
     <!-- 灯光 -->
-    <device id="1-LIGHT-1" type="LIGHT">
+    <device id="1-LIGHT-1" name="灯光" type="LIGHT">
         <!-- 开关按钮 -->
         <operation command="s{server.id}F{length}{deviceId}{onoff}\n"
             name="开关灯">
