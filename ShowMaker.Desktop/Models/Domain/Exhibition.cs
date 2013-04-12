@@ -21,7 +21,7 @@ namespace ShowMaker.Desktop.Domain
             get { return descriptionField; }
             set { descriptionField = value; }
         }
-        private ObservableCollection<Property> propertyItemsField = new ObservableCollection<Property>();
+        private ObservableCollection<Property> propertyItemsField;
 
         [XmlElement("property")]
         [Category("信息")]
@@ -64,6 +64,23 @@ namespace ShowMaker.Desktop.Domain
                 }
             }
             return null;
+        }
+
+        public void SetPropertyValue(string name, string value)
+        {
+            foreach (Property property in propertyItemsField)
+            {
+                if (property.Name.Equals(name))
+                {
+                    property.Value = value;
+                    return;
+                }
+            }
+            // 不存在指定name的Property
+            Property prop = new Property();
+            prop.Name = name;
+            prop.Value = value;
+            propertyItemsField.Add(prop);
         }
     }
 }

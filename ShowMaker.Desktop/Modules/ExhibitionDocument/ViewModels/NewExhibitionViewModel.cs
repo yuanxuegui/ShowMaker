@@ -6,6 +6,9 @@ using System.Text;
 using Caliburn.Micro;
 using OpenRcp;
 using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Util;
+using System.Reflection;
+using System.IO;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 {
@@ -25,6 +28,20 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             {
                 exhibitionDescription = value;
                 NotifyOfPropertyChange(() => ExhibitionDescription);
+            }
+        }
+
+        private string serverId = "1";
+        public string SeverId
+        {
+            get
+            {
+                return serverId;
+            }
+            set
+            {
+                serverId = value;
+                NotifyOfPropertyChange(() => serverId);
             }
         }
 
@@ -84,16 +101,20 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         public void OnNewExhibition()
         {
-            NewExhibition = new Exhibition();
+            string exhibitionTemplate = Assembly.GetExecutingAssembly().Location + @"\..\" + Constants.EXHIBITION_TEMPLATE_FILE;
+            if (File.Exists(exhibitionTemplate))
+            {
+                NewExhibition = (Exhibition)XmlSerializerUtil.LoadXml(typeof(Exhibition), exhibitionTemplate);
+            }
+            else
+            {
+                NewExhibition = new Exhibition();
+            }
+            
             NewExhibition.Description = ExhibitionDescription;
-            Property serverIp = new Property();
-            serverIp.Name = "server.ip";
-            serverIp.Value = SeverIp;
-            Property serverPort = new Property();
-            serverPort.Name = "server.port";
-            serverPort.Value = SeverPort;
-            NewExhibition.PropertyItems.Add(serverIp);
-            NewExhibition.PropertyItems.Add(serverPort);
+            NewExhibition.SetPropertyValue(Constants.SERVER_ID_KEY, SeverId);
+            NewExhibition.SetPropertyValue(Constants.SERVER_IP_KEY, SeverIp);
+            NewExhibition.SetPropertyValue(Constants.SERVER_PORT_KEY, SeverPort);
             
             TryClose();
         }

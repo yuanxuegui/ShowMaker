@@ -169,6 +169,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 Command cmd = new Command();
                 cmd.DeviceId = selectedDevice.Id;
                 cmd.OperationName = selectedOperation.Name;
+                foreach (ShowMaker.Desktop.Domain.Parameter param in selectedOperation.ParameterItems)
+                {
+                    cmd.PropertyItems.Add(new Property(param.Name, ""));
+                }
                 // TODO. 获取选择的时间点
                 Timeline tl = selectedArea.Timeline;
                 TimePoint tp = tl.GetItemByKey(selectedTick);

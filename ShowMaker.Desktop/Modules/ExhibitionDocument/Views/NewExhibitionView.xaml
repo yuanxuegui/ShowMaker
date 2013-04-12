@@ -14,12 +14,14 @@
             <RowDefinition Height="28*" />
             <RowDefinition Height="48*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="展示会名称" VerticalAlignment="Top" Width="63" />
+        <TextBlock HorizontalAlignment="Left" Margin="4,3,0,1" Text="展示会名称" Width="63" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding ExhibitionDescription}" VerticalAlignment="Top" Width="134" />
-        <TextBlock Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器地址" VerticalAlignment="Top" Width="63" />
-        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverIp}" VerticalAlignment="Top" Width="134" />
-        <TextBlock Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器端口" VerticalAlignment="Top" Width="63" />
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverPort}" VerticalAlignment="Top" Width="134" />
+        <TextBlock Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器编号" VerticalAlignment="Top" Width="63" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverId}" VerticalAlignment="Top" Width="134" />
+        <TextBlock Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器地址" VerticalAlignment="Top" Width="63" />
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverIp}" VerticalAlignment="Top" Width="134" />
+        <TextBlock Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器端口" VerticalAlignment="Top" Width="63" />
+        <TextBox Grid.Row="3" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverPort}" VerticalAlignment="Top" Width="134" />
         <Button x:Name="OnNewExhibition" Content="完成" Grid.Row="4" Height="23" HorizontalAlignment="Left" Margin="136,19,0,0" VerticalAlignment="Top" Width="75" />
     </Grid>
 </Window>
