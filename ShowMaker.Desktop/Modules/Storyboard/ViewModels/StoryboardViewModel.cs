@@ -78,7 +78,12 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             if (selectedArea != null)
             {
-                Device dev = new Device();
+                AddDeviceView devDlg = new AddDeviceView();
+                AddDeviceViewModel devDlgVM = IoC.Get<AddDeviceViewModel>();
+                ViewModelBinder.Bind(devDlgVM, devDlg, null);
+                devDlg.ShowDialog();
+
+                Device dev = devDlgVM.NewDevice;
                 dev.SetParent(selectedArea);
                 selectedArea.DeviceItems.Add(dev);
             }
@@ -90,7 +95,12 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             if (selectedDevice != null)
             {
-                Operation op = new Operation();
+                AddOperationView opDlg = new AddOperationView();
+                AddOperationViewModel opDlgVM = IoC.Get<AddOperationViewModel>();
+                ViewModelBinder.Bind(opDlgVM, opDlg, null);
+                opDlg.ShowDialog();
+
+                Operation op = opDlgVM.NewOperation;
                 op.SetParent(selectedDevice);
                 selectedDevice.OperationItems.Add(op);
             }

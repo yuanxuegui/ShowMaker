@@ -15,8 +15,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         #region View Data
 
         private string deviceName;
-        public string DeviceName 
-        { 
+        public string DeviceName
+        {
             get
             {
                 return deviceName;
@@ -25,6 +25,28 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 deviceName = value;
                 NotifyOfPropertyChange(() => DeviceName);
+            }
+        }
+
+        public Array DeviceTypes 
+        {
+            get
+            {
+                return Enum.GetValues(typeof(DeviceType));
+            }
+        }
+
+        private DeviceType selectedDeviceType;
+        public DeviceType SelectedDeviceType
+        {
+            get
+            {
+                return selectedDeviceType;
+            }
+            set
+            {
+                selectedDeviceType = value;
+                NotifyOfPropertyChange(() => SelectedDeviceType);
             }
         }
 
@@ -57,8 +79,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnAddDevice()
         {
             NewDevice = new Device();
-            NewDevice.Type = DeviceType.CURTAIN;
-            
+            NewDevice.Name = deviceName;
+            NewDevice.Type = selectedDeviceType;
+
             TryClose();
         }
 

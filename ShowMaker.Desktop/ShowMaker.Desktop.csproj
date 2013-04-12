@@ -116,6 +116,12 @@
     <Compile Include="Modules\Storyboard\Views\StoryboardView.xaml.cs">
       <DependentUpon>StoryboardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Storyboard\Views\AddDeviceView.xaml.cs">
+      <DependentUpon>AddDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storyboard\Views\AddOperationView.xaml.cs">
+      <DependentUpon>AddOperationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resource.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +222,14 @@
     <Page Include="Modules\Storyboard\Views\StoryboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Storyboard\Views\AddDeviceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Storyboard\Views\AddOperationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
