@@ -36,9 +36,9 @@
             <!-- 添加展区 -->
             <Button x:Name="OnAddNewArea" Content="区" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="新建展区"/>
             <!-- 添加设备 -->
-            <Button x:Name="OnAddAddDevice" Content="器" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加设备"/>
+            <Button x:Name="OnAddDevice" Content="器" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加设备"/>
             <!-- 添加操作 -->
-            <Button x:Name="OnAddAddOperation" Content="作" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加操作"/>
+            <Button x:Name="OnAddOperation" Content="作" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加操作"/>
             
             <!-- 删除 -->
             <Button Content="删" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除"/>

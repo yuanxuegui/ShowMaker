@@ -74,7 +74,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             SelectedExhibition.AreaItems.Add(a);
         }
 
-        public void OnAddAddDevice()
+        public void OnAddDevice()
         {
             if (selectedArea != null)
             {
@@ -86,7 +86,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
-        public void OnAddAddOperation()
+        public void OnAddOperation()
         {
             if (selectedDevice != null)
             {
@@ -102,7 +102,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
             if (selectedArea != null)
+            {
+                dev.SetParent(selectedArea);
                 selectedArea.DeviceItems.Add(dev);
+            }
             else
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
@@ -157,11 +160,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnAddNewCommand(object sender, EventArgs e, StoryboardView view)
         {
             // 自动关联层次结构
-            if (selectedDevice == null)
+            if (selectedOperation != null)
             {
                 selectedDevice = selectedOperation.GetParent();
-
-                if (selectedDevice != null && selectedArea == null)
+                if (selectedDevice != null)
                     selectedArea = selectedDevice.GetParent();
             }
             if (selectedDevice != null && selectedOperation != null)
