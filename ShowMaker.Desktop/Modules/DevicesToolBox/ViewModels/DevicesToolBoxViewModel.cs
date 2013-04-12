@@ -35,6 +35,7 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
             curtainDev.Type = DeviceType.CURTAIN;
             Operation op1 = new Operation();
             op1.Name = "开关";
+            op1.SetParent(curtainDev);
             curtainDev.OperationItems.Add(op1);
             DeviceItems.Add(curtainDev);
 
