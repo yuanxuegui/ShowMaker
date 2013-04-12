@@ -109,6 +109,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             {
                 IExhibitionParser parser = new XmlSerializerExhibitionParser();
                 contentObject = parser.Parse(_path);
+                initExhibition(contentObject);
                 IoC.Get<StoryboardViewModel>().SelectedExhibition = contentObject;
             }
 
@@ -116,6 +117,22 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
             CommandBinding saveCommandBinding = new CommandBinding(ApplicationCommands.Save, SaveHandler, CanSaveHandler);
             editor.CommandBindings.Add(saveCommandBinding);
+        }
+
+        private void initExhibition(Exhibition exh)
+        {
+            foreach (Area a in exh.AreaItems)
+            {
+                a.SetParent(exh);
+                foreach (Device dev in a.DeviceItems)
+                {
+                    dev.SetParent(a);
+                    foreach (Operation op in dev.OperationItems)
+                    {
+                        op.SetParent(dev);
+                    }
+                }
+            }
         }
 
         #endregion

@@ -6,6 +6,8 @@ using Caliburn.Micro;
 using Microsoft.Win32;
 using OpenRcp;
 using ShowMaker.Desktop.Domain;
+using ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels;
+using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
 using ShowMaker.Desktop.Util;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument
@@ -33,7 +35,12 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             dialog.ShowDialog();
 
             // 保存空Exhibition xml内容到新建的文件中
-            Exhibition contentObject = new Exhibition();
+            NewExhibitionView exhDlg = new NewExhibitionView();
+            NewExhibitionViewModel exhDlgVM = IoC.Get<NewExhibitionViewModel>();
+            ViewModelBinder.Bind(exhDlgVM, exhDlg, null);
+            exhDlg.ShowDialog();
+
+            Exhibition contentObject = exhDlgVM.NewExhibition;
             XmlSerializerUtil.SaveXml(contentObject, dialog.FileName);
 
             yield return ResultsHelper.OpenDocument(dialog.FileName);

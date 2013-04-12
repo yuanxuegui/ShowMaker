@@ -10,15 +10,16 @@ using OpenRcp;
 using ShowMaker.Desktop.Domain;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 {
     [Export(typeof(DevicesToolBoxViewModel))]
     public class DevicesToolBoxViewModel : Tool, ILocalizableDisplay
     {
-        private Device[] deviceItems;
+        private ObservableCollection<Device> deviceItems = new ObservableCollection<Device>();
 
-        public Device[] DeviceItems
+        public ObservableCollection<Device> DeviceItems
         {
             get { return deviceItems; }
             set
@@ -30,11 +31,17 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 
         public DevicesToolBoxViewModel()
         {
-            DeviceItems = new Device[2];
-            DeviceItems[0] = new Device();
-            DeviceItems[1] = new Device();
-            DeviceItems[0].Type = DeviceType.CURTAIN;
-            DeviceItems[1].Type = DeviceType.PC;
+            Device curtainDev = new Device();
+            curtainDev.Type = DeviceType.CURTAIN;
+            Operation op1 = new Operation();
+            op1.Name = "开关";
+            curtainDev.OperationItems.Add(op1);
+            DeviceItems.Add(curtainDev);
+
+            Device fogDev = new Device();
+            fogDev.Type = DeviceType.FOG;
+            DeviceItems.Add(fogDev);
+            
         }
 
         #region Override Tool Methods

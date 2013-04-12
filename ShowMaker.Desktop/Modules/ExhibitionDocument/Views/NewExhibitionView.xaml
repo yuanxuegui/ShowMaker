@@ -1,0 +1,25 @@
+﻿<Window xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"  x:Class="ShowMaker.Desktop.Modules.ExhibitionDocument.Views.NewExhibitionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="221" d:DesignWidth="268" SizeToContent="WidthAndHeight" 
+             Title="{Binding DisplayName}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid Height="157" Name="grid1" Width="219">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28*" />
+            <RowDefinition Height="28*" />
+            <RowDefinition Height="28*" />
+            <RowDefinition Height="28*" />
+            <RowDefinition Height="48*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="展示会名称" VerticalAlignment="Top" Width="63" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding ExhibitionDescription}" VerticalAlignment="Top" Width="134" />
+        <TextBlock Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器地址" VerticalAlignment="Top" Width="63" />
+        <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverIp}" VerticalAlignment="Top" Width="134" />
+        <TextBlock Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="控制器端口" VerticalAlignment="Top" Width="63" />
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Text="{Binding SeverPort}" VerticalAlignment="Top" Width="134" />
+        <Button x:Name="OnNewExhibition" Content="完成" Grid.Row="4" Height="23" HorizontalAlignment="Left" Margin="136,19,0,0" VerticalAlignment="Top" Width="75" />
+    </Grid>
+</Window>

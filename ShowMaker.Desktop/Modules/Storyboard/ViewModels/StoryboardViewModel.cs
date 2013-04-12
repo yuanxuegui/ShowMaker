@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Shapes;
 using Caliburn.Micro;
 using OpenRcp;
@@ -11,7 +12,6 @@ using ShowMaker.Desktop.Domain;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Modules.Storyboard.Views;
 using ShowMaker.Desktop.Parser;
-using System.Windows.Input;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -64,7 +64,12 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnAddNewArea()
         {
-            Area a = new Area("某展区");
+            NewAreaView areaDlg = new NewAreaView();
+            NewAreaViewModel areaDlgVM = IoC.Get<NewAreaViewModel>();
+            ViewModelBinder.Bind(areaDlgVM, areaDlg, null);
+            areaDlg.ShowDialog();
+
+            Area a = areaDlgVM.NewArea;
             a.SetParent(SelectedExhibition);
             SelectedExhibition.AreaItems.Add(a);
         }
@@ -96,6 +101,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
+            if (selectedArea != null)
+                selectedArea.DeviceItems.Add(dev);
+            else
+                Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
         public void OnSyncExhibition()

@@ -101,7 +101,17 @@
       <DependentUpon>ExhibitionEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Storyboard\StoryboardModule.cs" />
+    <Compile Include="Modules\ExhibitionDocument\ViewModels\NewExhibitionViewModel.cs" />
+    <Compile Include="Modules\Storyboard\ViewModels\NewAreaViewModel.cs" />
     <Compile Include="Modules\Storyboard\ViewModels\StoryboardViewModel.cs" />
+    <Compile Include="Modules\ExhibitionDocument\Views\NewExhibitionView.xaml.cs">
+      <DependentUpon>NewExhibitionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Storyboard\ViewModels\NewDeviceViewModel.cs" />
+    <Compile Include="Modules\Storyboard\ViewModels\NewOperationViewModel.cs" />
+    <Compile Include="Modules\Storyboard\Views\NewAreaView.xaml.cs">
+      <DependentUpon>NewAreaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Storyboard\Views\StoryboardView.xaml.cs">
       <DependentUpon>StoryboardView.xaml</DependentUpon>
     </Compile>
@@ -190,6 +200,14 @@
     <Page Include="Modules\Storyboard\Resources\Tree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ExhibitionDocument\Views\NewExhibitionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Storyboard\Views\NewAreaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Storyboard\Views\StoryboardView.xaml">
       <SubType>Designer</SubType>
