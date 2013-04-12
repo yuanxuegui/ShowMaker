@@ -93,6 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Domain\DeviceCollection.cs" />
     <Compile Include="Modules\ExhibitionDocument\ExhibitionDocumentModule.cs" />
     <Compile Include="Modules\ExhibitionDocument\ExhibitionEditorProvider.cs" />
     <Compile Include="Modules\ExhibitionDocument\Messages\ContentChangedMessage.cs" />
@@ -181,6 +182,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Content Include="Resources\devices.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRcp\OpenRcp.csproj">

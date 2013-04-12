@@ -11,6 +11,10 @@ using ShowMaker.Desktop.Domain;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using ShowMaker.Desktop.Util;
+using ShowMaker.Desktop.Models.Domain;
+using System.IO;
+using System.Reflection;
 
 namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 {
@@ -31,18 +35,38 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 
         public DevicesToolBoxViewModel()
         {
-            Device curtainDev = new Device();
-            curtainDev.Type = DeviceType.CURTAIN;
-            Operation op1 = new Operation();
-            op1.Name = "开关";
-            op1.SetParent(curtainDev);
-            curtainDev.OperationItems.Add(op1);
-            DeviceItems.Add(curtainDev);
+            string devicesXml = Assembly.GetExecutingAssembly().Location + @"\..\" + Constants.DEVICES_FILE;
+            if (File.Exists(devicesXml))
+            {
+                DeviceCollection dc = (DeviceCollection)XmlSerializerUtil.LoadXml(typeof(DeviceCollection), devicesXml);
+                DeviceItems = dc.DeviceItems;
+                connectOperationParent(DeviceItems);
+            }
+            else
+            {
+                Device curtainDev = new Device();
+                curtainDev.Type = DeviceType.CURTAIN;
+                Operation op1 = new Operation();
+                op1.Name = "开关";
+                op1.SetParent(curtainDev);
+                curtainDev.OperationItems.Add(op1);
+                DeviceItems.Add(curtainDev);
 
-            Device fogDev = new Device();
-            fogDev.Type = DeviceType.FOG;
-            DeviceItems.Add(fogDev);
-            
+                Device fogDev = new Device();
+                fogDev.Type = DeviceType.FOG;
+                DeviceItems.Add(fogDev);
+            }
+        }
+
+        private void connectOperationParent(ObservableCollection<Device> devices)
+        {
+            foreach (Device dev in devices)
+            {
+                foreach (Operation op in dev.OperationItems)
+                {
+                    op.SetParent(dev);
+                }
+            }
         }
 
         #region Override Tool Methods

@@ -22,5 +22,6 @@ namespace ShowMaker.Desktop.Util
         public const string SERVER_PORT_KEY = "server.port";
         public const string CMD_LENGTH = "length";
         public const string CMD_DEVICE_ID = "deviceId";
+        public const string DEVICES_FILE = @".\Resources\devices.xml";
     }
 }
