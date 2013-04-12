@@ -10,6 +10,7 @@ namespace OpenRcp
     {
         public DisplayBase()
         {
+            AutoUpdateDisplayName(true);
         }
 
         public DisplayBase(bool autoUpdate)

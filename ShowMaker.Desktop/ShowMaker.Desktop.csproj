@@ -107,8 +107,8 @@
     <Compile Include="Modules\ExhibitionDocument\Views\NewExhibitionView.xaml.cs">
       <DependentUpon>NewExhibitionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Storyboard\ViewModels\NewDeviceViewModel.cs" />
-    <Compile Include="Modules\Storyboard\ViewModels\NewOperationViewModel.cs" />
+    <Compile Include="Modules\Storyboard\ViewModels\AddDeviceViewModel.cs" />
+    <Compile Include="Modules\Storyboard\ViewModels\AddOperationViewModel.cs" />
     <Compile Include="Modules\Storyboard\Views\NewAreaView.xaml.cs">
       <DependentUpon>NewAreaView.xaml</DependentUpon>
     </Compile>

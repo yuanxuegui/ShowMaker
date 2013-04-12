@@ -74,7 +74,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             SelectedExhibition.AreaItems.Add(a);
         }
 
-        public void OnAddNewDevice()
+        public void OnAddAddDevice()
         {
             if (selectedArea != null)
             {
@@ -86,7 +86,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
-        public void OnAddNewOperation()
+        public void OnAddAddOperation()
         {
             if (selectedDevice != null)
             {

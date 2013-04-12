@@ -10,7 +10,7 @@ using ShowMaker.Desktop.Domain;
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
     [Export(typeof(NewAreaViewModel))]
-    public class NewAreaViewModel : Screen
+    public class NewAreaViewModel : DisplayBase
     {
         #region View Data
 
@@ -32,17 +32,13 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #endregion
 
-        #region Override Screen Method
+        #region Override DisplayBase Method
 
-        public override string DisplayName
+        public override string Name
         {
             get
             {
-                return "新建展区";
-            }
-            set
-            {
-                base.DisplayName = value;
+                return StoryboardModule.STORYBOARD_NEW_AREA;
             }
         }
 

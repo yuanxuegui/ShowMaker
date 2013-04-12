@@ -186,4 +186,13 @@
   <data name="SHELL_MODULEINFO_NAME" xml:space="preserve">
     <value>Shell</value>
   </data>
+  <data name="STORYBOARD_ADD_DEVICE" xml:space="preserve">
+    <value>添加展区</value>
+  </data>
+  <data name="STORYBOARD_ADD_OPERATION" xml:space="preserve">
+    <value>添加操作</value>
+  </data>
+  <data name="STORYBOARD_NEW_AREA" xml:space="preserve">
+    <value>新建展区</value>
+  </data>
 </root>

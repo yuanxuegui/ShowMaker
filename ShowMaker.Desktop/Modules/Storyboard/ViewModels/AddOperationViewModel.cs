@@ -9,8 +9,8 @@ using ShowMaker.Desktop.Domain;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
-    [Export(typeof(NewOperationViewModel))]
-    public class NewOperationViewModel : Screen
+    [Export(typeof(AddOperationViewModel))]
+    public class AddOperationViewModel : DisplayBase
     {
         #region View Data
 
@@ -32,17 +32,13 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #endregion
 
-        #region Override Screen Method
+        #region Override DisplayBase Method
 
-        public override string DisplayName
+        public override string Name
         {
             get
             {
-                return "新建操作";
-            }
-            set
-            {
-                base.DisplayName = value;
+                return StoryboardModule.STORYBOARD_ADD_OPERATION;
             }
         }
 
@@ -52,13 +48,13 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         #region Interaction
 
         /*
-        public bool CanOnNewOperation()
+        public bool CanOnAddOperation()
         {
             return string.IsNullOrEmpty(OperationName) ? false : true;
         }
         */
 
-        public void OnNewDevice()
+        public void OnAddOperation()
         {
             NewOperation = new Operation();
             NewOperation.Name = OperationName;

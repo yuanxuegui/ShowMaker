@@ -10,7 +10,7 @@ using ShowMaker.Desktop.Domain;
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 {
     [Export(typeof(NewExhibitionViewModel))]
-    public class NewExhibitionViewModel : Screen
+    public class NewExhibitionViewModel : DisplayBase
     {
         #region View Data
 
@@ -60,17 +60,13 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         #endregion
 
-        #region Override Screen Method
+        #region Override DisplayBase Method
 
-        public override string DisplayName
+        public override string Name
         {
             get
             {
-                return "新建展示会";
-            }
-            set
-            {
-                base.DisplayName = value;
+                return ExhibitionDocumentModule.MENU_FILE_NEW_SHOW;
             }
         }
 

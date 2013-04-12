@@ -9,8 +9,8 @@ using ShowMaker.Desktop.Domain;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
-    [Export(typeof(NewDeviceViewModel))]
-    public class NewDeviceViewModel : Screen
+    [Export(typeof(AddDeviceViewModel))]
+    public class AddDeviceViewModel : DisplayBase
     {
         #region View Data
 
@@ -34,15 +34,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Override Screen Method
 
-        public override string DisplayName
+        public override string Name
         {
             get
             {
-                return "新建设备";
-            }
-            set
-            {
-                base.DisplayName = value;
+                return StoryboardModule.STORYBOARD_ADD_DEVICE;
             }
         }
 
@@ -52,13 +48,13 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         #region Interaction
 
         /*
-        public bool CanOnNewDevice()
+        public bool CanOnAddDevice()
         {
             return string.IsNullOrEmpty(DeviceName) ? false : true;
         }
         */
 
-        public void OnNewDevice()
+        public void OnAddDevice()
         {
             NewDevice = new Device();
             NewDevice.Type = DeviceType.CURTAIN;

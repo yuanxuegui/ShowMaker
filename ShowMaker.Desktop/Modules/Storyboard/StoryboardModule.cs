@@ -15,6 +15,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard
     public class StoryboardModule : ModuleBase
     {
         public const string MENU_VIEW_STORYBOARD = "MENU_VIEW_STORYBOARD";
+        
+        public const string STORYBOARD_NEW_AREA = "STORYBOARD_NEW_AREA";
+        public const string STORYBOARD_ADD_DEVICE = "STORYBOARD_ADD_DEVICE";
+        public const string STORYBOARD_ADD_OPERATION = "STORYBOARD_ADD_OPERATION";
 
         #region Override ModuleBase Methods
 
