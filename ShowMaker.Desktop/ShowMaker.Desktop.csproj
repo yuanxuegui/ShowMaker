@@ -122,6 +122,9 @@
     <Compile Include="Modules\Storyboard\Views\AddOperationView.xaml.cs">
       <DependentUpon>AddOperationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Storyboard\Controls\TimelineControl.xaml.cs">
+      <DependentUpon>TimelineControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resource.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +231,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Storyboard\Views\AddOperationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Storyboard\Controls\TimelineControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

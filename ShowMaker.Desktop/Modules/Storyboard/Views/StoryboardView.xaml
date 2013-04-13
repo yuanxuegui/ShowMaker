@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:local="clr-namespace:ShowMaker.Desktop.Modules.Storyboard.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -156,9 +157,6 @@
             <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
         </StackPanel>
         <!-- 时间线 -->
-        <Canvas x:Name="TimelineCanvas" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" DataContext="{Binding}">
-            <!-- 时间轴 -->
-            <Path Stroke="Black" Data="M 0,30 H 200,20 L 20,35" Height="277" Canvas.Top="-21" Width="179" />
-        </Canvas>
+        <local:TimelineControl x:Name="timelineControl" Grid.Column="2" Margin="1,0,0,0" Grid.Row="1" />
     </Grid>
 </UserControl>

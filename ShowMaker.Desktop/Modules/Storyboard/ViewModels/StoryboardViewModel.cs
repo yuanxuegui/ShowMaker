@@ -12,6 +12,7 @@ using ShowMaker.Desktop.Domain;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Modules.Storyboard.Views;
 using ShowMaker.Desktop.Parser;
+using ShowMaker.Desktop.Modules.Storyboard.Controls;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -41,6 +42,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public StoryboardViewModel()
         {
+
         }
 
         #region Override Tool Methods
@@ -138,8 +140,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             selectedArea = area;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
             // TODO. 加载时间线
-            Canvas tlc = view.TimelineCanvas;
-            tlc.Children.Clear();
+            TimelineControl tlc = view.timelineControl;
+            //tlc..Clear();
             foreach (TimePoint tp in area.Timeline.TimePointItems)
             {
                 foreach (Command cmd in tp.CommandItems)
@@ -147,7 +149,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     // 绘制时间点图形
                     Ellipse tpg = DrawCommandGraph(tlc, tp.Tick, 100);
                     // 时间点图形添加点击事件
-                    tpg.MouseLeftButtonUp += (s, evt) =>
+                    tpg.MouseRightButtonDown += (s, evt) =>
                     {
                         IoC.Get<IPropertyGrid>().SelectedObject = cmd;
                     };
@@ -186,6 +188,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     cmd.PropertyItems.Add(new Property(param.Name, ""));
                 }
                 // TODO. 获取选择的时间点
+                selectedTick = (int)view.timelineControl.Slider.Value;
                 Timeline tl = selectedArea.Timeline;
                 TimePoint tp = tl.GetItemByKey(selectedTick);
                 if (tp == null)
@@ -199,9 +202,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     tp.CommandItems.Add(cmd);
                 }
                 // 绘制时间点图形
-                Ellipse tpg = DrawCommandGraph(view.TimelineCanvas, selectedTick, 100);
+                Ellipse tpg = DrawCommandGraph(view.timelineControl, 100);
                 // 时间点图形添加点击事件
-                tpg.MouseLeftButtonUp += (s, evt) =>
+                tpg.MouseRightButtonDown += (s, evt) =>
                 {
                     IoC.Get<IPropertyGrid>().SelectedObject = cmd;
                 };
@@ -214,15 +217,40 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <param name="canvas"></param>
         /// <param name="tick"></param>
         /// <param name="position"></param>
-        public Ellipse DrawCommandGraph(Canvas canvas, int tick, int position)
+        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int tick, int position)
         {
             Ellipse tpg = new Ellipse();
             tpg.Fill = System.Windows.Media.Brushes.Black;
-            tpg.Width = 20;
-            tpg.Height = 50;
-            Canvas.SetLeft(tpg, 100 + selectedTick);
+            tpg.Width = 30;
+            tpg.Height = 20;
+
+            Canvas.SetLeft(tpg, selectedTick * 1.9);
             Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
-            canvas.Children.Add(tpg);
+            Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
+            if (drawPanel != null)
+                drawPanel.Children.Add(tpg);
+
+            return tpg;
+        }
+
+        /// <summary>
+        /// 绘制时间点图形
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="tick"></param>
+        /// <param name="position"></param>
+        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int position)
+        {
+            Ellipse tpg = new Ellipse();
+            tpg.Fill = System.Windows.Media.Brushes.Black;
+            tpg.Width = 30;
+            tpg.Height = 20;
+
+            Canvas.SetLeft(tpg, timelineControl.Slider.Value * 1.9);
+            Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
+            Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
+            if (drawPanel != null)
+                drawPanel.Children.Add(tpg);
 
             return tpg;
         }
