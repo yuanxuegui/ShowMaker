@@ -25,6 +25,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 deviceName = value;
                 NotifyOfPropertyChange(() => DeviceName);
+                NotifyOfPropertyChange(() => CanOnAddDevice);
             }
         }
 
@@ -69,12 +70,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Interaction
 
-        /*
-        public bool CanOnAddDevice()
+        public bool CanOnAddDevice
         {
-            return string.IsNullOrEmpty(DeviceName) ? false : true;
+            get { return string.IsNullOrEmpty(DeviceName) ? false : true; }
         }
-        */
 
         public void OnAddDevice()
         {

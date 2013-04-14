@@ -25,6 +25,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 operationName = value;
                 NotifyOfPropertyChange(() => OperationName);
+                NotifyOfPropertyChange(() => CanOnAddOperation);
             }
         }
 
@@ -47,12 +48,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Interaction
 
-        /*
-        public bool CanOnAddOperation()
+        public bool CanOnAddOperation
         {
-            return string.IsNullOrEmpty(OperationName) ? false : true;
+            get { return string.IsNullOrEmpty(OperationName) ? false : true; }
         }
-        */
 
         public void OnAddOperation()
         {

@@ -25,6 +25,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 areaName = value;
                 NotifyOfPropertyChange(() => AreaName);
+                NotifyOfPropertyChange(() => CanOnNewArea);
             }
         }
 
@@ -47,12 +48,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Interaction
 
-        /*
-        public bool CanOnNewArea()
+        
+        public bool CanOnNewArea
         {
-            return string.IsNullOrEmpty(AreaName) ? false : true;
+            get { return string.IsNullOrEmpty(AreaName) ? false : true; }
         }
-        */
 
         public void OnNewArea()
         {

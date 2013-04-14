@@ -28,6 +28,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             {
                 exhibitionDescription = value;
                 NotifyOfPropertyChange(() => ExhibitionDescription);
+                NotifyOfPropertyChange(() => CanOnNewExhibition);
             }
         }
 
@@ -92,12 +93,10 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         #region Interaction
 
-        /*
-        public bool CanOnNewExhibition()
+        public bool CanOnNewExhibition
         {
-            return string.IsNullOrEmpty(ExhibitionDescription) ? false : true;
+            get { return string.IsNullOrEmpty(ExhibitionDescription) ? false : true; }
         }
-        */
 
         public void OnNewExhibition()
         {
