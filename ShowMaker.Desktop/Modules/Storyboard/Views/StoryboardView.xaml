@@ -40,7 +40,7 @@
             <Button x:Name="OnAddDevice" Content="器" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加设备"/>
             <!-- 添加操作 -->
             <Button x:Name="OnAddOperation" Content="作" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="添加操作"/>
-            
+
             <!-- 删除 -->
             <Button Content="删" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="删除"/>
             <!-- 同步 -->
@@ -111,6 +111,7 @@
                                                         <cal:Parameter Value="$source"/>
                                                         <cal:Parameter Value="$eventArgs"/>
                                                         <cal:Parameter Value="{Binding Path=.}"/>
+                                                        <cal:Parameter Value="$view"/>
                                                     </cal:ActionMessage>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
@@ -159,9 +160,10 @@
         </StackPanel>
         <!-- 时间线 -->
         <DockPanel Grid.Row="1" Grid.Column="2">
-            <Slider x:Name="timelineControlZoom" DockPanel.Dock="Bottom" Value="{Binding TimelineWidth}" Minimum="300" Maximum="3000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" />
-            <local:TimelineControl x:Name="timelineControl" DockPanel.Dock="Top" Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" VerticalContentAlignment="Stretch" />
+            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="100" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0" />
+            <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                <local:TimelineControl x:Name="timelineControl"  Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" VerticalContentAlignment="Stretch" />
+            </ScrollViewer>
         </DockPanel>
-       
     </Grid>
 </UserControl>

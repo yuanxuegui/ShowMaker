@@ -35,8 +35,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         private Area selectedArea;
         private Device selectedDevice;
+
         private Operation selectedOperation;
         private int selectedTick;
+        private double selectedVerticalPosition;
 
         private int timelineMaximum;
 
@@ -180,8 +182,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 foreach (Command cmd in tp.CommandItems)
                 {
+                    Device dev = area.GetItemByKey(cmd.DeviceId);
+                    Operation op = dev.GetItemByKey(cmd.OperationName);
+                    double verticalPosition = calculateVerticalPosition(op);
                     // 绘制时间点图形
-                    Ellipse tpg = DrawCommandGraph(tlc, tp.Tick, 100);
+                    Ellipse tpg = DrawCommandGraph(tlc, tp.Tick, verticalPosition);
                     // 时间点图形添加点击事件
                     tpg.MouseRightButtonDown += (s, evt) =>
                     {
@@ -191,14 +196,43 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             }
         }
 
+        private double calculateVerticalPosition(Operation op)
+        {
+            Device dev = op.GetParent();
+            Area area = dev.GetParent();
+            Exhibition ex = area.GetParent();
+            int deep = 0;
+            foreach (Area a in ex.AreaItems)
+            {
+                deep++;
+                if (a == area)
+                    break;  
+            }
+            foreach (Device d in area.DeviceItems)
+            {
+                deep++;
+                if (d == dev)
+                    break;
+            }
+            foreach (Operation o in dev.OperationItems)
+            {
+                deep++;
+                if (o == op)
+                    break;
+            }
+            return (deep-1) * 15;
+        }
+
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
         {
             selectedDevice = device;
             IoC.Get<IPropertyGrid>().SelectedObject = device;
         }
 
-        public void OnOperationItemClick(object sender, EventArgs e, Operation operation)
+        public void OnOperationItemClick(object sender, EventArgs e, Operation operation, StoryboardView view)
         {
+            MouseButtonEventArgs me = e as MouseButtonEventArgs;
+            selectedVerticalPosition = me.GetPosition(view.timelineControl).Y - 30;
             selectedOperation = operation;
             IoC.Get<IPropertyGrid>().SelectedObject = operation;
         }
@@ -236,7 +270,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     tp.CommandItems.Add(cmd);
                 }
                 // 绘制时间点图形
-                Ellipse tpg = DrawCommandGraph(view.timelineControl, 100);
+                Ellipse tpg = DrawCommandGraph(view.timelineControl, selectedVerticalPosition);
                 // 时间点图形添加点击事件
                 tpg.MouseRightButtonDown += (s, evt) =>
                 {
@@ -251,15 +285,15 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <param name="canvas"></param>
         /// <param name="tick"></param>
         /// <param name="position"></param>
-        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int tick, int position)
+        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int tick, double verticalPosition)
         {
             Ellipse tpg = new Ellipse();
             tpg.Fill = System.Windows.Media.Brushes.Black;
             tpg.Width = 30;
             tpg.Height = 20;
 
-            Canvas.SetLeft(tpg, selectedTick * 1.9);
-            Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
+            Canvas.SetLeft(tpg, tick * 10 - tpg.Width / 2);
+            Canvas.SetTop(tpg, verticalPosition); // 根据选择操作的位置计算
             Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
             if (drawPanel != null)
                 drawPanel.Children.Add(tpg);
@@ -273,15 +307,14 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <param name="canvas"></param>
         /// <param name="tick"></param>
         /// <param name="position"></param>
-        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int position)
+        public Ellipse DrawCommandGraph(TimelineControl timelineControl, double verticalPosition)
         {
             Ellipse tpg = new Ellipse();
             tpg.Fill = System.Windows.Media.Brushes.Black;
             tpg.Width = 30;
             tpg.Height = 20;
-
-            Canvas.SetLeft(tpg, timelineControl.Slider.Value * 1.9);
-            Canvas.SetTop(tpg, position); // 根据选择操作的位置计算
+            Canvas.SetLeft(tpg, timelineControl.Slider.Value * 10 - tpg.Width / 2);
+            Canvas.SetTop(tpg, verticalPosition); // 根据选择操作的位置计算
             Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
             if (drawPanel != null)
                 drawPanel.Children.Add(tpg);

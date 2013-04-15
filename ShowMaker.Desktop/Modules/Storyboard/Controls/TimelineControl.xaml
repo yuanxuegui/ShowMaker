@@ -340,12 +340,9 @@
         </Style>
     </UserControl.Resources>
     <Slider x:Name="Slider"
-                Width="300"
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"
                 IsSnapToTickEnabled="True"
-                Minimum="0"
-                Maximum="300"
                 TickPlacement="BottomRight"
                 AutoToolTipPrecision="0"
                 AutoToolTipPlacement="BottomRight"
