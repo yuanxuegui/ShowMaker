@@ -15,6 +15,6 @@
         </Grid.RowDefinitions>
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="4,3,0,0" Text="展区名称" VerticalAlignment="Top" Width="63" Grid.Row="1" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,2,12,0" x:Name="AreaName" VerticalAlignment="Top" Width="134" Grid.Row="1" />
-        <Button x:Name="OnNewArea" Content="完成" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="136,19,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="OnNewArea" Content="完成" IsDefault="True" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="131,51,0,0" VerticalAlignment="Top" Width="75" />
     </Grid>
 </Window>

@@ -72,8 +72,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             areaDlg.ShowDialog();
 
             Area a = areaDlgVM.NewArea;
-            a.SetParent(SelectedExhibition);
-            SelectedExhibition.AreaItems.Add(a);
+            if (a != null)
+            {
+                a.SetParent(SelectedExhibition);
+                SelectedExhibition.AreaItems.Add(a);
+            }
         }
 
         public void OnAddDevice()
@@ -86,8 +89,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 devDlg.ShowDialog();
 
                 Device dev = devDlgVM.NewDevice;
-                dev.SetParent(selectedArea);
-                selectedArea.DeviceItems.Add(dev);
+                if (dev != null)
+                {
+                    dev.SetParent(selectedArea);
+                    selectedArea.DeviceItems.Add(dev);
+                }
             }
             else
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
@@ -103,8 +109,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 opDlg.ShowDialog();
 
                 Operation op = opDlgVM.NewOperation;
-                op.SetParent(selectedDevice);
-                selectedDevice.OperationItems.Add(op);
+                if (op != null)
+                {
+                    op.SetParent(selectedDevice);
+                    selectedDevice.OperationItems.Add(op);
+                }
             }
             else
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);

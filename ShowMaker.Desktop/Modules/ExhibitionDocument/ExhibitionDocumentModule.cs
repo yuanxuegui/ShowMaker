@@ -40,10 +40,16 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             ViewModelBinder.Bind(exhDlgVM, exhDlg, null);
             exhDlg.ShowDialog();
 
+            
             Exhibition contentObject = exhDlgVM.NewExhibition;
-            XmlSerializerUtil.SaveXml(contentObject, dialog.FileName);
+            if (contentObject != null)
+            {
+                XmlSerializerUtil.SaveXml(contentObject, dialog.FileName);
 
-            yield return ResultsHelper.OpenDocument(dialog.FileName);
+                yield return ResultsHelper.OpenDocument(dialog.FileName);
+            }
+            else
+                yield break;
         }
     }
 }

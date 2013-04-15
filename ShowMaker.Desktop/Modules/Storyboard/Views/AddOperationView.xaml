@@ -15,6 +15,6 @@
         </Grid.RowDefinitions>
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="4,2,0,0" Text="操作名称" VerticalAlignment="Top" Width="63" Grid.Row="1" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,2,12,0" x:Name="OperationName" VerticalAlignment="Top" Width="134" Grid.Row="1" />
-        <Button x:Name="OnAddOperation" Content="完成" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="136,19,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="OnAddOperation" Content="完成" IsDefault="True" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="129,50,0,0" VerticalAlignment="Top" Width="75" />
     </Grid>
 </Window>
