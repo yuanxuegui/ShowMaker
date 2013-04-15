@@ -261,12 +261,12 @@
                              SnapsToDevicePixels="True"
                              Placement="Top"
                              Fill="{StaticResource GlyphBrush}"
-                             Height="4"
+                             Height="6"
                              Visibility="Collapsed" />
                     <Border Name="TrackBackground"
                             CornerRadius="1"
                             VerticalAlignment="Center"
-                            Height="2"
+                            Height="5"
                             Margin="0,0,0,0"
                             Background="{StaticResource LightBrush}"
                             Grid.Row="1"
@@ -340,16 +340,16 @@
         </Style>
     </UserControl.Resources>
     <Slider x:Name="Slider"
-                Width="600"
+                Width="300"
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"
-                IsSnapToTickEnabled="False"
+                IsSnapToTickEnabled="True"
                 Minimum="0"
                 Maximum="300"
-                TickPlacement="Both"
+                TickPlacement="BottomRight"
                 AutoToolTipPrecision="0"
                 AutoToolTipPlacement="BottomRight"
                 IsDirectionReversed="False"
-                IsMoveToPointEnabled="True" Interval="40" SmallChange="2">
+                IsMoveToPointEnabled="True" Interval="40" SmallChange="1" LargeChange="10">
     </Slider>
 </UserControl>

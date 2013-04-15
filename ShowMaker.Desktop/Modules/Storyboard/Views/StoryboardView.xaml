@@ -155,8 +155,13 @@
             <Button Content="暂" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="暂停"/>
             <!-- 停止 -->
             <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
+            <TextBlock Text="{Binding ElementName=timelineControl,Path=Value}" VerticalAlignment="Center" Foreground="#FF2759FF" Background="#FF7B83A0" Margin="10,0" />
         </StackPanel>
         <!-- 时间线 -->
-        <local:TimelineControl x:Name="timelineControl" Grid.Column="2" Margin="1,0,0,0" Grid.Row="1" />
+        <DockPanel Grid.Row="1" Grid.Column="2">
+            <Slider x:Name="timelineControlZoom" DockPanel.Dock="Bottom" Value="{Binding TimelineWidth}" Minimum="300" Maximum="3000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" />
+            <local:TimelineControl x:Name="timelineControl" DockPanel.Dock="Top" Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" VerticalContentAlignment="Stretch" />
+        </DockPanel>
+       
     </Grid>
 </UserControl>

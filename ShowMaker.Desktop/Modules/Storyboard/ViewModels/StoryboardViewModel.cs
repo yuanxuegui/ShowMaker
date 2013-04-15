@@ -38,11 +38,36 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         private Operation selectedOperation;
         private int selectedTick;
 
+        private int timelineMaximum;
+
+        public int TimelineMaximum
+        {
+            get { return timelineMaximum; }
+            set
+            {
+                timelineMaximum = value;
+                NotifyOfPropertyChange(() => TimelineMaximum);
+            }
+        }
+
+        private int timelineWidth;
+
+        public int TimelineWidth
+        {
+            get { return timelineWidth; }
+            set
+            {
+                timelineWidth = value;
+                timelineMaximum = timelineWidth / 10;
+                NotifyOfPropertyChange(() => TimelineWidth);
+                NotifyOfPropertyChange(() => TimelineMaximum);
+            }
+        }
+
         #endregion
 
         public StoryboardViewModel()
         {
-
         }
 
         #region Override Tool Methods
