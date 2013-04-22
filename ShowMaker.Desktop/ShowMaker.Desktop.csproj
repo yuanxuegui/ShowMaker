@@ -94,6 +94,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Domain\DeviceCollection.cs" />
+    <Compile Include="Models\Util\ShowFileEncryptDecrypt.cs" />
     <Compile Include="Modules\ExhibitionDocument\ExhibitionDocumentModule.cs" />
     <Compile Include="Modules\ExhibitionDocument\ExhibitionEditorProvider.cs" />
     <Compile Include="Modules\ExhibitionDocument\Messages\ContentChangedMessage.cs" />

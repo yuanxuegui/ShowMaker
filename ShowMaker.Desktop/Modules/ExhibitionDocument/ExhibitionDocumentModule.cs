@@ -9,6 +9,9 @@ using ShowMaker.Desktop.Domain;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
 using ShowMaker.Desktop.Util;
+using ShowMaker.Desktop.Models.Util;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument
 {
@@ -44,7 +47,10 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             Exhibition contentObject = exhDlgVM.NewExhibition;
             if (contentObject != null)
             {
-                XmlSerializerUtil.SaveXml(contentObject, dialog.FileName);
+                string path = dialog.FileName;
+                XmlSerializerUtil.SaveXml(contentObject, path);
+
+                ShowFileEncryptDecrypt.SaveShowFile(path);
 
                 yield return ResultsHelper.OpenDocument(dialog.FileName);
             }

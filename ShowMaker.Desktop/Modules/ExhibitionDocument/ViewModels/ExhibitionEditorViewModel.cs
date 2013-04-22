@@ -12,6 +12,8 @@ using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.Views;
 using ShowMaker.Desktop.Modules.Storyboard.ViewModels;
 using ShowMaker.Desktop.Parser;
+using ShowMaker.Desktop.Models.Util;
+using System.Runtime.InteropServices;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 {
@@ -89,7 +91,9 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
 
         protected override void OnViewLoaded(object view)
         {
-            using (var stream = File.OpenText(_path))
+            string showDecryptFile = ShowFileEncryptDecrypt.LoadShowFile(_path);
+
+            using (var stream = File.OpenText(showDecryptFile))
             {
                 _originalText = stream.ReadToEnd();
             }
@@ -108,10 +112,12 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             if (ShowMakerDesktopModule.SHOW_FILE_EXTENSION.Equals(ext))
             {
                 IExhibitionParser parser = new XmlSerializerExhibitionParser();
-                contentObject = parser.Parse(_path);
+                contentObject = parser.Parse(showDecryptFile);
                 initExhibition(contentObject);
                 IoC.Get<StoryboardViewModel>().SelectedExhibition = contentObject;
             }
+
+            File.Delete(showDecryptFile);
 
             IoC.Get<IEventAggregator>().Subscribe(this);
 
@@ -163,6 +169,8 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                     sw.Write(editor.textEditor.Text);
                 }
             }
+
+            ShowFileEncryptDecrypt.SaveShowFile(_path);
         }
         
         public override bool Equals(object obj)

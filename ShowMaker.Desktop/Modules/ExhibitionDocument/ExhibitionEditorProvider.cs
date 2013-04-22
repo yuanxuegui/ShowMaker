@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
-using System.Text;
 using OpenRcp;
 using ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels;
 
@@ -14,7 +11,6 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
     {
         private readonly List<string> _extensions = new List<string>
         {
-            ".xml",
             ".show" //ShowMaker文件格式
         };
 
