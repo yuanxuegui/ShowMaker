@@ -44,8 +44,10 @@ namespace ShowMaker.Desktop.Models.Util
                FileMode.Create,
                FileAccess.Write);
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
+            DES.Mode = CipherMode.CBC;
             DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
             DES.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
+
             ICryptoTransform desencrypt = DES.CreateEncryptor();
             CryptoStream cryptostream = new CryptoStream(fsEncrypted,
                desencrypt,
@@ -65,6 +67,7 @@ namespace ShowMaker.Desktop.Models.Util
            string sKey)
         {
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
+            DES.Mode = CipherMode.CBC;
             //A 64 bit key and IV is required for this provider.
             //Set secret key For DES algorithm.
             DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
