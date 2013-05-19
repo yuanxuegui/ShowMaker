@@ -73,7 +73,7 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
 
         public override PaneLocation PreferredLocation
         {
-            get { return PaneLocation.Left; }
+            get { return PaneLocation.Right; }
         }
 
         public override string Name
