@@ -288,7 +288,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public Ellipse DrawCommandGraph(TimelineControl timelineControl, int tick, double verticalPosition)
         {
             Ellipse tpg = new Ellipse();
-            tpg.Fill = System.Windows.Media.Brushes.Black;
+            tpg.Fill = System.Windows.Media.Brushes.DimGray;
             tpg.Width = 30;
             tpg.Height = 20;
 
@@ -310,7 +310,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public Ellipse DrawCommandGraph(TimelineControl timelineControl, double verticalPosition)
         {
             Ellipse tpg = new Ellipse();
-            tpg.Fill = System.Windows.Media.Brushes.Black;
+            tpg.Fill = System.Windows.Media.Brushes.DimGray;
             tpg.Width = 30;
             tpg.Height = 20;
             Canvas.SetLeft(tpg, timelineControl.Slider.Value * 10 - tpg.Width / 2);
