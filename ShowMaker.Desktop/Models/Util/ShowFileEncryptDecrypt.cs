@@ -14,6 +14,7 @@ namespace ShowMaker.Desktop.Models.Util
         static extern bool ZeroMemory(IntPtr Destination, int Length);
 
         // Function to Generate a 64 bits Key.
+        /*
         static string GenerateKey()
         {
             // Create an instance of Symetric Algorithm. Key and IV is generated automatically.
@@ -22,17 +23,22 @@ namespace ShowMaker.Desktop.Models.Util
             // Use the Automatically generated key for Encryption. 
             return ASCIIEncoding.ASCII.GetString(desCrypto.Key);
         }
+        */
 
         static byte[] GenerateKeyBytes()
         {
-            // Create an instance of Symetric Algorithm. Key and IV is generated automatically.
-            DESCryptoServiceProvider desCrypto = (DESCryptoServiceProvider)DESCryptoServiceProvider.Create();
-
+            Random keyRandom = new Random();
+            byte[] keyBytes = new byte[8];
+            for (int i = 0; i < 8; i++)
+            {
+                keyBytes[i] = (byte)keyRandom.Next(100);
+            }
+                
             // Use the Automatically generated key for Encryption. 
-            return desCrypto.Key;
+            return keyBytes;
         }
 
-        static void EncryptFile(string sInputFilename,
+        public static void EncryptFile(string sInputFilename,
            string sOutputFilename,
            string sKey)
         {
@@ -45,6 +51,7 @@ namespace ShowMaker.Desktop.Models.Util
                FileAccess.Write);
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
             DES.Mode = CipherMode.CBC;
+            DES.Padding = PaddingMode.PKCS7;
             DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);
             DES.IV = ASCIIEncoding.ASCII.GetBytes(sKey);
 
@@ -62,12 +69,13 @@ namespace ShowMaker.Desktop.Models.Util
             fsEncrypted.Close();
         }
 
-        static void DecryptFile(string sInputFilename,
+        public static void DecryptFile(string sInputFilename,
            string sOutputFilename,
            string sKey)
         {
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
             DES.Mode = CipherMode.CBC;
+            DES.Padding = PaddingMode.PKCS7;
             //A 64 bit key and IV is required for this provider.
             //Set secret key For DES algorithm.
             DES.Key = ASCIIEncoding.ASCII.GetBytes(sKey);

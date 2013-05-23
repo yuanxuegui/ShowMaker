@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Cryptography;
+using ShowMaker.Desktop.Models.Util;
 
 namespace ShowMakerTest
 {
@@ -63,6 +64,7 @@ namespace ShowMakerTest
         [TestMethod]
         public void TestMethod1()
         {
+            /*
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
             DES.Key = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
             DES.IV = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -72,6 +74,14 @@ namespace ShowMakerTest
             ICryptoTransform desdecrypt = DES.CreateDecryptor();
             byte[] dedata = desdecrypt.TransformFinalBlock(endata, 0, 8);
             System.Diagnostics.Debug.WriteLine("" + dedata[2]);
+            */
+            // 文件加密
+            byte[] keyBytes = new byte[] { 0x2D, 0x6D, 0x28, 0x5E, 0x2E, 0x20, 0x23, 0x2C };
+		    string textFile = "D:/test.txt";
+		    string destFile = "D:/test.csdes";
+		    string decryptedFile = destFile + ".csdecrypted";
+            ShowFileEncryptDecrypt.EncryptFile(textFile, destFile, ASCIIEncoding.ASCII.GetString(keyBytes));
+            ShowFileEncryptDecrypt.DecryptFile(destFile, decryptedFile, ASCIIEncoding.ASCII.GetString(keyBytes));
         }
     }
 }
