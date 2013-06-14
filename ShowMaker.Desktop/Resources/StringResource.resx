@@ -123,6 +123,9 @@
   <data name="MENU_FILE" xml:space="preserve">
     <value>_File</value>
   </data>
+  <data name="MENU_FILE_CLOSE_SHOW" xml:space="preserve">
+    <value>Close Show File</value>
+  </data>
   <data name="MENU_FILE_EXIT" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="MENU_FILE_OPEN" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="MENU_FILE_SAVE_SHOW" xml:space="preserve">
+    <value>Save Show File</value>
   </data>
   <data name="MENU_HELP" xml:space="preserve">
     <value>_Help</value>

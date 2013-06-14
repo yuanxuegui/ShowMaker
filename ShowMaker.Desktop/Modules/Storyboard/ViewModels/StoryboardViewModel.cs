@@ -16,6 +16,8 @@ using ShowMaker.Desktop.Modules.Storyboard.Controls;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
+    enum SelectedItemType { AREA, DEVICE, OPERATION};
+
     [Export(typeof(StoryboardViewModel))]
     public class StoryboardViewModel : Tool, ILocalizableDisplay
     {
@@ -39,6 +41,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         private Operation selectedOperation;
         private int selectedTick;
         private double selectedVerticalPosition;
+        private SelectedItemType selectedItemType;
+        private Ellipse selectedTimePointGraphic;
+        private Command selectedCommand;
 
         private int timelineMaximum;
 
@@ -91,7 +96,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         #region Interaction
 
-        public void OnAddNewArea()
+        public void OnNewArea()
         {
             NewAreaView areaDlg = new NewAreaView();
             NewAreaViewModel areaDlgVM = IoC.Get<NewAreaViewModel>();
@@ -158,6 +163,23 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
+        public void OnDeleteItem()
+        {
+            switch (selectedItemType)
+            {
+                case SelectedItemType.AREA:
+                    SelectedExhibition.AreaItems.Remove(selectedArea);
+                    break;
+                case SelectedItemType.DEVICE:
+                    selectedArea.DeviceItems.Remove(selectedDevice);
+                    break;
+                case SelectedItemType.OPERATION:
+                    selectedDevice.OperationItems.Remove(selectedOperation);
+                    break;
+            }
+
+        }
+
         public void OnSyncExhibition()
         {
             IoC.Get<IEventAggregator>().Publish(new ContentChangedMessage()
@@ -174,10 +196,12 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnAreaItemClick(object sender, EventArgs e, Area area, StoryboardView view)
         {
             selectedArea = area;
+            selectedItemType = SelectedItemType.AREA;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
             // TODO. 加载时间线
             TimelineControl tlc = view.timelineControl;
-            //tlc..Clear();
+            Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
+            drawPanel.Children.Clear();
             foreach (TimePoint tp in area.Timeline.TimePointItems)
             {
                 foreach (Command cmd in tp.CommandItems)
@@ -226,6 +250,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
         {
             selectedDevice = device;
+            selectedItemType = SelectedItemType.DEVICE;
             IoC.Get<IPropertyGrid>().SelectedObject = device;
         }
 
@@ -234,6 +259,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             MouseButtonEventArgs me = e as MouseButtonEventArgs;
             selectedVerticalPosition = me.GetPosition(view.timelineControl).Y - 30;
             selectedOperation = operation;
+            selectedItemType = SelectedItemType.OPERATION;
             IoC.Get<IPropertyGrid>().SelectedObject = operation;
         }
 
@@ -275,7 +301,27 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 tpg.MouseRightButtonDown += (s, evt) =>
                 {
                     IoC.Get<IPropertyGrid>().SelectedObject = cmd;
+                    selectedTimePointGraphic = tpg;
+                    selectedCommand = cmd;
                 };
+            }
+        }
+
+        public void OnDeleteCommand(object sender, EventArgs e, StoryboardView view)
+        {
+            if (selectedTimePointGraphic != null && selectedCommand != null)
+            {
+                Canvas drawPanel = view.timelineControl.Slider.Template.FindName("DrawPanel", view.timelineControl.Slider) as Canvas;
+                drawPanel.Children.Remove(selectedTimePointGraphic);
+                selectedTick = (int)view.timelineControl.Slider.Value;
+                Timeline tl = selectedArea.Timeline;
+                TimePoint tp = tl.GetItemByKey(selectedTick);
+                if (tp != null)
+                {
+                    tp.CommandItems.Remove(selectedCommand);
+                    if (tp.CommandItems.Count == 0)
+                        tl.TimePointItems.Remove(tp);
+                }
             }
         }
 

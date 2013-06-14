@@ -123,6 +123,9 @@
   <data name="MENU_FILE" xml:space="preserve">
     <value>文件(_F)</value>
   </data>
+  <data name="MENU_FILE_CLOSE_SHOW" xml:space="preserve">
+    <value>关闭展会定义文件</value>
+  </data>
   <data name="MENU_FILE_EXIT" xml:space="preserve">
     <value>退出</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="MENU_FILE_OPEN" xml:space="preserve">
     <value>打开</value>
+  </data>
+  <data name="MENU_FILE_SAVE_SHOW" xml:space="preserve">
+    <value>保存展会定义文件</value>
   </data>
   <data name="MENU_HELP" xml:space="preserve">
     <value>帮助(_H)</value>

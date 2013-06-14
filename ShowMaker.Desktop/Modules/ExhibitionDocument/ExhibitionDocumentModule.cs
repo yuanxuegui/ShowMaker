@@ -12,6 +12,7 @@ using ShowMaker.Desktop.Util;
 using ShowMaker.Desktop.Models.Util;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace ShowMaker.Desktop.Modules.ExhibitionDocument
 {
@@ -19,13 +20,19 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
     public class ExhibitionDocumentModule : ModuleBase
     {
         public const string MENU_FILE_NEW_SHOW = "MENU_FILE_NEW_SHOW";
+        public const string MENU_FILE_SAVE_SHOW = "MENU_FILE_SAVE_SHOW";
+        public const string MENU_FILE_CLOSE_SHOW = "MENU_FILE_CLOSE_SHOW";
 
         #region Override ModuleBase Methods
 
         protected override void RegisterMenus()
         {
             MainMenu[ShellModule.MENU_FILE].Add(
-                new MenuItem(MENU_FILE_NEW_SHOW, newShowFile));
+                new MenuItem(MENU_FILE_NEW_SHOW, newShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.N));
+            MainMenu[ShellModule.MENU_FILE].Add(
+                new MenuItem(MENU_FILE_SAVE_SHOW, saveShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.S));
+            MainMenu[ShellModule.MENU_FILE].Add(
+                new MenuItem(MENU_FILE_CLOSE_SHOW, closeShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.C));
         }
 
         #endregion
@@ -43,7 +50,6 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             ViewModelBinder.Bind(exhDlgVM, exhDlg, null);
             exhDlg.ShowDialog();
 
-            
             Exhibition contentObject = exhDlgVM.NewExhibition;
             if (contentObject != null)
             {
@@ -56,6 +62,16 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
             }
             else
                 yield break;
+        }
+
+        private IEnumerable<IResult> saveShowFile()
+        {
+            yield break;
+        }
+
+        private IEnumerable<IResult> closeShowFile()
+        {
+            yield break;
         }
     }
 }
