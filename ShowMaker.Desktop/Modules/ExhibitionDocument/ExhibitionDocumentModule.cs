@@ -68,7 +68,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
         {
             IDocument doc = Shell.ActiveItem;
             ExhibitionEditorViewModel eevm = doc as ExhibitionEditorViewModel;
-            eevm.SaveHandler(null, null);
+            if (eevm != null) eevm.SaveHandler(null, null);
             yield break;
         }
 
