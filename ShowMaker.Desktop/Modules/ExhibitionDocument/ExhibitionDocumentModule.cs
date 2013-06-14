@@ -66,11 +66,15 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
 
         private IEnumerable<IResult> saveShowFile()
         {
+            IDocument doc = Shell.ActiveItem;
+            ExhibitionEditorViewModel eevm = doc as ExhibitionEditorViewModel;
+            eevm.SaveHandler(null, null);
             yield break;
         }
 
         private IEnumerable<IResult> closeShowFile()
         {
+            Shell.ActiveItem.TryClose();
             yield break;
         }
     }
