@@ -66,7 +66,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
         {
             if (IsDirty)
             {
-                System.Windows.MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show("是要保存修改吗？", "Exhibition Document", System.Windows.MessageBoxButton.YesNoCancel);
+                System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("是要保存修改吗？", "Exhibition Document", System.Windows.MessageBoxButton.YesNoCancel);
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     // 保存修改后关闭

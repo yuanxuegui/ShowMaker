@@ -168,13 +168,16 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             switch (selectedItemType)
             {
                 case SelectedItemType.AREA:
-                    SelectedExhibition.AreaItems.Remove(selectedArea);
+                    if (System.Windows.MessageBox.Show("您确定删除" + selectedArea.Name + "展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                        SelectedExhibition.AreaItems.Remove(selectedArea);
                     break;
                 case SelectedItemType.DEVICE:
-                    selectedArea.DeviceItems.Remove(selectedDevice);
+                    if (System.Windows.MessageBox.Show("您确定删除" + selectedDevice.Name + "设备吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                        selectedArea.DeviceItems.Remove(selectedDevice);
                     break;
                 case SelectedItemType.OPERATION:
-                    selectedDevice.OperationItems.Remove(selectedOperation);
+                    if (System.Windows.MessageBox.Show("您确定删除" + selectedOperation.Name + "操作吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                        selectedDevice.OperationItems.Remove(selectedOperation);
                     break;
             }
 
@@ -309,7 +312,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnDeleteCommand(object sender, EventArgs e, StoryboardView view)
         {
-            if (selectedTimePointGraphic != null && selectedCommand != null)
+            if (selectedTimePointGraphic != null && selectedCommand != null && System.Windows.MessageBox.Show("您确定删除该命令吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
                 Canvas drawPanel = view.timelineControl.Slider.Template.FindName("DrawPanel", view.timelineControl.Slider) as Canvas;
                 drawPanel.Children.Remove(selectedTimePointGraphic);
