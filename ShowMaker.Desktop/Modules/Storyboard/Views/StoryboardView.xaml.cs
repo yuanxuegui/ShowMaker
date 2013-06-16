@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ShowMaker.Desktop.Models.Domain;
-using Caliburn.Micro;
+﻿using System.Windows.Controls;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.Views
 {
@@ -24,17 +10,6 @@ namespace ShowMaker.Desktop.Modules.Storyboard.Views
         public StoryboardView()
         {
             InitializeComponent();
-        }
-
-        private void timelineControlZoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Slider sl = sender as Slider;
-            if (sl != null)
-            {
-                TimelineMaxChangedMessage tm = new TimelineMaxChangedMessage();
-                tm.Max = (int)sl.Value / 10;
-                IoC.Get<IEventAggregator>().Publish(tm);
-            }
         }
     }
 }

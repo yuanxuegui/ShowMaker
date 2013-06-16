@@ -61,10 +61,13 @@ namespace ShowMaker.Desktop.Domain
 
         public void Handle(TimelineMaxChangedMessage message)
         {
-            foreach (Property prop in PropertyItem)
+            if (message.TimelineTarget == this)
             {
-                if(prop.Name.Equals(Constants.TIME_MAX_KEY))
-                    prop.Value = "" +　message.Max;
+                foreach (Property prop in PropertyItem)
+                {
+                    if (prop.Name.Equals(Constants.TIME_MAX_KEY))
+                        prop.Value = "" + message.Max;
+                }
             }
         }
     }

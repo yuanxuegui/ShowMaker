@@ -13,6 +13,7 @@ using ShowMaker.Desktop.Modules.ExhibitionDocument.Messages;
 using ShowMaker.Desktop.Modules.Storyboard.Views;
 using ShowMaker.Desktop.Parser;
 using ShowMaker.Desktop.Modules.Storyboard.Controls;
+using ShowMaker.Desktop.Models.Domain;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -369,6 +370,18 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 drawPanel.Children.Add(tpg);
 
             return tpg;
+        }
+
+        public void OnTimelineControlZoomValueChanged(object sender, EventArgs e)
+        {
+            Slider sl = sender as Slider;
+            if (sl != null)
+            {
+                TimelineMaxChangedMessage tm = new TimelineMaxChangedMessage();
+                tm.Max = (int)sl.Value / 10;
+                tm.TimelineTarget = selectedArea.Timeline;
+                IoC.Get<IEventAggregator>().Publish(tm);
+            }
         }
 
         #endregion
