@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Caliburn.Micro;
+using ShowMaker.Desktop.Models.Domain;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.Controls
 {
@@ -78,7 +80,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.Controls
             this.Slider.ValueChanged += (sender, e) => {
                 Slider s = sender as Slider;
                 if (s != null)
-                    this.Value = (int) s.Value;
+                {
+                    this.Value = (int)s.Value;
+                }
             };
         }
     }

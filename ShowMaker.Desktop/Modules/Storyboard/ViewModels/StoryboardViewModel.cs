@@ -128,7 +128,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 }
             }
             else
-                Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
+                System.Windows.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
         public void OnAddOperation()
@@ -148,7 +148,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 }
             }
             else
-                Xceed.Wpf.Toolkit.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);
+                System.Windows.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);
         }
 
         public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
@@ -160,7 +160,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 selectedArea.DeviceItems.Add(dev);
             }
             else
-                Xceed.Wpf.Toolkit.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
+                System.Windows.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
         public void OnDeleteItem()

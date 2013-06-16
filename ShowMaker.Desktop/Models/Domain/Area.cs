@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using ShowMaker.Desktop.Util;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -44,9 +45,12 @@ namespace ShowMaker.Desktop.Domain
             set { timeline = value; }
         }
 
-        public Area() { }
+        public Area() {
+            timeline.PropertyItem.Add(new Property(Constants.TIME_UNIT_KEY, Constants.TIME_UNIT_S));
+            timeline.PropertyItem.Add(new Property(Constants.TIME_MAX_KEY, "60"));
+        }
 
-        public Area(string name)
+        public Area(string name) : this()
         {
             Name = name;
         }

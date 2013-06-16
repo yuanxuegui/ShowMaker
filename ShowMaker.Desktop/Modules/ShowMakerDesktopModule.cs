@@ -35,6 +35,10 @@ namespace ShowMaker.Desktop.Modules
                 Assembly.GetExecutingAssembly().GetAssemblyName());
 
             _output.AppendLine("Loading ShowMaker Module");
+
+            IThemeManager themeMan = IoC.Get<IThemeManager>();
+            if (themeMan != null)
+                themeMan.SetCurrent("VS2010");
         }
 
         protected override void RegisterMenus()

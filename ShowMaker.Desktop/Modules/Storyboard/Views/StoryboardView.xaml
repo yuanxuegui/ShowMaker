@@ -17,7 +17,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="23*"/>
+            <RowDefinition Height="23"/>
             <RowDefinition Height="278*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,25 +27,19 @@
         </Grid.ColumnDefinitions>
         <!-- 左侧 -->
         <!-- 展区、设备、操作工具面板 -->
-        <StackPanel x:Name="ItemToolsPanel" Margin="0,0,0.2,3" Orientation="Horizontal">
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF707070" Offset="1"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
+        <ToolBar x:Name="ItemToolsPanel" Margin="0,0,0.2,0">
             <!-- 添加展区 -->
-            <Button x:Name="OnNewArea" Content="新建展区" HorizontalAlignment="Left" Height="20" Width="59" ToolTip="新建展区"/>
+            <Button x:Name="OnNewArea" Content="新建展区" HorizontalAlignment="Left" ToolTip="新建展区"/>
             <!-- 添加设备 -->
-            <Button x:Name="OnAddDevice" Content="添加设备" HorizontalAlignment="Left" Height="20" Width="55" ToolTip="添加设备"/>
+            <Button x:Name="OnAddDevice" Content="添加设备" HorizontalAlignment="Left" ToolTip="添加设备"/>
             <!-- 添加操作 -->
-            <Button x:Name="OnAddOperation" Content="添加操作" HorizontalAlignment="Left" Height="20" Width="56" ToolTip="添加操作"/>
+            <Button x:Name="OnAddOperation" Content="添加操作" HorizontalAlignment="Left" ToolTip="添加操作"/>
 
             <!-- 删除 -->
-            <Button x:Name="OnDeleteItem" Content="删除" HorizontalAlignment="Left" Height="20" Width="34" ToolTip="删除"/>
+            <Button x:Name="OnDeleteItem" Content="删除" HorizontalAlignment="Left" ToolTip="删除"/>
             <!-- 同步 -->
-            <Button x:Name="OnSyncExhibition" Content="同步" HorizontalAlignment="Left" Height="20" Width="36" ToolTip="同步"/>
-        </StackPanel>
+            <Button x:Name="OnSyncExhibition" Content="同步" HorizontalAlignment="Left" ToolTip="同步"/>
+        </ToolBar>
         <!-- 展区、设备、操作树 -->
         <TreeView x:Name="ShowAreaTree" Margin="0,0,0.2,0" AllowDrop="True" Grid.Row="1">
             <i:Interaction.Triggers>
@@ -129,15 +123,9 @@
 
         <!-- 右侧 -->
         <!-- 播放工具面板 -->
-        <StackPanel x:Name="PlayToolsPanel" Grid.Column="2" Margin="0.6,0,0,3" Orientation="Horizontal">
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF707070" Offset="1"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
+        <ToolBar x:Name="PlayToolsPanel" Grid.Column="2" Margin="0.6,0,0,0">
             <!-- 添加命令 -->
-            <Button Content="添加命令" HorizontalAlignment="Left" Height="20" Width="54" ToolTip="添加命令">
+            <Button Content="添加命令" HorizontalAlignment="Left" ToolTip="添加命令">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <cal:ActionMessage MethodName="OnAddNewCommand">
@@ -149,24 +137,24 @@
                 </i:Interaction.Triggers>
             </Button>
             <!-- 删除命令 -->
-            <Button x:Name="OnDeleteCommand" Content="删除命令" HorizontalAlignment="Left" Height="20" Width="54" ToolTip="删除命令"/>
+            <Button x:Name="OnDeleteCommand" Content="删除命令" HorizontalAlignment="Left" ToolTip="删除命令"/>
             <!-- 播放 -->
             <!--
-            <Button Content="播" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="播放"/>
+            <Button Content="播" HorizontalAlignment="Left" ToolTip="播放"/>
             -->
             <!-- 暂停 -->
             <!--
-            <Button Content="暂" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="暂停"/>
+            <Button Content="暂" HorizontalAlignment="Left" ToolTip="暂停"/>
             -->
             <!-- 停止 -->
             <!--
-            <Button Content="停" HorizontalAlignment="Left" Height="20" Width="20" ToolTip="停止"/>
+            <Button Content="停" HorizontalAlignment="Left" ToolTip="停止"/>
             -->
             <TextBlock Text="{Binding ElementName=timelineControl,Path=Value}" VerticalAlignment="Center" Foreground="#FF2759FF" Background="#FF7B83A0" Margin="10,0" />
-        </StackPanel>
+        </ToolBar>
         <!-- 时间线 -->
         <DockPanel Grid.Row="1" Grid.Column="2">
-            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="100" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0" />
+            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="6000" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0" ValueChanged="timelineControlZoom_ValueChanged" />
             <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
                 <local:TimelineControl x:Name="timelineControl"  Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" VerticalContentAlignment="Stretch" />
             </ScrollViewer>

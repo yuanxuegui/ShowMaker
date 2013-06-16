@@ -4,11 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using ShowMaker.Desktop.Models.Domain;
+using Caliburn.Micro;
+using ShowMaker.Desktop.Util;
 
 namespace ShowMaker.Desktop.Domain
 {
-    public class Timeline : IItemFinder<TimePoint,int>, IPropertyFinder
+    public class Timeline : IItemFinder<TimePoint,int>, IPropertyFinder, IHandle<TimelineMaxChangedMessage>
     {
+        public Timeline()
+        {
+            IoC.Get<IEventAggregator>().Subscribe(this);
+        }
+        
         private ObservableCollection<Property> propertyItemsField = new ObservableCollection<Property>();
 
         [XmlElement("property")]
@@ -48,6 +56,16 @@ namespace ShowMaker.Desktop.Domain
                 }
             }
             return null;
+        }
+
+
+        public void Handle(TimelineMaxChangedMessage message)
+        {
+            foreach (Property prop in PropertyItem)
+            {
+                if(prop.Name.Equals(Constants.TIME_MAX_KEY))
+                    prop.Value = "" +　message.Max;
+            }
         }
     }
 }
