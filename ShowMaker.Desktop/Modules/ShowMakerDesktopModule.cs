@@ -16,6 +16,7 @@ namespace ShowMaker.Desktop.Modules
         public const string MENU_TOOL_LANGUAGE = "MENU_TOOL_LANGUAGE";
         public const string MENU_TOOL_LANGUAGE_ZHCN = "MENU_TOOL_LANGUAGE_ZHCN";
         public const string MENU_TOOL_LANGUAGE_EN = "MENU_TOOL_LANGUAGE_EN";
+        public const string MENU_HELP_ABOUT = "MENU_HELP_ABOUT";
 
         public const string SHOW_FILE_EXTENSION = ".show";
 
@@ -49,6 +50,7 @@ namespace ShowMaker.Desktop.Modules
                 new RadioMenuItem(MENU_TOOL_LANGUAGE_ZHCN, langGroup, changeLangToChinese),
                 new RadioMenuItem(MENU_TOOL_LANGUAGE_EN, langGroup, changeLangToEnglish),
             });
+            MainMenu[ShellModule.MENU_HELP].Add(new MenuItem(MENU_HELP_ABOUT));
         }
 
         private IEnumerable<IResult> changeLangToChinese(bool isChecked)

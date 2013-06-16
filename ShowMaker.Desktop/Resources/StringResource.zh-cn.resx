@@ -120,6 +120,12 @@
   <data name="MENU_EDIT" xml:space="preserve">
     <value>编辑(_E)</value>
   </data>
+  <data name="MENU_EDIT_REDO" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="MENU_EDIT_UNDO" xml:space="preserve">
+    <value>撤消</value>
+  </data>
   <data name="MENU_FILE" xml:space="preserve">
     <value>文件(_F)</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="MENU_HELP" xml:space="preserve">
     <value>帮助(_H)</value>
+  </data>
+  <data name="MENU_HELP_ABOUT" xml:space="preserve">
+    <value>关于</value>
   </data>
   <data name="MENU_TOOL" xml:space="preserve">
     <value>工具(_T)</value>

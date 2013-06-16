@@ -120,6 +120,12 @@
   <data name="MENU_EDIT" xml:space="preserve">
     <value>_Edit</value>
   </data>
+  <data name="MENU_EDIT_REDO" xml:space="preserve">
+    <value>_Redo</value>
+  </data>
+  <data name="MENU_EDIT_UNDO" xml:space="preserve">
+    <value>_Undo</value>
+  </data>
   <data name="MENU_FILE" xml:space="preserve">
     <value>_File</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="MENU_HELP" xml:space="preserve">
     <value>_Help</value>
+  </data>
+  <data name="MENU_HELP_ABOUT" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="MENU_TOOL" xml:space="preserve">
     <value>_Tool</value>

@@ -37,10 +37,12 @@ namespace OpenRcp
         protected override void RegisterMenus()
         {
             IList<RadioMenuItem> themeGroup = new List<RadioMenuItem>();
+            RadioMenuItem vs2010 = new RadioMenuItem("VS2010", themeGroup, changeThemeToVS2010);
+            vs2010.IsChecked = true;
             MainMenu[ShellModule.MENU_TOOL].Add(new MenuItem(MENU_TOOL_THEME){
                 new RadioMenuItem("Dark", themeGroup, changeThemeToDark),
                 new RadioMenuItem("Light", themeGroup, changeThemeToLight),
-                new RadioMenuItem("VS2010", themeGroup, changeThemeToVS2010)
+                vs2010
             });
         }
 

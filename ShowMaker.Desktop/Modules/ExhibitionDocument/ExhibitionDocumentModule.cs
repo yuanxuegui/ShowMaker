@@ -22,6 +22,8 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
         public const string MENU_FILE_NEW_SHOW = "MENU_FILE_NEW_SHOW";
         public const string MENU_FILE_SAVE_SHOW = "MENU_FILE_SAVE_SHOW";
         public const string MENU_FILE_CLOSE_SHOW = "MENU_FILE_CLOSE_SHOW";
+        public const string MENU_EDIT_UNDO = "MENU_EDIT_UNDO";
+        public const string MENU_EDIT_REDO = "MENU_EDIT_REDO";
 
         #region Override ModuleBase Methods
 
@@ -33,6 +35,9 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
                 new MenuItem(MENU_FILE_SAVE_SHOW, saveShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.S));
             MainMenu[ShellModule.MENU_FILE].Add(
                 new MenuItem(MENU_FILE_CLOSE_SHOW, closeShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.C));
+            
+            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_UNDO));
+            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_REDO));
         }
 
         #endregion
