@@ -35,9 +35,9 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument
                 new MenuItem(MENU_FILE_SAVE_SHOW, saveShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.S));
             MainMenu[ShellModule.MENU_FILE].Add(
                 new MenuItem(MENU_FILE_CLOSE_SHOW, closeShowFile).WithGlobalShortcut(ModifierKeys.Control, Key.C));
-            
-            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_UNDO));
-            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_REDO));
+
+            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_UNDO).WithIcon(@"Modules\ExhibitionDocument\Resources\Icons\Undo.png"));
+            MainMenu[ShellModule.MENU_EDIT].Add(new MenuItem(MENU_EDIT_REDO).WithIcon(@"Modules\ExhibitionDocument\Resources\Icons\Redo.png"));
         }
 
         #endregion

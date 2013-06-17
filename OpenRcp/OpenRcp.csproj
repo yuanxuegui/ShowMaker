@@ -96,7 +96,9 @@
     <Compile Include="Common\ResourceBase.cs" />
     <Compile Include="Common\IDisplay.cs" />
     <Compile Include="Common\IHaveName.cs" />
+    <Compile Include="Common\Results\LambdaResult.cs" />
     <Compile Include="Common\Workbench\IPropertySelectable.cs" />
+    <Compile Include="Controls\ToolPaneToolBar.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Common\Menus\RadioMenuItem.cs" />
