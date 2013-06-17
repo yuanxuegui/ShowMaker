@@ -54,7 +54,7 @@
             <TreeViewItem ItemsSource="{Binding SelectedExhibition.AreaItems}">
                 <TreeViewItem.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="展示会">
+                        <TextBlock Text="展示会" Height="20" FontSize="13">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
                                     <cal:ActionMessage MethodName="OnExhibitionClick">
@@ -69,7 +69,7 @@
                 <TreeViewItem.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding DeviceItems}">
                         <!-- 展区名 -->
-                        <TextBlock Text="{Binding Path=Name}">
+                        <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
                                     <cal:ActionMessage MethodName="OnAreaItemClick">
@@ -84,7 +84,7 @@
                         <HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding OperationItems}">
                                 <!-- 设备 -->
-                                <TextBlock Text="{Binding Path=Name}">
+                                <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
                                             <cal:ActionMessage MethodName="OnDeviceItemClick">
@@ -98,7 +98,7 @@
                                 <HierarchicalDataTemplate.ItemTemplate>
                                     <DataTemplate>
                                         <!-- 操作 -->
-                                        <TextBlock Text="{Binding Path=Name}">
+                                        <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="MouseLeftButtonDown">
                                                     <cal:ActionMessage MethodName="OnOperationItemClick">
@@ -123,7 +123,7 @@
 
         <!-- 右侧 -->
         <!-- 播放工具面板 -->
-        <ToolBar x:Name="PlayToolsPanel" Grid.Column="2" Margin="0.6,0,0,0">
+        <StackPanel x:Name="PlayToolsPanel" Grid.Column="2" Margin="0.6,0,0,0" Orientation="Horizontal">
             <!-- 添加命令 -->
             <Button Content="添加命令" HorizontalAlignment="Left" ToolTip="添加命令">
                 <i:Interaction.Triggers>
@@ -137,7 +137,17 @@
                 </i:Interaction.Triggers>
             </Button>
             <!-- 删除命令 -->
-            <Button x:Name="OnDeleteCommand" Content="删除命令" HorizontalAlignment="Left" ToolTip="删除命令"/>
+            <Button Content="删除命令" HorizontalAlignment="Left" ToolTip="删除命令">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="OnDeleteCommand">
+                            <cal:Parameter Value="$source"/>
+                            <cal:Parameter Value="$eventArgs"/>
+                            <cal:Parameter Value="$view"/>
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
             <!-- 播放 -->
             <!--
             <Button Content="播" HorizontalAlignment="Left" ToolTip="播放"/>
@@ -151,10 +161,10 @@
             <Button Content="停" HorizontalAlignment="Left" ToolTip="停止"/>
             -->
             <TextBlock Text="{Binding ElementName=timelineControl,Path=Value}" VerticalAlignment="Center" Foreground="#FF2759FF" Background="#FF7B83A0" Margin="10,0" />
-        </ToolBar>
+        </StackPanel>
         <!-- 时间线 -->
         <DockPanel Grid.Row="1" Grid.Column="2">
-            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="6000" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0">
+            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="1000" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <cal:ActionMessage MethodName="OnTimelineControlZoomValueChanged">

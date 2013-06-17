@@ -99,16 +99,23 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnNewArea()
         {
-            NewAreaView areaDlg = new NewAreaView();
-            NewAreaViewModel areaDlgVM = IoC.Get<NewAreaViewModel>();
-            ViewModelBinder.Bind(areaDlgVM, areaDlg, null);
-            areaDlg.ShowDialog();
-
-            Area a = areaDlgVM.NewArea;
-            if (a != null)
+            if (exhibition != null)
             {
-                a.SetParent(SelectedExhibition);
-                SelectedExhibition.AreaItems.Add(a);
+                NewAreaView areaDlg = new NewAreaView();
+                NewAreaViewModel areaDlgVM = IoC.Get<NewAreaViewModel>();
+                ViewModelBinder.Bind(areaDlgVM, areaDlg, null);
+                areaDlg.ShowDialog();
+
+                Area a = areaDlgVM.NewArea;
+                if (a != null)
+                {
+                    a.SetParent(SelectedExhibition);
+                    SelectedExhibition.AreaItems.Add(a);
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("请先新建展区定义文件","错误", System.Windows.MessageBoxButton.OK);
             }
         }
 
@@ -219,6 +226,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     tpg.MouseRightButtonDown += (s, evt) =>
                     {
                         IoC.Get<IPropertyGrid>().SelectedObject = cmd;
+                        selectedTimePointGraphic = tpg;
+                        selectedCommand = cmd;
                     };
                 }
             }
@@ -248,34 +257,30 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 if (o == op)
                     break;
             }
-            return (deep-1) * 15;
+            return (deep-1) * 22;
         }
 
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
         {
             selectedDevice = device;
             selectedItemType = SelectedItemType.DEVICE;
+            selectedArea = selectedDevice.GetParent();
             IoC.Get<IPropertyGrid>().SelectedObject = device;
         }
 
         public void OnOperationItemClick(object sender, EventArgs e, Operation operation, StoryboardView view)
         {
             MouseButtonEventArgs me = e as MouseButtonEventArgs;
-            selectedVerticalPosition = me.GetPosition(view.timelineControl).Y - 30;
+            selectedVerticalPosition = me.GetPosition(view.timelineControl).Y - 26;
             selectedOperation = operation;
             selectedItemType = SelectedItemType.OPERATION;
+            selectedDevice = operation.GetParent();
+            selectedArea = selectedDevice.GetParent();
             IoC.Get<IPropertyGrid>().SelectedObject = operation;
         }
 
         public void OnAddNewCommand(object sender, EventArgs e, StoryboardView view)
         {
-            // 自动关联层次结构
-            if (selectedOperation != null)
-            {
-                selectedDevice = selectedOperation.GetParent();
-                if (selectedDevice != null)
-                    selectedArea = selectedDevice.GetParent();
-            }
             if (selectedDevice != null && selectedOperation != null)
             {
                 Command cmd = new Command();
@@ -313,7 +318,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnDeleteCommand(object sender, EventArgs e, StoryboardView view)
         {
-            if (selectedTimePointGraphic != null && selectedCommand != null && System.Windows.MessageBox.Show("您确定删除该命令吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            if (selectedTimePointGraphic != null && selectedCommand != null && view != null && System.Windows.MessageBox.Show("您确定删除该命令吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
                 Canvas drawPanel = view.timelineControl.Slider.Template.FindName("DrawPanel", view.timelineControl.Slider) as Canvas;
                 drawPanel.Children.Remove(selectedTimePointGraphic);
@@ -375,7 +380,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnTimelineControlZoomValueChanged(object sender, EventArgs e)
         {
             Slider sl = sender as Slider;
-            if (sl != null)
+            if (sl != null && selectedArea != null)
             {
                 TimelineMaxChangedMessage tm = new TimelineMaxChangedMessage();
                 tm.Max = (int)sl.Value / 10;

@@ -330,7 +330,7 @@
                 <Trigger Property="Orientation"
                          Value="Horizontal">
                     <Setter Property="MinWidth"
-                            Value="104" />
+                            Value="104" /> <!-- 控制刻度间隔 -->
                     <Setter Property="MinHeight"
                             Value="21" />
                     <Setter Property="Template"
