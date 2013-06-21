@@ -239,20 +239,24 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             Area area = dev.GetParent();
             Exhibition ex = area.GetParent();
             int deep = 0;
-            foreach (Area a in ex.AreaItems)
+            int i = 0;
+            for(i=0; i<ex.AreaItems.Count; i++)
             {
+                Area a = ex.AreaItems[i];
                 deep++;
                 if (a == area)
                     break;  
             }
-            foreach (Device d in area.DeviceItems)
+            for(i=0; i< area.DeviceItems.Count; i++)
             {
+                Device d = area.DeviceItems[i];
                 deep++;
                 if (d == dev)
                     break;
             }
-            foreach (Operation o in dev.OperationItems)
+            for(i=0; i<dev.OperationItems.Count; i++)
             {
+                Operation o = dev.OperationItems[i];
                 deep++;
                 if (o == op)
                     break;

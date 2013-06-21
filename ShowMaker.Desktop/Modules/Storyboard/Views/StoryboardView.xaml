@@ -164,7 +164,7 @@
         </StackPanel>
         <!-- 时间线 -->
         <DockPanel Grid.Row="1" Grid.Column="2">
-            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="1000" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0">
+            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom"  Value="{Binding TimelineWidth}" Minimum="100" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <cal:ActionMessage MethodName="OnTimelineControlZoomValueChanged">
