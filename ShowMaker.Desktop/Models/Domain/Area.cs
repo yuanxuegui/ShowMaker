@@ -47,7 +47,7 @@ namespace ShowMaker.Desktop.Domain
 
         public Area() {
             timeline.PropertyItem.Add(new Property(Constants.TIME_UNIT_KEY, Constants.TIME_UNIT_S));
-            timeline.PropertyItem.Add(new Property(Constants.TIME_MAX_KEY, "60"));
+            timeline.PropertyItem.Add(new Property(Constants.TIME_MAX_KEY, "10"));
         }
 
         public Area(string name) : this()
