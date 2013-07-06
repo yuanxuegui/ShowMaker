@@ -17,7 +17,7 @@ using ShowMaker.Desktop.Models.Domain;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
-    enum SelectedItemType { AREA, DEVICE, OPERATION};
+    enum SelectedItemType { EXHIBITION, AREA, DEVICE, OPERATION};
 
     [Export(typeof(StoryboardViewModel))]
     public class StoryboardViewModel : Tool, ILocalizableDisplay, IHandle<ShowDefinationChangedMessage>
@@ -180,6 +180,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             switch (selectedItemType)
             {
+                case SelectedItemType.EXHIBITION:
+                    System.Windows.MessageBox.Show("展示会不能被删除!", "错误", System.Windows.MessageBoxButton.OK);
+                    break;
                 case SelectedItemType.AREA:
                     if (System.Windows.MessageBox.Show("您确定删除" + selectedArea.Name + "展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
                         SelectedExhibition.AreaItems.Remove(selectedArea);
@@ -206,6 +209,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnExhibitionClick(object sender, EventArgs e)
         {
             IoC.Get<IPropertyGrid>().SelectedObject = SelectedExhibition;
+            selectedItemType = SelectedItemType.EXHIBITION;
         }
 
         public void OnAreaItemClick(object sender, EventArgs e, Area area, StoryboardView view)
