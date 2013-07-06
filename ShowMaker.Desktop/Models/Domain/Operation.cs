@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -19,7 +20,10 @@ namespace ShowMaker.Desktop.Domain
         public string Name
         {
             get { return nameField; }
-            set { nameField = value; }
+            set { 
+                nameField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private string commandField;
 
@@ -30,7 +34,10 @@ namespace ShowMaker.Desktop.Domain
         public string Command
         {
             get { return commandField; }
-            set { commandField = value; }
+            set { 
+                commandField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<Parameter> parameterItemsField = new ObservableCollection<Parameter>();
 
@@ -41,7 +48,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Parameter> ParameterItems
         {
             get { return parameterItemsField; }
-            set { parameterItemsField = value; }
+            set { 
+                parameterItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public Parameter GetItemByKey(string key)

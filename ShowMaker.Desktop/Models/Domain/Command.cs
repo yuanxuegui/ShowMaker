@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using ShowMaker.Desktop.Sender;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -20,7 +21,10 @@ namespace ShowMaker.Desktop.Domain
         public string DeviceId
         {
             get { return deviceIdField; }
-            set { deviceIdField = value; }
+            set { 
+                deviceIdField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private string operationNameField;
 
@@ -31,7 +35,10 @@ namespace ShowMaker.Desktop.Domain
         public string OperationName
         {
             get { return operationNameField; }
-            set { operationNameField = value; }
+            set { 
+                operationNameField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         private ObservableCollection<Property> propertyItemsField = new ObservableCollection<Property>();
@@ -43,7 +50,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Property> PropertyItems
         {
             get { return propertyItemsField; }
-            set { propertyItemsField = value; }
+            set { 
+                propertyItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
 

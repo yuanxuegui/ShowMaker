@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -19,7 +20,10 @@ namespace ShowMaker.Desktop.Domain
         public string Id
         {
             get { return idField; }
-            set { idField = value; }
+            set { 
+                idField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         private string nameField;
@@ -31,7 +35,10 @@ namespace ShowMaker.Desktop.Domain
         public string Name
         {
             get { return nameField; }
-            set { nameField = value; }
+            set { 
+                nameField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         private DeviceType typeField;
@@ -43,7 +50,10 @@ namespace ShowMaker.Desktop.Domain
         public DeviceType Type
         {
             get { return typeField; }
-            set { typeField = value; }
+            set { 
+                typeField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         private ObservableCollection<Operation> operationItemsField = new ObservableCollection<Operation>();
@@ -55,7 +65,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Operation> OperationItems
         {
             get { return operationItemsField; }
-            set { operationItemsField = value; }
+            set { 
+                operationItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public Operation GetItemByKey(string key)

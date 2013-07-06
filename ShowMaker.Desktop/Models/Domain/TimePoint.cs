@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -15,7 +16,10 @@ namespace ShowMaker.Desktop.Domain
         public int Tick
         {
             get { return tickField; }
-            set { tickField = value; }
+            set { 
+                tickField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<Command> commandItemsField = new ObservableCollection<Command>();
 
@@ -23,7 +27,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Command> CommandItems
         {
             get { return commandItemsField; }
-            set { commandItemsField = value; }
+            set { 
+                commandItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public TimePoint() { }

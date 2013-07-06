@@ -23,7 +23,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Property> PropertyItem
         {
             get { return propertyItemsField; }
-            set { propertyItemsField = value; }
+            set { 
+                propertyItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<TimePoint> timePointItemsField = new ObservableCollection<TimePoint>();
 
@@ -31,7 +34,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<TimePoint> TimePointItems
         {
             get { return timePointItemsField; }
-            set { timePointItemsField = value; }
+            set { 
+                timePointItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public TimePoint GetItemByKey(int key)

@@ -20,7 +20,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
     enum SelectedItemType { AREA, DEVICE, OPERATION};
 
     [Export(typeof(StoryboardViewModel))]
-    public class StoryboardViewModel : Tool, ILocalizableDisplay
+    public class StoryboardViewModel : Tool, ILocalizableDisplay, IHandle<ShowDefinationChangedMessage>
     {
         #region View Data
 
@@ -76,6 +76,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public StoryboardViewModel()
         {
+            IoC.Get<IEventAggregator>().Subscribe(this);
         }
 
         #region Override Tool Methods
@@ -111,6 +112,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 {
                     a.SetParent(SelectedExhibition);
                     SelectedExhibition.AreaItems.Add(a);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
             }
             else
@@ -133,6 +135,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 {
                     dev.SetParent(selectedArea);
                     selectedArea.DeviceItems.Add(dev);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
             }
             else
@@ -153,6 +156,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 {
                     op.SetParent(selectedDevice);
                     selectedDevice.OperationItems.Add(op);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
             }
             else
@@ -166,6 +170,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 dev.SetParent(selectedArea);
                 selectedArea.DeviceItems.Add(dev);
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
             else
                 System.Windows.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
@@ -176,27 +181,26 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             switch (selectedItemType)
             {
                 case SelectedItemType.AREA:
-                    if (System.Windows.MessageBox.Show("您确定删除" + selectedArea.Name + "展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                    if (System.Windows.MessageBox.Show("您确定删除" + selectedArea.Name + "展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
                         SelectedExhibition.AreaItems.Remove(selectedArea);
+                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+                    }
                     break;
                 case SelectedItemType.DEVICE:
-                    if (System.Windows.MessageBox.Show("您确定删除" + selectedDevice.Name + "设备吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                    if (System.Windows.MessageBox.Show("您确定删除" + selectedDevice.Name + "设备吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
                         selectedArea.DeviceItems.Remove(selectedDevice);
+                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+                    }
                     break;
                 case SelectedItemType.OPERATION:
                     if (System.Windows.MessageBox.Show("您确定删除" + selectedOperation.Name + "操作吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                    {
                         selectedDevice.OperationItems.Remove(selectedOperation);
+                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+                    }
                     break;
             }
 
-        }
-
-        public void OnSyncExhibition()
-        {
-            IoC.Get<IEventAggregator>().Publish(new ContentChangedMessage()
-            {
-                Content = SelectedExhibition
-            });
         }
 
         public void OnExhibitionClick(object sender, EventArgs e)
@@ -303,10 +307,12 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     tp = new TimePoint(selectedTick);
                     tp.CommandItems.Add(cmd);
                     tl.TimePointItems.Add(tp);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
                 else
                 {
                     tp.CommandItems.Add(cmd);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
                 // 绘制时间点图形
                 Ellipse tpg = DrawCommandGraph(view.timelineControl, selectedVerticalPosition);
@@ -334,6 +340,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     tp.CommandItems.Remove(selectedCommand);
                     if (tp.CommandItems.Count == 0)
                         tl.TimePointItems.Remove(tp);
+                    IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
             }
         }
@@ -390,11 +397,18 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 tm.Max = (int)sl.Value / 10;
                 tm.TimelineTarget = selectedArea.Timeline;
                 IoC.Get<IEventAggregator>().Publish(tm);
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
         }
 
         #endregion
 
-
+        public void Handle(ShowDefinationChangedMessage message)
+        {
+            IoC.Get<IEventAggregator>().Publish(new ContentChangedMessage()
+            {
+                Content = SelectedExhibition
+            });
+        }
     }
 }

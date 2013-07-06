@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -19,7 +20,10 @@ namespace ShowMaker.Desktop.Domain
         public string Description
         {
             get { return descriptionField; }
-            set { descriptionField = value; }
+            set { 
+                descriptionField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<Property> propertyItemsField;
 
@@ -30,7 +34,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Property> PropertyItems
         {
             get { return propertyItemsField; }
-            set { propertyItemsField = value; }
+            set { 
+                propertyItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<Area> areaItemsField = new ObservableCollection<Area>();
 
@@ -41,7 +48,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Area> AreaItems
         {
             get { return areaItemsField; }
-            set { areaItemsField = value; }
+            set { 
+                areaItemsField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public Area GetItemByKey(string key)

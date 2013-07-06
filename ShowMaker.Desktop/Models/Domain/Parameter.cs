@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -18,7 +19,10 @@ namespace ShowMaker.Desktop.Domain
         public ParameterType Type
         {
             get { return typeField; }
-            set { typeField = value; }
+            set { 
+                typeField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());                
+            }
         }
 
         private string nameField;
@@ -30,7 +34,10 @@ namespace ShowMaker.Desktop.Domain
         public string Name
         {
             get { return nameField; }
-            set { nameField = value; }
+            set { 
+                nameField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());            
+            }
         }
         private string minValueField;
 
@@ -41,7 +48,10 @@ namespace ShowMaker.Desktop.Domain
         public string MinValue
         {
             get { return minValueField; }
-            set { minValueField = value; }
+            set { 
+                minValueField = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage()); 
+            }
         }
 
         private string maxValueField;
@@ -53,13 +63,17 @@ namespace ShowMaker.Desktop.Domain
         public string MaxValue
         {
             get { return maxValueField; }
-            set { maxValueField = value; }
+            set { 
+                maxValueField = value; 
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public Parameter(string name, ParameterType type)
         {
             this.nameField = name;
             this.typeField = type;
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
         }
 
         public Parameter(string name, ParameterType type, string minValue, string maxValue)
@@ -68,9 +82,12 @@ namespace ShowMaker.Desktop.Domain
             this.typeField = type;
             this.minValueField = minValue;
             this.maxValueField = maxValue;
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
         }
 
-        public Parameter() { }
+        public Parameter() {
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+        }
 
     }
 }

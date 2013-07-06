@@ -37,8 +37,6 @@
 
             <!-- 删除 -->
             <Button x:Name="OnDeleteItem" Content="删除" HorizontalAlignment="Left" ToolTip="删除"/>
-            <!-- 同步 -->
-            <Button x:Name="OnSyncExhibition" Content="同步" HorizontalAlignment="Left" ToolTip="同步"/>
         </ToolBar>
         <!-- 展区、设备、操作树 -->
         <TreeView x:Name="ShowAreaTree" Margin="0,0,0.2,0" AllowDrop="True" Grid.Row="1">

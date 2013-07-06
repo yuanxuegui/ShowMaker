@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
@@ -18,7 +19,10 @@ namespace ShowMaker.Desktop.Domain
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set { 
+                name = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private string value;
 
@@ -29,15 +33,21 @@ namespace ShowMaker.Desktop.Domain
         public string Value
         {
             get { return this.value; }
-            set { this.value = value; }
+            set { 
+                this.value = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
-        public Property() { }
+        public Property() {
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+        }
 
         public Property(string name, string value)
         {
             this.name = name;
             this.value = value;
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
         }
 
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ShowMaker.Desktop.Domain;
 
-namespace ShowMaker.Desktop.Models.Domain
+namespace ShowMaker.Desktop.Domain
 {
     public class TimelineMaxChangedMessage
     {

@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using ShowMaker.Desktop.Util;
+using Caliburn.Micro;
+using ShowMaker.Desktop.Models.Domain;
 
 namespace ShowMaker.Desktop.Domain
 {
-    public class Area : IItemFinder<Device, string>
+    public class Area : IItemFinder<Device, string> 
     {
         private string name;
 
@@ -20,7 +22,10 @@ namespace ShowMaker.Desktop.Domain
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set { 
+                name = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private ObservableCollection<Device> deviceItems = new ObservableCollection<Device>();
 
@@ -31,7 +36,10 @@ namespace ShowMaker.Desktop.Domain
         public ObservableCollection<Device> DeviceItems
         {
             get { return deviceItems; }
-            set { deviceItems = value; }
+            set { 
+                deviceItems = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
         private Timeline timeline = new Timeline();
 
@@ -42,12 +50,16 @@ namespace ShowMaker.Desktop.Domain
         public Timeline Timeline
         {
             get { return timeline; }
-            set { timeline = value; }
+            set { 
+                timeline = value;
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         public Area() {
             timeline.PropertyItem.Add(new Property(Constants.TIME_UNIT_KEY, Constants.TIME_UNIT_S));
             timeline.PropertyItem.Add(new Property(Constants.TIME_MAX_KEY, "10"));
+            IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
         }
 
         public Area(string name) : this()
