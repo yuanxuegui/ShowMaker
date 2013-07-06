@@ -40,32 +40,6 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
             {
                 DeviceCollection dc = (DeviceCollection)XmlSerializerUtil.LoadXml(typeof(DeviceCollection), devicesXml);
                 DeviceItems = dc.DeviceItems;
-                connectOperationParent(DeviceItems);
-            }
-            else
-            {
-                Device curtainDev = new Device();
-                curtainDev.Type = DeviceType.CURTAIN;
-                Operation op1 = new Operation();
-                op1.Name = "开关";
-                op1.SetParent(curtainDev);
-                curtainDev.OperationItems.Add(op1);
-                DeviceItems.Add(curtainDev);
-
-                Device fogDev = new Device();
-                fogDev.Type = DeviceType.FOG;
-                DeviceItems.Add(fogDev);
-            }
-        }
-
-        private void connectOperationParent(ObservableCollection<Device> devices)
-        {
-            foreach (Device dev in devices)
-            {
-                foreach (Operation op in dev.OperationItems)
-                {
-                    op.SetParent(dev);
-                }
             }
         }
 
@@ -84,18 +58,44 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
         #endregion
 
         #region Interaction
-		
+
         public void OnDeviceItemMouseMove(object sender, MouseEventArgs e, object selectedDevice)
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
                 if (sender != null)
                 {
-					DragDrop.DoDragDrop(sender as StackPanel, new DataObject(selectedDevice), DragDropEffects.Copy);
+                    Device dev = selectedDevice as Device;
+                    if (dev != null)
+                    {
+                        Device devCopy = new Device();
+                        devCopy.Id = dev.Id;
+                        devCopy.Name = dev.Name;
+                        dev.Type = dev.Type;
+                        foreach(Operation op in dev.OperationItems)
+                        {
+                            Operation opCopy = new Operation();
+                            opCopy.Name = op.Name;
+                            opCopy.Command = op.Command;
+                            foreach(ShowMaker.Desktop.Domain.Parameter param in op.ParameterItems)
+                            {
+                                ShowMaker.Desktop.Domain.Parameter paramCopy = new ShowMaker.Desktop.Domain.Parameter();
+                                paramCopy.Name = param.Name;
+                                paramCopy.Type = param.Type;
+                                paramCopy.MinValue = param.MinValue;
+                                paramCopy.MaxValue = param.MaxValue;
+                                opCopy.ParameterItems.Add(paramCopy);
+                            }
+                            opCopy.SetParent(devCopy);
+                            devCopy.OperationItems.Add(opCopy);
+                        }
+                        DragDrop.DoDragDrop(sender as StackPanel, new DataObject(devCopy), DragDropEffects.Copy);
+                    }
+                    
                 }
             }
         }
-		
+
         #endregion
     }
 }
