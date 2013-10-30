@@ -26,6 +26,9 @@ namespace OpenRcp
 
         protected override void PreInit()
         {
+            var propertyTool = IoC.Get<IPropertyGrid>();
+            Shell.ShowTool(propertyTool);
+            
             IoC.Get<IEventAggregator>().Publish(new ModuleInitMessage
             {
                 Content = "Loading Property Module"
@@ -35,7 +38,7 @@ namespace OpenRcp
         protected override void RegisterMenus()
         {
             MainMenu[ShellModule.MENU_VIEW]
-                            .Add(new MenuItem(MENU_VIEW_PROP, OpenProperties).WithIcon(@"Modules\PropertyGrid\Resources\Icons\Properties.png"));
+                            .Add(new MenuItem(MENU_VIEW_PROP, OpenPropertiesTool).WithIcon(@"Modules\PropertyGrid\Resources\Icons\properties.png"));
         }
 
         protected override ModuleInfoItem GetModuleInfo()
@@ -56,7 +59,7 @@ namespace OpenRcp
 
         #endregion
 
-        private static IEnumerable<IResult> OpenProperties()
+        private static IEnumerable<IResult> OpenPropertiesTool()
         {
             yield return ResultsHelper.ShowTool<IPropertyGrid>();
         }

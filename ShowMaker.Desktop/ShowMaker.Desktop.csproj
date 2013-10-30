@@ -135,7 +135,6 @@
     <Compile Include="Models\Domain\Command.cs" />
     <Compile Include="Models\Domain\CommandContext.cs" />
     <Compile Include="Models\Domain\Device.cs" />
-    <Compile Include="Models\Domain\DeviceType.cs" />
     <Compile Include="Models\Domain\Exhibition.cs" />
     <Compile Include="Models\Domain\ICommandContext.cs" />
     <Compile Include="Models\Domain\IExecutable.cs" />
@@ -177,6 +176,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Icon.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -196,6 +196,13 @@
     <AppDesigner Include="Properties\" />
     <Resource Include="Modules\ExhibitionDocument\Resources\Icons\Redo.png" />
     <Resource Include="Modules\ExhibitionDocument\Resources\Icons\Undo.png" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\add.png" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\delete.gif" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\storyboard.png" />
+    <Resource Include="Modules\DevicesToolBox\Resources\Icons\devicesToolBox.png" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\addDev.png" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\addArea.gif" />
+    <Resource Include="Modules\Storyboard\Resources\Icons\addOpr.png" />
     <Content Include="Resources\devices.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -243,9 +250,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

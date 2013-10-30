@@ -29,28 +29,6 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             }
         }
 
-        public Array DeviceTypes 
-        {
-            get
-            {
-                return Enum.GetValues(typeof(DeviceType));
-            }
-        }
-
-        private DeviceType selectedDeviceType;
-        public DeviceType SelectedDeviceType
-        {
-            get
-            {
-                return selectedDeviceType;
-            }
-            set
-            {
-                selectedDeviceType = value;
-                NotifyOfPropertyChange(() => SelectedDeviceType);
-            }
-        }
-
         public Device NewDevice { get; set; }
 
         #endregion
@@ -79,8 +57,6 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         {
             NewDevice = new Device();
             NewDevice.Name = deviceName;
-            NewDevice.Type = selectedDeviceType;
-
             TryClose();
         }
 

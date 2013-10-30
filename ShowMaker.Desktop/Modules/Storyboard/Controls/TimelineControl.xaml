@@ -281,9 +281,9 @@
                              Height="6"
                              Margin="0,5,0,0"
                              Visibility="Collapsed" />
-                    <Canvas Background="Blue"
+                    <Canvas Background="#FFF0F0F0"
                             Grid.Row="3"
-                            x:Name="DrawPanel">
+                            x:Name="DrawPanel" MinWidth="100" MinHeight="100">
                     </Canvas>
                 </Grid>
                 <Track Name="PART_Track"

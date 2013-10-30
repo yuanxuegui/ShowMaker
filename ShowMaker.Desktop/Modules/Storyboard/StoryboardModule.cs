@@ -22,23 +22,27 @@ namespace ShowMaker.Desktop.Modules.Storyboard
 
         #region Override ModuleBase Methods
 
+        protected override void PreInit()
+        {
+            var storyboradTool = IoC.Get<StoryboardViewModel>();
+            Shell.ShowTool(storyboradTool);
+
+            PublishMessage(new ModuleInitMessage
+            {
+                Content = "Loading Storyboard Module"
+            });
+        }
+
         protected override void RegisterMenus()
         {
-            MainMenu[ShellModule.MENU_VIEW].Add(new CheckableMenuItem(MENU_VIEW_STORYBOARD, openDevicesToolBox));
+            MainMenu[ShellModule.MENU_VIEW].Add(new MenuItem(MENU_VIEW_STORYBOARD, openStoryboardToolBox).WithIcon(@"Modules\Storyboard\Resources\Icons\storyboard.png"));
         }
 
         #endregion
 
-        private IEnumerable<IResult> openDevicesToolBox(bool isChecked)
+        private IEnumerable<IResult> openStoryboardToolBox()
         {
-            if (isChecked)
-            {
-                yield return ResultsHelper.ShowTool<StoryboardViewModel>();
-            }
-            else
-            {
-                yield return ResultsHelper.HideTool<StoryboardViewModel>();
-            }
+            yield return ResultsHelper.ShowTool<StoryboardViewModel>();
         }
     }
 }

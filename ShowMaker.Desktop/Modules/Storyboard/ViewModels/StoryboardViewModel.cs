@@ -14,6 +14,9 @@ using ShowMaker.Desktop.Modules.Storyboard.Views;
 using ShowMaker.Desktop.Parser;
 using ShowMaker.Desktop.Modules.Storyboard.Controls;
 using ShowMaker.Desktop.Models.Domain;
+using ShowMaker.Desktop.Util;
+using System.Windows.Data;
+using System.Windows;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -39,11 +42,22 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         private Area selectedArea;
         private Device selectedDevice;
 
+        public Device SelectedDevice
+        {
+            get { return selectedDevice; }
+            set
+            {
+                selectedDevice = value;
+                NotifyOfPropertyChange(() => SelectedDevice);
+            }
+        }
+
+
         private Operation selectedOperation;
         private int selectedTick;
         private double selectedVerticalPosition;
         private SelectedItemType selectedItemType;
-        private Ellipse selectedTimePointGraphic;
+        private Shape selectedTimePointGraphic;
         private Command selectedCommand;
 
         private int timelineMaximum;
@@ -73,6 +87,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         }
 
         #endregion
+
+        private int deviceCtrHeight = 50;
 
         public StoryboardViewModel()
         {
@@ -163,13 +179,63 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 System.Windows.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);
         }
 
+        private void addDeviceToAreaListPanel(StackPanel panel, Device dev)
+        {
+            Button deviceCtr = new Button();
+            deviceCtr.Height = deviceCtrHeight;
+            deviceCtr.FontSize = 15;
+            deviceCtr.HorizontalAlignment = HorizontalAlignment.Stretch;
+            Binding binding = new Binding("Name");
+            binding.Source = dev;
+            deviceCtr.SetBinding(Button.ContentProperty, binding);
+            deviceCtr.DataContext = dev;
+            deviceCtr.Click += (s, evt) =>
+            {
+                Button b = s as Button;
+                SelectedDevice = b.DataContext as Device;
+                selectedItemType = SelectedItemType.DEVICE;
+                IoC.Get<IPropertyGrid>().SelectedObject = SelectedDevice;
+                int deep = -1;
+                for (int i = 0; i < selectedArea.DeviceItems.Count; i++)
+                {
+                    Device d = selectedArea.DeviceItems[i];
+                    deep++;
+                    if (d == SelectedDevice)
+                        break;
+                }
+                selectedVerticalPosition = deep * b.Height;
+            };
+            panel.Children.Add(deviceCtr);
+        }
+
         public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
             if (selectedArea != null)
             {
+                StoryboardView view = GetView() as StoryboardView;
                 dev.SetParent(selectedArea);
                 selectedArea.DeviceItems.Add(dev);
+                StackPanel sp = sender as StackPanel;
+                addDeviceToAreaListPanel(sp, dev);
+
+                // TODO.画线条
+                TimelineControl tlc = view.timelineControl;
+                Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
+                drawPanel.Height = selectedArea.DeviceItems.Count * this.deviceCtrHeight;
+                /*
+                Rectangle devTimelineArea = new Rectangle();
+                devTimelineArea.Fill = System.Windows.Media.Brushes.AntiqueWhite;
+                devTimelineArea.Stroke = System.Windows.Media.Brushes.Blue;
+                devTimelineArea.StrokeThickness = 10;
+
+                devTimelineArea.Width = tlc.Width;
+                devTimelineArea.Height = tb.Height;
+                Canvas.SetLeft(devTimelineArea, 0);
+                Canvas.SetTop(devTimelineArea, (selectedArea.DeviceItems.Count - 1) * tb.Height);
+                drawPanel.Children.Add(devTimelineArea);
+                */
+
                 IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
             else
@@ -212,14 +278,50 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             selectedItemType = SelectedItemType.EXHIBITION;
         }
 
-        public void OnAreaItemClick(object sender, EventArgs e, Area area, StoryboardView view)
+        private void selectedCommandShapeHandle(object source, MouseButtonEventArgs evt)
         {
+            Shape tpg = source as Shape;
+            Command cmd = tpg.DataContext as Command;
+            IoC.Get<IPropertyGrid>().SelectedObject = cmd;
+            focusSelectedCommandShape(tpg);
+            selectedCommand = cmd;
+        }
+
+        private void focusSelectedCommandShape(Shape selectedCmdShape)
+        {
+            if (this.selectedTimePointGraphic != null)
+            {
+                selectedTimePointGraphic.Fill = System.Windows.Media.Brushes.AntiqueWhite;
+                selectedTimePointGraphic.Stroke = System.Windows.Media.Brushes.Blue;
+                selectedTimePointGraphic.StrokeThickness = 10;
+            }
+            selectedTimePointGraphic = selectedCmdShape;
+            selectedCmdShape.Fill = System.Windows.Media.Brushes.AntiqueWhite;
+            selectedCmdShape.Stroke = System.Windows.Media.Brushes.Green;
+            selectedCmdShape.StrokeThickness = 10;
+        }
+
+        public void OnAreaItemSelected(object sender, EventArgs e, Area area)
+        {
+            if (area == null) return;
             selectedArea = area;
             selectedItemType = SelectedItemType.AREA;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
-            // TODO. 加载时间线
+            this.TimelineWidth = int.Parse(area.Timeline.GetPropertyValue(Constants.TIME_MAX_KEY)) * 10;
+
+            StoryboardView view = GetView() as StoryboardView;
+            // 加载设备列表
+            StackPanel sp = view.FindName("ShowAreaDevicesPanel") as StackPanel;
+            sp.Children.Clear();
+            foreach (Device dev in selectedArea.DeviceItems)
+            {
+                addDeviceToAreaListPanel(sp, dev);
+            }
+
+            // 加载时间线
             TimelineControl tlc = view.timelineControl;
             Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
+            drawPanel.Height = selectedArea.DeviceItems.Count * this.deviceCtrHeight;
             drawPanel.Children.Clear();
             foreach (TimePoint tp in area.Timeline.TimePointItems)
             {
@@ -227,34 +329,31 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 {
                     Device dev = area.GetItemByKey(cmd.DeviceId);
                     Operation op = dev.GetItemByKey(cmd.OperationName);
+                    if(op == null)
+                    {
+                        
+                        String msg = String.Format("查找设备{0}[{1}]的操作[{2}]失败",dev.Name, dev.Id,cmd.OperationName);
+                        System.Windows.MessageBox.Show(msg, "错误");
+                        break;
+                    }
                     double verticalPosition = calculateVerticalPosition(op);
                     // 绘制时间点图形
-                    Ellipse tpg = DrawCommandGraph(tlc, tp.Tick, verticalPosition);
+                    Shape tpg = DrawCommandGraph(tlc, tp.Tick, verticalPosition);
+                    tpg.DataContext = cmd;
                     // 时间点图形添加点击事件
-                    tpg.MouseRightButtonDown += (s, evt) =>
-                    {
-                        IoC.Get<IPropertyGrid>().SelectedObject = cmd;
-                        selectedTimePointGraphic = tpg;
-                        selectedCommand = cmd;
-                    };
+                    tpg.MouseRightButtonDown += selectedCommandShapeHandle;
                 }
             }
         }
 
         private double calculateVerticalPosition(Operation op)
         {
+            if (op == null) return 0;
             Device dev = op.GetParent();
             Area area = dev.GetParent();
             Exhibition ex = area.GetParent();
-            int deep = 0;
+            int deep = -1;
             int i = 0;
-            for(i=0; i<ex.AreaItems.Count; i++)
-            {
-                Area a = ex.AreaItems[i];
-                deep++;
-                if (a == area)
-                    break;  
-            }
             for(i=0; i< area.DeviceItems.Count; i++)
             {
                 Device d = area.DeviceItems[i];
@@ -262,14 +361,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 if (d == dev)
                     break;
             }
-            for(i=0; i<dev.OperationItems.Count; i++)
-            {
-                Operation o = dev.OperationItems[i];
-                deep++;
-                if (o == op)
-                    break;
-            }
-            return (deep-1) * 22;
+            return deep * this.deviceCtrHeight;
         }
 
         public void OnDeviceItemClick(object sender, EventArgs e, Device device)
@@ -280,10 +372,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             IoC.Get<IPropertyGrid>().SelectedObject = device;
         }
 
-        public void OnOperationItemClick(object sender, EventArgs e, Operation operation, StoryboardView view)
+        public void OnOperationItemSelected(object sender, EventArgs e, Operation operation)
         {
-            MouseButtonEventArgs me = e as MouseButtonEventArgs;
-            selectedVerticalPosition = me.GetPosition(view.timelineControl).Y - 26;
+            if (operation == null) return;
+            StoryboardView view = GetView() as StoryboardView;
             selectedOperation = operation;
             selectedItemType = SelectedItemType.OPERATION;
             selectedDevice = operation.GetParent();
@@ -319,14 +411,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                     IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
                 // 绘制时间点图形
-                Ellipse tpg = DrawCommandGraph(view.timelineControl, selectedVerticalPosition);
+                Shape tpg = DrawCommandGraph(view.timelineControl, selectedVerticalPosition);
+                tpg.DataContext = cmd;
                 // 时间点图形添加点击事件
-                tpg.MouseRightButtonDown += (s, evt) =>
-                {
-                    IoC.Get<IPropertyGrid>().SelectedObject = cmd;
-                    selectedTimePointGraphic = tpg;
-                    selectedCommand = cmd;
-                };
+                tpg.MouseRightButtonDown += selectedCommandShapeHandle;
             }
         }
 
@@ -355,14 +443,17 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <param name="canvas"></param>
         /// <param name="tick"></param>
         /// <param name="position"></param>
-        public Ellipse DrawCommandGraph(TimelineControl timelineControl, int tick, double verticalPosition)
+        public Shape DrawCommandGraph(TimelineControl timelineControl, int tick, double verticalPosition)
         {
-            Ellipse tpg = new Ellipse();
-            tpg.Fill = System.Windows.Media.Brushes.DimGray;
-            tpg.Width = 30;
-            tpg.Height = 20;
+            Rectangle tpg = new Rectangle();
+            tpg.Fill = System.Windows.Media.Brushes.AntiqueWhite;
+            tpg.Stroke = System.Windows.Media.Brushes.Blue;
+            tpg.StrokeThickness = 10;
 
-            Canvas.SetLeft(tpg, tick * 10 - tpg.Width / 2);
+            tpg.Width = 10;
+            tpg.Height = this.deviceCtrHeight;
+
+            Canvas.SetLeft(tpg, tick * 10);
             Canvas.SetTop(tpg, verticalPosition); // 根据选择操作的位置计算
             Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
             if (drawPanel != null)
@@ -377,13 +468,17 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <param name="canvas"></param>
         /// <param name="tick"></param>
         /// <param name="position"></param>
-        public Ellipse DrawCommandGraph(TimelineControl timelineControl, double verticalPosition)
+        public Shape DrawCommandGraph(TimelineControl timelineControl, double verticalPosition)
         {
-            Ellipse tpg = new Ellipse();
-            tpg.Fill = System.Windows.Media.Brushes.DimGray;
-            tpg.Width = 30;
-            tpg.Height = 20;
-            Canvas.SetLeft(tpg, timelineControl.Slider.Value * 10 - tpg.Width / 2);
+            Rectangle tpg = new Rectangle();
+            tpg.Fill = System.Windows.Media.Brushes.AntiqueWhite;
+            tpg.Stroke = System.Windows.Media.Brushes.Blue;
+            tpg.StrokeThickness = 10;
+
+            tpg.Width = 10;
+            tpg.Height = this.deviceCtrHeight;
+
+            Canvas.SetLeft(tpg, timelineControl.Slider.Value * 10);
             Canvas.SetTop(tpg, verticalPosition); // 根据选择操作的位置计算
             Canvas drawPanel = timelineControl.Slider.Template.FindName("DrawPanel", timelineControl.Slider) as Canvas;
             if (drawPanel != null)

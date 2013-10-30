@@ -12,7 +12,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" Width="100" Height="30" FontSize="15" />
+                        <TextBlock Text="{Binding Name}" Height="30" FontSize="15" />
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseMove">
                                 <cal:ActionMessage MethodName="OnDeviceItemMouseMove">

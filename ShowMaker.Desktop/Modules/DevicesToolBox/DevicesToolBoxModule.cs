@@ -16,22 +16,26 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox
     public class DevicesToolBoxModule : ModuleBase
     {
         public const string MENU_VIEW_DEVTOOLBOX = "MENU_VIEW_DEVTOOLBOX";
+
+        protected override void PreInit()
+        {
+            var devicesToolBoxTool = IoC.Get<DevicesToolBoxViewModel>();
+            Shell.ShowTool(devicesToolBoxTool);
+
+            PublishMessage(new ModuleInitMessage
+            {
+                Content = "Loading Storyboard Module"
+            });
+        }
         
         protected override void RegisterMenus()
         {
-            MainMenu[ShellModule.MENU_VIEW].Add(new CheckableMenuItem(MENU_VIEW_DEVTOOLBOX, openDevicesToolBox));
+            MainMenu[ShellModule.MENU_VIEW].Add(new MenuItem(MENU_VIEW_DEVTOOLBOX, openDevicesToolBox).WithIcon(@"Modules\DevicesToolBox\Resources\Icons\devicesToolBox.png"));
         }
         
-        private IEnumerable<IResult> openDevicesToolBox(bool isChecked)
+        private IEnumerable<IResult> openDevicesToolBox()
         {
-            if (isChecked)
-            {
-                yield return ResultsHelper.ShowTool<DevicesToolBoxViewModel>();
-            }
-            else
-            {
-                yield return ResultsHelper.HideTool<DevicesToolBoxViewModel>();
-            }
+            yield return ResultsHelper.ShowTool<DevicesToolBoxViewModel>();
         }
     }
 }

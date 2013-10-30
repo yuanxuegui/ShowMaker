@@ -26,9 +26,6 @@ namespace OpenRcp
 
         protected override void PreInit()
         {
-            var outputTool = IoC.Get<IOutput>();
-            Shell.ShowTool(outputTool);
-
             SubcribeMessage(this);
             PublishMessage(new ModuleInitMessage
             {
@@ -38,7 +35,7 @@ namespace OpenRcp
 
         protected override void RegisterMenus()
         {
-            MainMenu[ShellModule.MENU_VIEW].Add(new CheckableMenuItem(OutputModule.MENU_VIEW_OUTPUT, OpenOutput).Checked());
+            MainMenu[ShellModule.MENU_VIEW].Add(new MenuItem(MENU_VIEW_OUTPUT, OpenOutputTool).WithIcon(@"Modules\Output\Resources\Icons\output.png"));
         }
 
         protected override ModuleInfoItem GetModuleInfo()
@@ -59,12 +56,9 @@ namespace OpenRcp
 
         #endregion
 
-        private IEnumerable<IResult> OpenOutput(bool isChecked)
+        private IEnumerable<IResult> OpenOutputTool()
         {
-            if (isChecked)
-                yield return ResultsHelper.ShowTool<IOutput>();
-            else
-                yield return ResultsHelper.HideTool<IOutput>();
+             yield return ResultsHelper.ShowTool<IOutput>();
         }
 
         public void Handle(IMessage message)

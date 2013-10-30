@@ -28,6 +28,10 @@ namespace OpenRcp
 
         protected override void PreInit()
         {
+            IThemeManager themeMan = IoC.Get<IThemeManager>();
+            if (themeMan != null)
+                themeMan.SetCurrent("Default");
+            MahApps.Metro.ThemeManager.ChangeTheme(Application.Current.MainWindow, MahApps.Metro.ThemeManager.DefaultAccents.First(a => a.Name == "Blue"), MahApps.Metro.Theme.Light);
             PublishMessage(new ModuleInitMessage
             {
                 Content = "Loading Theme Module"
@@ -37,13 +41,11 @@ namespace OpenRcp
         protected override void RegisterMenus()
         {
             IList<RadioMenuItem> themeGroup = new List<RadioMenuItem>();
-            RadioMenuItem vs2010 = new RadioMenuItem("VS2010", themeGroup, changeThemeToVS2010);
-            vs2010.IsChecked = true;
             MainMenu[ShellModule.MENU_TOOL].Add(new MenuItem(MENU_TOOL_THEME){
                 new RadioMenuItem("Dark", themeGroup, changeThemeToDark),
-                new RadioMenuItem("Light", themeGroup, changeThemeToLight),
-                vs2010
-            });
+                new RadioMenuItem("Light", themeGroup, changeThemeToLight).Checked(),
+                new RadioMenuItem("VS2010", themeGroup, changeThemeToVS2010)
+            }.WithIcon(@"Modules\Theme\Resources\Icons\theme.png"));
         }
 
         protected override ModuleInfoItem GetModuleInfo()

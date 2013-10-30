@@ -40,12 +40,13 @@
     -->
     <metro:MetroContentControl>
         <DockPanel>
-            <!--Menu-->
-            <rcpCtl:Menu ItemsSource="{Binding MainMenu}"
-			  ItemTemplate="{StaticResource MenuTemplate}" 
-              DockPanel.Dock="Top" />
-            <!--Toolbar-->
-            <ToolBarTray DockPanel.Dock="Top" />
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                <!--Menu-->
+                <rcpCtl:Menu ItemsSource="{Binding MainMenu}" ItemTemplate="{StaticResource MenuTemplate}" DockPanel.Dock="Top" />
+                <!--Toolbar-->
+                <ToolBarTray DockPanel.Dock="Top" />
+            </StackPanel>
+            
             <!--Status bar-->
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBar.ItemsPanel>

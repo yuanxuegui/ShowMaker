@@ -266,7 +266,7 @@
     <Resource Include="Modules\Shell\Resources\Icons\Open.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Modules\PropertyGrid\Resources\Icons\Properties.png" />
+    <Resource Include="Modules\PropertyGrid\Resources\Icons\properties.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Modules\Shell\Resources\Entypo-license.txt" />
@@ -275,6 +275,12 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Localization\" />
     <Folder Include="Threading\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Output\Resources\Icons\output.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Modules\Theme\Resources\Icons\theme.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

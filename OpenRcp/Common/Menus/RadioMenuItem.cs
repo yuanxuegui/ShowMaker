@@ -47,6 +47,18 @@ namespace OpenRcp
 
 		#endregion
 
+        public RadioMenuItem Checked()
+        {
+            this.IsChecked = true;
+            return this;
+        }
+
+        public RadioMenuItem UnChecked()
+        {
+            this.IsChecked = false;
+            return this;
+        }
+
 		public IEnumerable<IResult> Execute()
 		{
             if (IsChecked)

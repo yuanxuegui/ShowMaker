@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exhibition xmlns="http://www.sec.ac.cn/exhibition-1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sec.ac.cn/exhibition-1.2 exhibition-1.2.xsd ">
+	<description>某展示会</description>
+	<!-- 主控器ID -->
+	<property name="server.id" value="1" />
+
+	<!-- 主控器服务地址 -->
+	<property name="server.ip" value="192.168.1.2" />
+	<property name="server.port" value="9090" />
+
+	<!-- 系统时间设置 -->
+	<property name="cmd.send.settime" value="s{server.id}A12{yymmddhhMMss}\n" />
+	<!-- 心跳包请求 -->
+	<property name="cmd.send.tick" value="s{server.id}0\n" />
+	<!-- 一键开启所有设备 -->
+	<property name="cmd.send.openall" value="s{server.id}B11\n" />
+	<!-- 一键关闭所有设备 -->
+	<property name="cmd.send.closeall" value="s{server.id}B10\n" />
+	<!-- 单一设备开启关闭查询 -->
+	<property name="cmd.send.closeall" value="s{server.id}K{length}{deviceId}0\n" />
+	<!-- 所有设备开启关闭查询 -->
+	<property name="cmd.send.statusall" value="s{server.id}L{length}{deviceId}0\n" />
+	<!-- 系统时间设置反馈 -->
+	<property name="cmd.return.settime" value="r{server.id}A12{yymmddhhMMss}\n" />
+	<!-- 心跳包请求反馈 -->
+	<property name="cmd.return.tick" value="r{server.id}0\n" />
+	<!-- 所有设备开启关闭反馈值 -->
+	<property name="cmd.return.ocall"
+		value="r{server.id}X{length}{tenDeviceIds}{tenValues}0\n" />
+	<!-- 接收质量反馈值 -->
+	<property name="cmd.return.result" value="r{server.id}Z{length}{deviceId}{value}0\n" />
+	<!-- 单一设备开启关闭反馈值 -->
+	<property name="cmd.return.ocone" value="r{server.id}Y{length}{deviceId}{value}0\n" />
+</exhibition>

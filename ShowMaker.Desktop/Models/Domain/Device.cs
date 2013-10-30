@@ -41,13 +41,13 @@ namespace ShowMaker.Desktop.Domain
             }
         }
 
-        private DeviceType typeField;
+        private string typeField;
 
         [XmlAttribute("type")]
         [Category("信息")]
         [DisplayName("类型")]
         [Description("设备的类型")]
-        public DeviceType Type
+        public string Type
         {
             get { return typeField; }
             set { 
