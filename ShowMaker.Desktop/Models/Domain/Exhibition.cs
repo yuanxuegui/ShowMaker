@@ -9,6 +9,7 @@ using Caliburn.Micro;
 namespace ShowMaker.Desktop.Domain
 {
     [XmlRoot(ElementName = "exhibition", Namespace = "http://www.sec.ac.cn/exhibition-1.2", IsNullable = false)]
+    [DisplayName("展会")]
     public class Exhibition : IItemFinder<Area, string>, IPropertyFinder
     {
         private string descriptionField;

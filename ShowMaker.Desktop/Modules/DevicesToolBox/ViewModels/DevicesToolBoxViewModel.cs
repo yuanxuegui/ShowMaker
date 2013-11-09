@@ -71,7 +71,7 @@ namespace ShowMaker.Desktop.Modules.DevicesToolBox.ViewModels
                         Device devCopy = new Device();
                         devCopy.Id = dev.Id;
                         devCopy.Name = dev.Name;
-                        dev.Type = dev.Type;
+                        devCopy.Type = dev.Type;
                         foreach(Operation op in dev.OperationItems)
                         {
                             Operation opCopy = new Operation();

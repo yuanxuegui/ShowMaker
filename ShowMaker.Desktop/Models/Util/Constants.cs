@@ -23,6 +23,8 @@ namespace ShowMaker.Desktop.Util
         public const string CMD_LENGTH = "length";
         public const string CMD_DEVICE_ID = "deviceId";
         public const string DEVICES_FILE = @".\Resources\devices.xml";
+        public const string DEVICES_TYPE_IMAGE_PATH = @".\Resources\";
         public const string EXHIBITION_TEMPLATE_FILE = @".\Resources\exhibitionTemplate.xml";
+
     }
 }

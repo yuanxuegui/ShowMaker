@@ -8,6 +8,7 @@ using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("属性")]
     public class Property
     {
         private string name;

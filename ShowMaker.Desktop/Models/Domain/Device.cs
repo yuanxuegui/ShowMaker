@@ -6,17 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Caliburn.Micro;
+using System.Reflection;
+using ShowMaker.Desktop.Util;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("设备")]
     public class Device : IItemFinder<Operation, string>
     {
         private string idField;
 
         [XmlAttribute("id")]
         [Category("信息")]
-        [DisplayName("ID")]
-        [Description("设备的ID")]
+        [DisplayName("标识")]
+        [Description("设备的标识")]
         public string Id
         {
             get { return idField; }
@@ -54,6 +57,13 @@ namespace ShowMaker.Desktop.Domain
                 typeField = value;
                 IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
+        }
+
+        [DisplayName("类型图片路径")]
+        [Description("设备类型图片路径")]
+        public string TypeImagePath
+        {
+            get { return Assembly.GetExecutingAssembly().Location + @"\..\" + Constants.DEVICES_TYPE_IMAGE_PATH + typeField + ".png"; }
         }
 
         private ObservableCollection<Operation> operationItemsField = new ObservableCollection<Operation>();

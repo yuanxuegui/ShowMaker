@@ -11,7 +11,7 @@
     </operation>
   </device>
   <!-- 投影机 -->
-  <device id="1-SHADOW-1" name="投影机" type="SHADOW">
+  <device id="1-SHADOW-1" name="投影机" type="PROJECTOR">
     <!-- 开启具有中控代码设备 -->
     <operation command="s{server.id}D{length}{deviceId}1\n"
         name="开启">
@@ -27,7 +27,7 @@
     </operation>
   </device>
   <!-- 多媒体计算机 -->
-  <device id="1-PC-1" name="计算机" type="PC">
+  <device id="1-PC-1" name="计算机" type="COMPUTER">
     <!-- 人机互动键值发送 -->
     <operation command="s{server.id}I{length}{deviceId}{key}\n"
         name="键值">

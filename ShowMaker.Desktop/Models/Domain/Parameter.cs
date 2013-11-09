@@ -8,6 +8,7 @@ using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("参数")]
     public class Parameter
     {
         private ParameterType typeField;

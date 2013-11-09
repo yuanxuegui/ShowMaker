@@ -47,7 +47,7 @@ namespace ShowMaker.Desktop.Modules
             IList<RadioMenuItem> langGroup = new List<RadioMenuItem>();
             MainMenu[ShellModule.MENU_TOOL].Add(new MenuItem(MENU_TOOL_LANGUAGE)
             {
-                new RadioMenuItem(MENU_TOOL_LANGUAGE_ZHCN, langGroup, changeLangToChinese),
+                new RadioMenuItem(MENU_TOOL_LANGUAGE_ZHCN, langGroup, changeLangToChinese).Checked(),
                 new RadioMenuItem(MENU_TOOL_LANGUAGE_EN, langGroup, changeLangToEnglish),
             });
             MainMenu[ShellModule.MENU_HELP].Add(new MenuItem(MENU_HELP_ABOUT));

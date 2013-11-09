@@ -11,6 +11,7 @@ using ShowMaker.Desktop.Models.Domain;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("展区")]
     public class Area : IItemFinder<Device, string> 
     {
         private string name;

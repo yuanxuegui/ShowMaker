@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:ShowMaker.Desktop.Modules.Storyboard.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
@@ -15,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid Height="{Binding}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="298*" />
@@ -46,14 +47,7 @@
                     <Image Source="/ShowMaker.Desktop;component/Modules/Storyboard/Resources/Icons/addOpr.png" Width="22" Height="22" />
                 </StackPanel>
             </Button>
-
-            <!-- 删除 -->
-            <Button x:Name="OnDeleteItem" HorizontalAlignment="Left" ToolTip="删除">
-                <StackPanel Height="22" Width="22">
-                    <Image Source="/ShowMaker.Desktop;component/Modules/Storyboard/Resources/Icons/delete.gif" Width="22" Height="22" />
-                    <TextBlock>Disconnect from Server</TextBlock>
-                </StackPanel>
-            </Button>
+            
             <ComboBox x:Name="OnSelectArea" SelectedIndex="-1" ItemsSource="{Binding SelectedExhibition.AreaItems}" DisplayMemberPath="Name" SelectedValuePath="." ToolTip="选择展区..." Width="Auto" MinWidth="50">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -65,98 +59,13 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-        </ToolBar>
-        <!-- 展区、设备、操作树 -->
-        <StackPanel x:Name="ShowAreaDevicesPanel" Margin="0,15,0,7" Grid.Row="1" Grid.Column="0" Background="#FFEBDCDC" AllowDrop="True">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Drop">
-                    <cal:ActionMessage MethodName="OnDeviceItemDrop">
-                        <cal:Parameter Value="$source"/>
-                        <cal:Parameter Value="$eventArgs"/>
-                    </cal:ActionMessage>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </StackPanel>
-        <!--
-        <TreeView x:Name="ShowAreaTree" Margin="0,0,0.2,0" AllowDrop="True" Grid.Row="1">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Drop">
-                    <cal:ActionMessage MethodName="OnDeviceItemDrop">
-                        <cal:Parameter Value="$source"/>
-                        <cal:Parameter Value="$eventArgs"/>
-                    </cal:ActionMessage>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <TreeViewItem ItemsSource="{Binding SelectedExhibition.AreaItems}">
-                <TreeViewItem.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="展示会" Height="20" FontSize="13">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <cal:ActionMessage MethodName="OnExhibitionClick">
-                                    <cal:Parameter Value="$source"/>
-                                    <cal:Parameter Value="$eventArgs"/>
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBlock>
-                    </DataTemplate>
-                </TreeViewItem.HeaderTemplate>
-                <TreeViewItem.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding DeviceItems}">
-                        <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <cal:ActionMessage MethodName="OnAreaItemSelected">
-                                        <cal:Parameter Value="$source"/>
-                                        <cal:Parameter Value="$eventArgs"/>
-                                        <cal:Parameter Value="{Binding Path=.}"/>
-                                        <cal:Parameter Value="$view"/>
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBlock>
-                        <HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding OperationItems}">
-                                <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                            <cal:ActionMessage MethodName="OnDeviceItemClick">
-                                                <cal:Parameter Value="$source"/>
-                                                <cal:Parameter Value="$eventArgs"/>
-                                                <cal:Parameter Value="{Binding Path=.}"/>
-                                            </cal:ActionMessage>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBlock>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Name}" Height="20" FontSize="13">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <cal:ActionMessage MethodName="OnOperationItemSelected">
-                                                        <cal:Parameter Value="$source"/>
-                                                        <cal:Parameter Value="$eventArgs"/>
-                                                        <cal:Parameter Value="{Binding Path=.}"/>
-                                                    </cal:ActionMessage>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>
-                    </HierarchicalDataTemplate>
-                </TreeViewItem.ItemTemplate>
-            </TreeViewItem>
-        </TreeView>
-        -->
-        <GridSplitter Grid.Column="1" Name="gridSplitter1" Grid.RowSpan="2" Width="3" Margin="0,0,-0.4,8" HorizontalAlignment="Center" />
-
-        <!-- 右侧 -->
-        <!-- 播放工具面板 -->
-        <ToolBar x:Name="PlayToolsPanel" Grid.Column="2" Width="Auto">
+            <!-- 删除展区 -->
+            <Button x:Name="OnDeleteArea" HorizontalAlignment="Left" ToolTip="删除展区">
+                <StackPanel Height="22" Width="22">
+                    <Image Source="/ShowMaker.Desktop;component/Modules/Storyboard/Resources/Icons/delete.gif" Width="22" Height="22" />
+                </StackPanel>
+            </Button>
+            <TextBlock Text="{Binding SelectedDevice.Name}" VerticalAlignment="Center" MinWidth="40" />
             <ComboBox x:Name="OnSelectOpreation" SelectedIndex="-1" ItemsSource="{Binding SelectedDevice.OperationItems}" DisplayMemberPath="Name" SelectedValuePath="." ToolTip="选择操作项..." Width="Auto" MinWidth="50">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -168,6 +77,60 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
+            <!-- 删除操作 -->
+            <Button x:Name="OnDeleteOperation" HorizontalAlignment="Left" ToolTip="删除操作">
+                <StackPanel Height="22" Width="22">
+                    <Image Source="/ShowMaker.Desktop;component/Modules/Storyboard/Resources/Icons/delete.gif" Width="22" Height="22" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
+        <!-- 展区、设备、操作树 -->
+        <ListBox x:Name="DeviceItemListBox" ItemsSource="{Binding SelectedArea.DeviceItems}" Margin="0,15,0,7" Grid.Row="1" Grid.Column="0" AllowDrop="True" IsSynchronizedWithCurrentItem="True" SelectedIndex="-1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Drop">
+                    <cal:ActionMessage MethodName="OnDeviceItemDrop">
+                        <cal:Parameter Value="$source"/>
+                        <cal:Parameter Value="$eventArgs"/>
+                    </cal:ActionMessage>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cal:ActionMessage MethodName="OnDeviceItemListSelectionChanged">
+                        <cal:Parameter Value="$source"/>
+                        <cal:Parameter Value="$eventArgs"/>
+                        <cal:Parameter Value="{Binding ElementName=DeviceItemListBox,Path=SelectedValue}"/>
+                    </cal:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel MinWidth="200">
+                        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                            <Image Source="{Binding TypeImagePath}" Height="50" Width="50" />
+                            <TextBlock Text="{Binding Name}" Height="50" FontSize="15" Padding="8">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" FlowDirection="RightToLeft">
+                            <Image Source="/ShowMaker.Desktop;component/Resources/trash.png" Width="22" Height="22" ToolTip="移除设备">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <cal:ActionMessage MethodName="OnDeleteDevice">
+                                            <cal:Parameter Value="$source"/>
+                                            <cal:Parameter Value="$eventArgs"/>
+                                            <cal:Parameter Value="{Binding Path=.}"/>
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                        </StackPanel>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <GridSplitter Grid.Column="1" Name="gridSplitter1" Grid.RowSpan="2" Width="3" Margin="0,0,-0.4,8" HorizontalAlignment="Center" />
+
+        <!-- 右侧 -->
+        <!-- 播放工具面板 -->
+        <ToolBar x:Name="PlayToolsPanel" Grid.Column="2" Width="Auto">
             <!-- 添加命令 -->
             <Button Name="AddNewCommandBtn" HorizontalAlignment="Left" ToolTip="添加命令">
                 <i:Interaction.Triggers>
@@ -221,10 +184,8 @@
             <TextBlock Text="时间点：" VerticalAlignment="Center" />
             <TextBlock Text="{Binding ElementName=timelineControl,Path=Value}" VerticalAlignment="Center" />
             <TextBlock Text=" S" VerticalAlignment="Center" />
-        </ToolBar>
-        <!-- 时间线 -->
-        <DockPanel Grid.Column="2" Grid.Row="1">
-            <Slider DockPanel.Dock="Bottom" x:Name="timelineControlZoom" Value="{Binding TimelineWidth}" Minimum="100" Maximum="36000" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" AutoToolTipPlacement="BottomRight" Margin="1,0,0,0" Height="22">
+            <TextBlock Text=" 时间轴：" VerticalAlignment="Center" />
+            <xctk:IntegerUpDown x:Name="TimelineControlZoom" FormatString="N0" Value="{Binding TimelineMaximum}" Increment="1" Maximum="3600" Width="50" Height="25">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <cal:ActionMessage MethodName="OnTimelineControlZoomValueChanged">
@@ -233,10 +194,11 @@
                         </cal:ActionMessage>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </Slider>
-            <ScrollViewer DockPanel.Dock="Top"  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Height="Auto" VerticalAlignment="Stretch">
-                <local:TimelineControl x:Name="timelineControl"  Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" MinHeight="300" />
-            </ScrollViewer>
-        </DockPanel>
+            </xctk:IntegerUpDown>
+        </ToolBar>
+        <!-- 时间线 -->
+        <ScrollViewer Grid.Column="2" Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" CanContentScroll="True" VerticalAlignment="Stretch" >
+            <local:TimelineControl x:Name="timelineControl"  Maximum="{Binding TimelineMaximum}" SliderWidth="{Binding TimelineWidth}" Height="Auto" MinHeight="300" />
+        </ScrollViewer>
     </Grid>
 </UserControl>

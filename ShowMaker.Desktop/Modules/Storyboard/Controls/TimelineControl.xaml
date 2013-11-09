@@ -347,6 +347,6 @@
                 AutoToolTipPrecision="0"
                 AutoToolTipPlacement="BottomRight"
                 IsDirectionReversed="False"
-                IsMoveToPointEnabled="True" Interval="40" SmallChange="1" LargeChange="10">
+                IsMoveToPointEnabled="True" Interval="40" SmallChange="1" LargeChange="10" MinWidth="100">
     </Slider>
 </UserControl>

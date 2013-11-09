@@ -21,7 +21,6 @@ namespace OpenRcp
             UriList = new List<Uri>
                           {
                               new Uri("pack://application:,,,/AvalonDock.Themes.VS2010;component/Theme.xaml"),
-                              new Uri("pack://application:,,,/OpenRcp;component/Modules/Theme/Resources/Styles/VS2010/Theme.xaml")
                           };
         }
 

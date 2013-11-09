@@ -17,6 +17,7 @@ using ShowMaker.Desktop.Models.Domain;
 using ShowMaker.Desktop.Util;
 using System.Windows.Data;
 using System.Windows;
+using Xceed.Wpf.Toolkit;
 
 namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 {
@@ -40,6 +41,16 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         }
 
         private Area selectedArea;
+        public Area SelectedArea
+        {
+            get { return selectedArea; }
+            set
+            {
+                selectedArea = value;
+                NotifyOfPropertyChange(() => SelectedArea);
+            }
+        }
+
         private Device selectedDevice;
 
         public Device SelectedDevice
@@ -56,11 +67,10 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         private Operation selectedOperation;
         private int selectedTick;
         private double selectedVerticalPosition;
-        private SelectedItemType selectedItemType;
         private Shape selectedTimePointGraphic;
         private Command selectedCommand;
 
-        private int timelineMaximum;
+        private int timelineMaximum = 10;
 
         public int TimelineMaximum
         {
@@ -68,6 +78,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             set
             {
                 timelineMaximum = value;
+                TimelineWidth = timelineMaximum * 10;
                 NotifyOfPropertyChange(() => TimelineMaximum);
             }
         }
@@ -80,15 +91,23 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             set
             {
                 timelineWidth = value;
-                timelineMaximum = timelineWidth / 10;
                 NotifyOfPropertyChange(() => TimelineWidth);
-                NotifyOfPropertyChange(() => TimelineMaximum);
             }
         }
 
         #endregion
 
         private int deviceCtrHeight = 50;
+
+        public int DeviceCtrHeight
+        {
+            get { return deviceCtrHeight; }
+            set
+            {
+                deviceCtrHeight = value;
+                NotifyOfPropertyChange(() => DeviceCtrHeight);
+            }
+        }
 
         public StoryboardViewModel()
         {
@@ -150,7 +169,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 if (dev != null)
                 {
                     dev.SetParent(selectedArea);
-                    selectedArea.DeviceItems.Add(dev);
+                    SelectedArea.DeviceItems.Add(dev);
                     IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
                 }
             }
@@ -179,35 +198,6 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 System.Windows.MessageBox.Show("请选择设备后再添加操作", "错误", System.Windows.MessageBoxButton.OK);
         }
 
-        private void addDeviceToAreaListPanel(StackPanel panel, Device dev)
-        {
-            Button deviceCtr = new Button();
-            deviceCtr.Height = deviceCtrHeight;
-            deviceCtr.FontSize = 15;
-            deviceCtr.HorizontalAlignment = HorizontalAlignment.Stretch;
-            Binding binding = new Binding("Name");
-            binding.Source = dev;
-            deviceCtr.SetBinding(Button.ContentProperty, binding);
-            deviceCtr.DataContext = dev;
-            deviceCtr.Click += (s, evt) =>
-            {
-                Button b = s as Button;
-                SelectedDevice = b.DataContext as Device;
-                selectedItemType = SelectedItemType.DEVICE;
-                IoC.Get<IPropertyGrid>().SelectedObject = SelectedDevice;
-                int deep = -1;
-                for (int i = 0; i < selectedArea.DeviceItems.Count; i++)
-                {
-                    Device d = selectedArea.DeviceItems[i];
-                    deep++;
-                    if (d == SelectedDevice)
-                        break;
-                }
-                selectedVerticalPosition = deep * b.Height;
-            };
-            panel.Children.Add(deviceCtr);
-        }
-
         public void OnDeviceItemDrop(object sender, System.Windows.DragEventArgs e)
         {
             Device dev = e.Data.GetData(typeof(Device)) as Device;
@@ -215,67 +205,60 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             {
                 StoryboardView view = GetView() as StoryboardView;
                 dev.SetParent(selectedArea);
-                selectedArea.DeviceItems.Add(dev);
+                SelectedArea.DeviceItems.Add(dev);
                 StackPanel sp = sender as StackPanel;
-                addDeviceToAreaListPanel(sp, dev);
+                //addDeviceToAreaListPanel(sp, dev);
 
                 // TODO.画线条
                 TimelineControl tlc = view.timelineControl;
                 Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
                 drawPanel.Height = selectedArea.DeviceItems.Count * this.deviceCtrHeight;
-                /*
-                Rectangle devTimelineArea = new Rectangle();
-                devTimelineArea.Fill = System.Windows.Media.Brushes.AntiqueWhite;
-                devTimelineArea.Stroke = System.Windows.Media.Brushes.Blue;
-                devTimelineArea.StrokeThickness = 10;
-
-                devTimelineArea.Width = tlc.Width;
-                devTimelineArea.Height = tb.Height;
-                Canvas.SetLeft(devTimelineArea, 0);
-                Canvas.SetTop(devTimelineArea, (selectedArea.DeviceItems.Count - 1) * tb.Height);
-                drawPanel.Children.Add(devTimelineArea);
-                */
-
                 IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
             else
                 System.Windows.MessageBox.Show("请选择展区后再添加设备", "错误", System.Windows.MessageBoxButton.OK);
         }
 
-        public void OnDeleteItem()
+        /// <summary>
+        /// 移除展区
+        /// </summary>
+        public void OnDeleteArea()
         {
-            switch (selectedItemType)
-            {
-                case SelectedItemType.EXHIBITION:
-                    System.Windows.MessageBox.Show("展示会不能被删除!", "错误", System.Windows.MessageBoxButton.OK);
-                    break;
-                case SelectedItemType.AREA:
-                    if (System.Windows.MessageBox.Show("您确定删除" + selectedArea.Name + "展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
-                        SelectedExhibition.AreaItems.Remove(selectedArea);
-                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
-                    }
-                    break;
-                case SelectedItemType.DEVICE:
-                    if (System.Windows.MessageBox.Show("您确定删除" + selectedDevice.Name + "设备吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
-                        selectedArea.DeviceItems.Remove(selectedDevice);
-                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
-                    }
-                    break;
-                case SelectedItemType.OPERATION:
-                    if (System.Windows.MessageBox.Show("您确定删除" + selectedOperation.Name + "操作吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
-                    {
-                        selectedDevice.OperationItems.Remove(selectedOperation);
-                        IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
-                    }
-                    break;
+            if (selectedArea == null) return;
+            if (System.Windows.MessageBox.Show("您确定删除\"" + selectedArea.Name + "\"展区吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes) {
+                SelectedExhibition.AreaItems.Remove(selectedArea);
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
             }
-
         }
 
-        public void OnExhibitionClick(object sender, EventArgs e)
+        /// <summary>
+        /// 移除设备
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="dev"></param>
+        public void OnDeleteDevice(object sender, EventArgs e, Device dev)
         {
-            IoC.Get<IPropertyGrid>().SelectedObject = SelectedExhibition;
-            selectedItemType = SelectedItemType.EXHIBITION;
+            if (dev == null) return;
+            selectedDevice = dev;
+            if (System.Windows.MessageBox.Show("您确定删除\"" + selectedDevice.Name + "\"设备吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                SelectedArea.DeviceItems.Remove(dev);
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
+        }
+
+        /// <summary>
+        /// 移除操作
+        /// </summary>
+        public void OnDeleteOperation()
+        {
+            if (selectedOperation == null) return;
+            if (System.Windows.MessageBox.Show("您确定删除\"" + selectedOperation.Name + "\"操作吗?", "提示", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                selectedDevice.OperationItems.Remove(selectedOperation);
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+            }
         }
 
         private void selectedCommandShapeHandle(object source, MouseButtonEventArgs evt)
@@ -304,24 +287,15 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         public void OnAreaItemSelected(object sender, EventArgs e, Area area)
         {
             if (area == null) return;
-            selectedArea = area;
-            selectedItemType = SelectedItemType.AREA;
+            SelectedArea = area;
             IoC.Get<IPropertyGrid>().SelectedObject = area;
-            this.TimelineWidth = int.Parse(area.Timeline.GetPropertyValue(Constants.TIME_MAX_KEY)) * 10;
+            this.TimelineMaximum = int.Parse(area.Timeline.GetPropertyValue(Constants.TIME_MAX_KEY));
 
             StoryboardView view = GetView() as StoryboardView;
-            // 加载设备列表
-            StackPanel sp = view.FindName("ShowAreaDevicesPanel") as StackPanel;
-            sp.Children.Clear();
-            foreach (Device dev in selectedArea.DeviceItems)
-            {
-                addDeviceToAreaListPanel(sp, dev);
-            }
-
             // 加载时间线
             TimelineControl tlc = view.timelineControl;
             Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
-            drawPanel.Height = selectedArea.DeviceItems.Count * this.deviceCtrHeight;
+            drawPanel.Height = SelectedArea.DeviceItems.Count * this.deviceCtrHeight;
             drawPanel.Children.Clear();
             foreach (TimePoint tp in area.Timeline.TimePointItems)
             {
@@ -336,7 +310,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                         System.Windows.MessageBox.Show(msg, "错误");
                         break;
                     }
-                    double verticalPosition = calculateVerticalPosition(op);
+                    double verticalPosition = calculateVerticalPosition(dev);
                     // 绘制时间点图形
                     Shape tpg = DrawCommandGraph(tlc, tp.Tick, verticalPosition);
                     tpg.DataContext = cmd;
@@ -346,12 +320,11 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             }
         }
 
-        private double calculateVerticalPosition(Operation op)
+        private double calculateVerticalPosition(Device dev)
         {
-            if (op == null) return 0;
-            Device dev = op.GetParent();
+            if (dev == null) return 0;
             Area area = dev.GetParent();
-            Exhibition ex = area.GetParent();
+
             int deep = -1;
             int i = 0;
             for(i=0; i< area.DeviceItems.Count; i++)
@@ -364,12 +337,20 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             return deep * this.deviceCtrHeight;
         }
 
-        public void OnDeviceItemClick(object sender, EventArgs e, Device device)
+        public void OnDeviceItemListSelectionChanged(object sender, SelectionChangedEventArgs e, Device device)
         {
-            selectedDevice = device;
-            selectedItemType = SelectedItemType.DEVICE;
-            selectedArea = selectedDevice.GetParent();
-            IoC.Get<IPropertyGrid>().SelectedObject = device;
+            SelectedDevice = device;
+            selectedOperation = null; // 重置当前选择的操作
+            IoC.Get<IPropertyGrid>().SelectedObject = SelectedDevice;
+            int deep = -1;
+            for (int i = 0; i < selectedArea.DeviceItems.Count; i++)
+            {
+                Device d = selectedArea.DeviceItems[i];
+                deep++;
+                if (d == SelectedDevice)
+                    break;
+            }
+            selectedVerticalPosition = deep * this.deviceCtrHeight;
         }
 
         public void OnOperationItemSelected(object sender, EventArgs e, Operation operation)
@@ -377,7 +358,6 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             if (operation == null) return;
             StoryboardView view = GetView() as StoryboardView;
             selectedOperation = operation;
-            selectedItemType = SelectedItemType.OPERATION;
             selectedDevice = operation.GetParent();
             selectedArea = selectedDevice.GetParent();
             IoC.Get<IPropertyGrid>().SelectedObject = operation;
@@ -394,7 +374,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
                 {
                     cmd.PropertyItems.Add(new Property(param.Name, ""));
                 }
-                // TODO. 获取选择的时间点
+                // 获取选择的时间点
                 selectedTick = (int)view.timelineControl.Slider.Value;
                 Timeline tl = selectedArea.Timeline;
                 TimePoint tp = tl.GetItemByKey(selectedTick);
@@ -440,9 +420,9 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <summary>
         /// 指定位置绘制时间点图形
         /// </summary>
-        /// <param name="canvas"></param>
+        /// <param name="timelineControl"></param>
         /// <param name="tick"></param>
-        /// <param name="position"></param>
+        /// <param name="verticalPosition"></param>
         public Shape DrawCommandGraph(TimelineControl timelineControl, int tick, double verticalPosition)
         {
             Rectangle tpg = new Rectangle();
@@ -465,9 +445,8 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
         /// <summary>
         /// 绘制时间点图形
         /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="tick"></param>
-        /// <param name="position"></param>
+        /// <param name="timelineControl"></param>
+        /// <param name="verticalPosition"></param>
         public Shape DrawCommandGraph(TimelineControl timelineControl, double verticalPosition)
         {
             Rectangle tpg = new Rectangle();
@@ -489,14 +468,16 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnTimelineControlZoomValueChanged(object sender, EventArgs e)
         {
-            Slider sl = sender as Slider;
+            IntegerUpDown sl = sender as IntegerUpDown;
             if (sl != null && selectedArea != null)
             {
+                // 同步修改时间线定义文件-时间线max值
                 TimelineMaxChangedMessage tm = new TimelineMaxChangedMessage();
-                tm.Max = (int)sl.Value / 10;
+                tm.Max = (int)sl.Value;
+                TimelineMaximum = (int)sl.Value;
                 tm.TimelineTarget = selectedArea.Timeline;
-                IoC.Get<IEventAggregator>().Publish(tm);
-                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage());
+                IoC.Get<IEventAggregator>().Publish(tm); // 发送给Timeline处理
+                IoC.Get<IEventAggregator>().Publish(new ShowDefinationChangedMessage()); // 发送show定义变更消息
             }
         }
 
@@ -504,6 +485,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void Handle(ShowDefinationChangedMessage message)
         {
+            // 发送更新编辑器内容消息
             IoC.Get<IEventAggregator>().Publish(new ContentChangedMessage()
             {
                 Content = SelectedExhibition

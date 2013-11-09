@@ -189,22 +189,6 @@
     </Compile>
     <Compile Include="Modules\Splash\ViewModels\SplashViewModel.cs" />
     <Compile Include="Modules\Shell\ViewModels\StatusBarViewModel.cs" />
-    <Page Include="Modules\Theme\Resources\Styles\VS2010\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Theme\Resources\Styles\VS2010\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Theme\Resources\Styles\VS2010\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Theme\Resources\Styles\VS2010\Toolbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Modules\Shell\Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

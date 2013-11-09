@@ -9,6 +9,7 @@ using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("操作")]
     public class Operation : IItemFinder<Parameter, string>
     {
         private string nameField;

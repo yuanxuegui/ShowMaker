@@ -10,6 +10,7 @@ using Caliburn.Micro;
 
 namespace ShowMaker.Desktop.Domain
 {
+    [DisplayName("命令")]
     public class Command : IExecutable, IPropertyFinder
     {
         private string deviceIdField;

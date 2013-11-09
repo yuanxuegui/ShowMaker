@@ -12,7 +12,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" Height="30" FontSize="15" />
+                        <Image Source="{Binding TypeImagePath}" Height="30" Width="30" />
+                        <TextBlock Text="{Binding Name}" Height="30" FontSize="15" Padding="5" />
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseMove">
                                 <cal:ActionMessage MethodName="OnDeviceItemMouseMove">
