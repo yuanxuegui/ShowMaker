@@ -71,22 +71,26 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
                 {
                     // 保存修改后关闭
                     Save();
-                    // TODO. 保存文件
+                    IoC.Get<StoryboardViewModel>().ClearStoryboardContent();
                     callback(true);
                 }
                 else if (result == System.Windows.MessageBoxResult.No)
                 {
+                    IoC.Get<StoryboardViewModel>().ClearStoryboardContent();
                     // 不保存修改，直接关闭
                     callback(true);
                 }
-                else if(result == System.Windows.MessageBoxResult.Cancel)
+                else if (result == System.Windows.MessageBoxResult.Cancel)
                 {
                     // 不关闭
                     callback(false);
                 }
             }
             else
+            {
+                IoC.Get<StoryboardViewModel>().ClearStoryboardContent();
                 callback(true);
+            }
         }
 
         protected override void OnViewLoaded(object view)

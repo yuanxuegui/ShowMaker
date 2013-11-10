@@ -284,6 +284,23 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
             selectedCmdShape.StrokeThickness = 10;
         }
 
+        public void ClearStoryboardContent()
+        {
+            SelectedExhibition = null;
+            SelectedArea = null;
+            SelectedDevice = null;
+            selectedOperation = null;
+            ClearTimelineDrawPanel();
+        }
+
+        public void ClearTimelineDrawPanel()
+        {
+            StoryboardView view = GetView() as StoryboardView;
+            // 加载时间线
+            TimelineControl tlc = view.timelineControl;
+            Canvas drawPanel = tlc.Slider.Template.FindName("DrawPanel", tlc.Slider) as Canvas;
+            drawPanel.Children.Clear();
+        }
         public void OnAreaItemSelected(object sender, EventArgs e, Area area)
         {
             if (area == null) return;
@@ -339,6 +356,7 @@ namespace ShowMaker.Desktop.Modules.Storyboard.ViewModels
 
         public void OnDeviceItemListSelectionChanged(object sender, SelectionChangedEventArgs e, Device device)
         {
+            if (device == null || selectedArea == null) return;
             SelectedDevice = device;
             selectedOperation = null; // 重置当前选择的操作
             IoC.Get<IPropertyGrid>().SelectedObject = SelectedDevice;
