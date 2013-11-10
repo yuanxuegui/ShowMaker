@@ -58,6 +58,7 @@ namespace ShowMaker.Desktop.Modules.ExhibitionDocument.ViewModels
             base.OnActivate();
             if (ShowMakerDesktopModule.SHOW_FILE_EXTENSION.Equals(Path.GetExtension(_path)))
             {
+                IoC.Get<StoryboardViewModel>().ClearStoryboardContent();
                 IoC.Get<StoryboardViewModel>().SelectedExhibition = contentObject;
             }
         }
