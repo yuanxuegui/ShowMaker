@@ -49,6 +49,10 @@
     <Compile Include="ShowFileEncryptDecriptTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShowMaker.Desktop.Models\ShowMaker.Desktop.Models.csproj">
+      <Project>{C9B6E2D2-D58D-4353-BFCB-1E99DFD23C38}</Project>
+      <Name>ShowMaker.Desktop.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShowMaker.Desktop\ShowMaker.Desktop.csproj">
       <Project>{3379E71F-B569-44C0-A3FD-8850FEFDE054}</Project>
       <Name>ShowMaker.Desktop</Name>

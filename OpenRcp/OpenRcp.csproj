@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0E9CF658-EFE0-41C0-AFBD-A9C907A5C6B0}</ProjectGuid>
@@ -17,8 +17,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,8 +27,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -88,93 +88,80 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\DisplayBase.cs" />
-    <Compile Include="Common\ExportResourceAttribute.cs" />
-    <Compile Include="Common\ILocalizableDisplay.cs" />
-    <Compile Include="Common\IResource.cs" />
-    <Compile Include="Common\ExportModuleAttribute.cs" />
-    <Compile Include="Common\ResourceBase.cs" />
-    <Compile Include="Common\IDisplay.cs" />
-    <Compile Include="Common\IHaveName.cs" />
-    <Compile Include="Common\Results\LambdaResult.cs" />
-    <Compile Include="Common\Workbench\IPropertySelectable.cs" />
+    <Compile Include="Localization\DisplayBase.cs" />
+    <Compile Include="Localization\ExportResourceAttribute.cs" />
+    <Compile Include="Localization\ILocalizableDisplay.cs" />
+    <Compile Include="Localization\IResource.cs" />
+    <Compile Include="Modularity\ExportModuleAttribute.cs" />
+    <Compile Include="Localization\ResourceBase.cs" />
+    <Compile Include="IDisplay.cs" />
+    <Compile Include="IHaveName.cs" />
+    <Compile Include="Results\LambdaResult.cs" />
+    <Compile Include="IPropertySelectable.cs" />
     <Compile Include="Controls\ToolPaneToolBar.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Common\Menus\RadioMenuItem.cs" />
-    <Compile Include="Common\Results\ICloseResult.cs" />
-    <Compile Include="Common\Results\HideToolResult.cs" />
-    <Compile Include="Common\Results\CloseResultBase.cs" />
-    <Compile Include="Common\Results\CloseDocumentResult.cs" />
+    <Compile Include="Controls\Menus\RadioMenuItem.cs" />
+    <Compile Include="Results\ICloseResult.cs" />
+    <Compile Include="Results\HideToolResult.cs" />
+    <Compile Include="Results\CloseResultBase.cs" />
+    <Compile Include="Results\CloseDocumentResult.cs" />
     <Compile Include="Modules\Theme\ThemeModule.cs" />
     <Compile Include="Services\IMenuManger.cs" />
     <Compile Include="Controls\LayoutInitializer.cs" />
     <Compile Include="Controls\Menu.cs" />
     <Compile Include="Controls\MenuItem.cs" />
     <Compile Include="Controls\PanesStyleSelector.cs" />
-    <Compile Include="Common\Converters\ActiveDocumentConverter.cs" />
-    <Compile Include="Common\Converters\LayoutItemViewConverter.cs" />
-    <Compile Include="Common\Converters\PercentToFontSizeConverter.cs" />
-    <Compile Include="Common\Workbench\Document.cs" />
-    <Compile Include="Common\Workbench\IDocument.cs" />
-    <Compile Include="Common\Messages\IMessage.cs" />
-    <Compile Include="Common\IModule.cs" />
-    <Compile Include="Common\ITheme.cs" />
+    <Compile Include="Converters\ActiveDocumentConverter.cs" />
+    <Compile Include="Converters\LayoutItemViewConverter.cs" />
+    <Compile Include="Converters\PercentToFontSizeConverter.cs" />
+    <Compile Include="Workbench\Document.cs" />
+    <Compile Include="IDocument.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Modularity\IModule.cs" />
+    <Compile Include="ITheme.cs" />
     <Compile Include="Services\IThemeManager.cs" />
-    <Compile Include="Common\Workbench\ITool.cs" />
-    <Compile Include="Common\Menus\CheckableMenuItem.cs" />
-    <Compile Include="Common\Menus\IMenu.cs" />
-    <Compile Include="Common\Menus\MenuItem.cs" />
-    <Compile Include="Common\Menus\MenuItemBase.cs" />
-    <Compile Include="Common\Menus\MenuItemSeparator.cs" />
-    <Compile Include="Common\Menus\MenuModel.cs" />
-    <Compile Include="Common\Menus\StandardMenuItem.cs" />
-    <Compile Include="Common\Messages\LanguageChangedMessage.cs" />
-    <Compile Include="Common\Messages\ModuleInitMessage.cs" />
-    <Compile Include="Common\MessageBase.cs" />
-    <Compile Include="Common\Messages\ModulesInitedMessage.cs" />
+    <Compile Include="ITool.cs" />
+    <Compile Include="Controls\Menus\CheckableMenuItem.cs" />
+    <Compile Include="Controls\Menus\IMenu.cs" />
+    <Compile Include="Controls\Menus\MenuItem.cs" />
+    <Compile Include="Controls\Menus\MenuItemBase.cs" />
+    <Compile Include="Controls\Menus\MenuItemSeparator.cs" />
+    <Compile Include="Controls\Menus\MenuModel.cs" />
+    <Compile Include="Controls\Menus\StandardMenuItem.cs" />
+    <Compile Include="Localization\LanguageChangedMessage.cs" />
+    <Compile Include="Modularity\ModuleInitMessage.cs" />
+    <Compile Include="Messaging\MessageBase.cs" />
+    <Compile Include="Modularity\ModulesInitedMessage.cs" />
     <Compile Include="Modules\Splash\Messages\SplashCloseMessage.cs" />
     <Compile Include="Modules\Theme\Messages\ThemeChangeMessage.cs" />
-    <Compile Include="Common\ModuleBase.cs" />
-    <Compile Include="Common\ModuleInfoItem.cs" />
-    <Compile Include="Common\RelayCommand.cs" />
-    <Compile Include="Common\Results\IOpenResult.cs" />
-    <Compile Include="Common\Results\OpenDocumentResult.cs" />
-    <Compile Include="Common\Results\OpenResultBase.cs" />
-    <Compile Include="Common\Results\ResultsHelper.cs" />
-    <Compile Include="Common\Results\ShowCommonDialogResult.cs" />
-    <Compile Include="Common\Results\ShowToolResult.cs" />
+    <Compile Include="Modularity\ModuleBase.cs" />
+    <Compile Include="Modularity\ModuleInfoItem.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Results\IOpenResult.cs" />
+    <Compile Include="Results\OpenDocumentResult.cs" />
+    <Compile Include="Results\OpenResultBase.cs" />
+    <Compile Include="Results\ResultsHelper.cs" />
+    <Compile Include="Results\ShowCommonDialogResult.cs" />
+    <Compile Include="Results\ShowToolResult.cs" />
     <Compile Include="Modules\Theme\Results\ChangeThemeResult.cs" />
     <Compile Include="Services\ExtensionMethods.cs" />
     <Compile Include="Services\IEditorProvider.cs" />
     <Compile Include="Services\IInputManager.cs" />
     <Compile Include="Services\InputBindingTrigger.cs" />
     <Compile Include="Services\InputManager.cs" />
-    <Compile Include="Common\Workbench\IPropertyGrid.cs" />
     <Compile Include="Services\IResourceService.cs" />
-    <Compile Include="Common\Workbench\IShell.cs" />
-    <Compile Include="Common\IStatusBar.cs" />
+    <Compile Include="IShell.cs" />
+    <Compile Include="IStatusBar.cs" />
     <Compile Include="Services\IToolbarService.cs" />
     <Compile Include="Services\MetroWindowManager.cs" />
-    <Compile Include="Common\PaneLocation.cs" />
+    <Compile Include="PaneLocation.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\ThemeManager.cs" />
     <Compile Include="Modules\Theme\DefaultTheme.cs" />
     <Compile Include="Modules\Theme\VS2010.cs" />
-    <Compile Include="Common\Workbench\Tool.cs" />
-    <Compile Include="Common\Workbench\IOutput.cs" />
-    <Compile Include="Modules\Output\OutputModule.cs" />
-    <Compile Include="Modules\Output\ViewModels\OutputViewModel.cs" />
-    <Compile Include="Modules\Output\ViewModels\OutputWriter.cs" />
-    <Compile Include="Modules\Output\Views\IOutputView.cs" />
-    <Compile Include="Modules\Output\Views\OutputView.xaml.cs">
-      <DependentUpon>OutputView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\PropertyGrid\PropertyModule.cs" />
-    <Compile Include="Modules\PropertyGrid\ViewModels\PropertyGridViewModel.cs" />
-    <Compile Include="Modules\PropertyGrid\Views\PropertyGridView.xaml.cs">
-      <DependentUpon>PropertyGridView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Workbench\PropertySelectedMessage.cs" />
+    <Compile Include="Workbench\Tool.cs" />
     <Compile Include="Modules\Shell\ShellModule.cs" />
     <Compile Include="Modules\Shell\ViewModels\MainMenuViewModel.cs" />
     <Compile Include="Modules\Shell\ViewModels\ShellViewModel.cs" />
@@ -182,7 +169,7 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Splash\Behaviours\SplashBehaviour.cs" />
-    <Compile Include="Modules\Splash\ISplash.cs" />
+    <Compile Include="ISplash.cs" />
     <Compile Include="Modules\Splash\SplashModule.cs" />
     <Compile Include="Modules\Splash\Views\SplashView.xaml.cs">
       <DependentUpon>SplashView.xaml</DependentUpon>
@@ -190,14 +177,6 @@
     <Compile Include="Modules\Splash\ViewModels\SplashViewModel.cs" />
     <Compile Include="Modules\Shell\ViewModels\StatusBarViewModel.cs" />
     <Page Include="Modules\Shell\Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Output\Views\OutputView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\PropertyGrid\Views\PropertyGridView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -250,18 +229,11 @@
     <Resource Include="Modules\Shell\Resources\Icons\Open.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Modules\PropertyGrid\Resources\Icons\properties.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Modules\Shell\Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Behaviors\" />
-    <Folder Include="Common\Localization\" />
+    <Folder Include="Behaviors\" />
     <Folder Include="Threading\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Modules\Output\Resources\Icons\output.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Modules\Theme\Resources\Icons\theme.png" />

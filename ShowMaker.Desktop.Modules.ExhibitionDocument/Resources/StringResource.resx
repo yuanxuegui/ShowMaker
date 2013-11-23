@@ -117,61 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MENU_EDIT" xml:space="preserve">
-    <value>编辑(_E)</value>
+  <data name="MENU_EDIT_REDO" xml:space="preserve">
+    <value>_Redo</value>
   </data>
-  <data name="MENU_FILE" xml:space="preserve">
-    <value>文件(_F)</value>
+  <data name="MENU_EDIT_UNDO" xml:space="preserve">
+    <value>_Undo</value>
   </data>
-  <data name="MENU_FILE_EXIT" xml:space="preserve">
-    <value>退出</value>
+  <data name="MENU_FILE_CLOSE_SHOW" xml:space="preserve">
+    <value>Close Show File</value>
   </data>
-  <data name="MENU_FILE_OPEN" xml:space="preserve">
-    <value>打开</value>
+  <data name="MENU_FILE_NEW_SHOW" xml:space="preserve">
+    <value>New show file</value>
   </data>
-  <data name="MENU_HELP" xml:space="preserve">
-    <value>帮助(_H)</value>
-  </data>
-  <data name="MENU_HELP_ABOUT" xml:space="preserve">
-    <value>关于</value>
-  </data>
-  <data name="MENU_TOOL" xml:space="preserve">
-    <value>工具(_T)</value>
-  </data>
-  <data name="MENU_TOOL_LANGUAGE" xml:space="preserve">
-    <value>语言</value>
-  </data>
-  <data name="MENU_TOOL_LANGUAGE_EN" xml:space="preserve">
-    <value>英文</value>
-  </data>
-  <data name="MENU_TOOL_LANGUAGE_ZHCN" xml:space="preserve">
-    <value>简体中文</value>
-  </data>
-  <data name="MENU_TOOL_THEME" xml:space="preserve">
-    <value>主题</value>
-  </data>
-  <data name="MENU_VIEW" xml:space="preserve">
-    <value>视图(_V)</value>
-  </data>
-  <data name="MODULEINFO_RIGHTS" xml:space="preserve">
-    <value>版权所有.</value>
-  </data>
-  <data name="MODULEINFO_VERSION" xml:space="preserve">
-    <value>版本{0}, {1}-bit 版</value>
-  </data>
-  <data name="SHELL_MODULEINFO_AUTHORS" xml:space="preserve">
-    <value>袁学贵</value>
-  </data>
-  <data name="SHELL_MODULEINFO_COPYRIGHT" xml:space="preserve">
-    <value>© 2013 北京工业大学.</value>
-  </data>
-  <data name="SHELL_MODULEINFO_DESCRIPTION" xml:space="preserve">
-    <value>Workbench Shell</value>
-  </data>
-  <data name="SHELL_MODULEINFO_HEADER" xml:space="preserve">
-    <value>Shell</value>
-  </data>
-  <data name="SHELL_MODULEINFO_NAME" xml:space="preserve">
-    <value>Shell</value>
+  <data name="MENU_FILE_SAVE_SHOW" xml:space="preserve">
+    <value>Save Show File</value>
   </data>
 </root>

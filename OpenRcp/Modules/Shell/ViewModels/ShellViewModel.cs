@@ -12,7 +12,7 @@ namespace OpenRcp
         [ImportMany(typeof(IModule))]
         private IEnumerable<IModule> _modules = null;
         
-        private WindowState _windowState = WindowState.Normal;
+        private WindowState _windowState = WindowState.Maximized;
         public WindowState WindowState
         {
             get { return _windowState; }
@@ -23,7 +23,7 @@ namespace OpenRcp
             }
         }
 
-        private string _title = "[Default Title]";
+        private string _title = "";
         public string Title
         {
             get { return _title; }

@@ -1,0 +1,19 @@
+﻿<Window x:Class="ShowMaker.Desktop.Modules.Storyboard.Views.AddOperationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="221" d:DesignWidth="268" SizeToContent="WidthAndHeight" 
+             Title="{Binding DisplayName}" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid Height="157" Name="grid1" Width="219">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="51*" />
+            <RowDefinition Height="99*" />
+        </Grid.RowDefinitions>
+        <TextBlock Height="20" HorizontalAlignment="Left" Margin="15,22,0,0" Text="操作名称" VerticalAlignment="Top" Width="52" Grid.Row="1" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,19,12,0" x:Name="OperationName" VerticalAlignment="Top" Width="134" Grid.Row="1" />
+        <Button x:Name="OnAddOperation" Content="完成" IsDefault="True" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="124,47,0,0" VerticalAlignment="Top" Width="75" />
+    </Grid>
+</Window>

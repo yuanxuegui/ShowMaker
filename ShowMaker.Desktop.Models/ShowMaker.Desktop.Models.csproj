@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C9B6E2D2-D58D-4353-BFCB-1E99DFD23C38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShowMaker.Desktop.Models</RootNamespace>
+    <AssemblyName>ShowMaker.Desktop.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.5.1\lib\net40\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Area.cs" />
+    <Compile Include="Domain\Command.cs" />
+    <Compile Include="Domain\CommandContext.cs" />
+    <Compile Include="Domain\Device.cs" />
+    <Compile Include="Domain\DeviceCollection.cs" />
+    <Compile Include="Domain\Exhibition.cs" />
+    <Compile Include="Domain\ICommandContext.cs" />
+    <Compile Include="Domain\IExecutable.cs" />
+    <Compile Include="Domain\IItemFinder.cs" />
+    <Compile Include="Domain\IPropertyFinder.cs" />
+    <Compile Include="Domain\ITimelineContext.cs" />
+    <Compile Include="Domain\Operation.cs" />
+    <Compile Include="Domain\Parameter.cs" />
+    <Compile Include="Domain\ParameterType.cs" />
+    <Compile Include="Domain\Property.cs" />
+    <Compile Include="Domain\ShowDefinationChangedMessage.cs" />
+    <Compile Include="Domain\Timeline.cs" />
+    <Compile Include="Domain\TimelineContext.cs" />
+    <Compile Include="Domain\TimelineMaxChangedMessage.cs" />
+    <Compile Include="Domain\TimePoint.cs" />
+    <Compile Include="Domain\SelectedExhibitionChangedMessage.cs" />
+    <Compile Include="Engine\DefaultTimeLineEngine.cs" />
+    <Compile Include="Engine\ITimelineEngine.cs" />
+    <Compile Include="Domain\ExhibitionContentChangedMessage.cs" />
+    <Compile Include="Parser\IExhibitionParser.cs" />
+    <Compile Include="Parser\XmlSerializerExhibitionParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sender\ISender.cs" />
+    <Compile Include="Sender\SenderLocator.cs" />
+    <Compile Include="Sender\UDPSender.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\ShowFileEncryptDecrypt.cs" />
+    <Compile Include="Util\XmlSerializerUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -120,29 +120,11 @@
   <data name="MENU_EDIT" xml:space="preserve">
     <value>_Edit</value>
   </data>
-  <data name="MENU_EDIT_REDO" xml:space="preserve">
-    <value>_Redo</value>
-  </data>
-  <data name="MENU_EDIT_UNDO" xml:space="preserve">
-    <value>_Undo</value>
-  </data>
   <data name="MENU_FILE" xml:space="preserve">
     <value>_File</value>
   </data>
-  <data name="MENU_FILE_CLOSE_SHOW" xml:space="preserve">
-    <value>Close Show File</value>
-  </data>
   <data name="MENU_FILE_EXIT" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="MENU_FILE_NEW_SHOW" xml:space="preserve">
-    <value>New show file</value>
-  </data>
-  <data name="MENU_FILE_OPEN" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="MENU_FILE_SAVE_SHOW" xml:space="preserve">
-    <value>Save Show File</value>
   </data>
   <data name="MENU_HELP" xml:space="preserve">
     <value>_Help</value>
@@ -168,38 +150,11 @@
   <data name="MENU_VIEW" xml:space="preserve">
     <value>_View</value>
   </data>
-  <data name="MENU_VIEW_DEVTOOLBOX" xml:space="preserve">
-    <value>Devices ToolBox</value>
-  </data>
-  <data name="MENU_VIEW_OUTPUT" xml:space="preserve">
-    <value>Output</value>
-  </data>
-  <data name="MENU_VIEW_PROP" xml:space="preserve">
-    <value>Properties</value>
-  </data>
-  <data name="MENU_VIEW_STORYBOARD" xml:space="preserve">
-    <value>Storyboard</value>
-  </data>
   <data name="MODULEINFO_RIGHTS" xml:space="preserve">
     <value>All rights reserved.</value>
   </data>
   <data name="MODULEINFO_VERSION" xml:space="preserve">
     <value>Version {0}, {1}-bit Edition</value>
-  </data>
-  <data name="OUTPUT_MODULEINFO_AUTHORS" xml:space="preserve">
-    <value>Yuan Xuegui</value>
-  </data>
-  <data name="OUTPUT_MODULEINFO_COPYRIGHT" xml:space="preserve">
-    <value>© 2012 Beijing University of Technology.</value>
-  </data>
-  <data name="OUTPUT_MODULEINFO_DESCRIPTION" xml:space="preserve">
-    <value>Workbench Output</value>
-  </data>
-  <data name="OUTPUT_MODULEINFO_HEADER" xml:space="preserve">
-    <value>Output</value>
-  </data>
-  <data name="OUTPUT_MODULEINFO_NAME" xml:space="preserve">
-    <value>Output</value>
   </data>
   <data name="PROP_MODULEINFO_AUTHORS" xml:space="preserve">
     <value>Yuan Xuegui</value>
@@ -230,15 +185,6 @@
   </data>
   <data name="SHELL_MODULEINFO_NAME" xml:space="preserve">
     <value>Shell</value>
-  </data>
-  <data name="STORYBOARD_ADD_DEVICE" xml:space="preserve">
-    <value>Add Device</value>
-  </data>
-  <data name="STORYBOARD_ADD_OPERATION" xml:space="preserve">
-    <value>Add Operation</value>
-  </data>
-  <data name="STORYBOARD_NEW_AREA" xml:space="preserve">
-    <value>New Area</value>
   </data>
   <data name="THEME_MODULEINFO_AUTHORS" xml:space="preserve">
     <value>Yuan Xuegui</value>

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3379E71F-B569-44C0-A3FD-8850FEFDE054}</ProjectGuid>
@@ -16,6 +16,9 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,14 +31,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -44,8 +44,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -93,76 +93,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Domain\DeviceCollection.cs" />
-    <Compile Include="Models\Domain\ShowDefinationChangedMessage.cs" />
-    <Compile Include="Models\Domain\TimelineMaxChangedMessage.cs" />
-    <Compile Include="Models\Util\ShowFileEncryptDecrypt.cs" />
-    <Compile Include="Modules\ExhibitionDocument\ExhibitionDocumentModule.cs" />
-    <Compile Include="Modules\ExhibitionDocument\ExhibitionEditorProvider.cs" />
-    <Compile Include="Modules\ExhibitionDocument\Messages\ContentChangedMessage.cs" />
-    <Compile Include="Modules\ExhibitionDocument\ViewModels\ExhibitionEditorViewModel.cs" />
-    <Compile Include="Modules\ExhibitionDocument\Views\ExhibitionEditorView.xaml.cs">
-      <DependentUpon>ExhibitionEditorView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\StoryboardModule.cs" />
-    <Compile Include="Modules\ExhibitionDocument\ViewModels\NewExhibitionViewModel.cs" />
-    <Compile Include="Modules\Storyboard\ViewModels\NewAreaViewModel.cs" />
-    <Compile Include="Modules\Storyboard\ViewModels\StoryboardViewModel.cs" />
-    <Compile Include="Modules\ExhibitionDocument\Views\NewExhibitionView.xaml.cs">
-      <DependentUpon>NewExhibitionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\ViewModels\AddDeviceViewModel.cs" />
-    <Compile Include="Modules\Storyboard\ViewModels\AddOperationViewModel.cs" />
-    <Compile Include="Modules\Storyboard\Views\NewAreaView.xaml.cs">
-      <DependentUpon>NewAreaView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\Views\StoryboardView.xaml.cs">
-      <DependentUpon>StoryboardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\Views\AddDeviceView.xaml.cs">
-      <DependentUpon>AddDeviceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\Views\AddOperationView.xaml.cs">
-      <DependentUpon>AddOperationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Storyboard\Controls\TimelineControl.xaml.cs">
-      <DependentUpon>TimelineControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\Resource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Domain\Area.cs" />
-    <Compile Include="Models\Domain\Command.cs" />
-    <Compile Include="Models\Domain\CommandContext.cs" />
-    <Compile Include="Models\Domain\Device.cs" />
-    <Compile Include="Models\Domain\Exhibition.cs" />
-    <Compile Include="Models\Domain\ICommandContext.cs" />
-    <Compile Include="Models\Domain\IExecutable.cs" />
-    <Compile Include="Models\Domain\IItemFinder.cs" />
-    <Compile Include="Models\Domain\IPropertyFinder.cs" />
-    <Compile Include="Models\Domain\ITimelineContext.cs" />
-    <Compile Include="Models\Domain\Operation.cs" />
-    <Compile Include="Models\Domain\Parameter.cs" />
-    <Compile Include="Models\Domain\ParameterType.cs" />
-    <Compile Include="Models\Domain\Property.cs" />
-    <Compile Include="Models\Domain\Timeline.cs" />
-    <Compile Include="Models\Domain\TimelineContext.cs" />
-    <Compile Include="Models\Domain\TimePoint.cs" />
-    <Compile Include="Models\Engine\DefaultTimeLineEngine.cs" />
-    <Compile Include="Models\Engine\ITimelineEngine.cs" />
-    <Compile Include="Models\Parser\IExhibitionParser.cs" />
-    <Compile Include="Models\Parser\XmlSerializerExhibitionParser.cs" />
-    <Compile Include="Models\Sender\ISender.cs" />
-    <Compile Include="Models\Sender\SenderLocator.cs" />
-    <Compile Include="Models\Sender\UDPSender.cs" />
-    <Compile Include="Models\Util\Constants.cs" />
-    <Compile Include="Models\Util\XmlSerializerUtil.cs" />
-    <Compile Include="Modules\DevicesToolBox\DevicesToolBoxModule.cs" />
-    <Compile Include="Modules\DevicesToolBox\ViewModels\DevicesToolBoxViewModel.cs" />
-    <Compile Include="Modules\DevicesToolBox\Views\DevicesToolBoxView.xaml.cs">
-      <DependentUpon>DevicesToolBoxView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\ShowMakerDesktopModule.cs" />
+    <Compile Include="ShowMakerDesktopModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -188,7 +122,6 @@
     <Content Include="Resources\CURTAIN.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\trash.png" />
     <Resource Include="Resources\Icon.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -207,15 +140,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Modules\ExhibitionDocument\Resources\Icons\Redo.png" />
-    <Resource Include="Modules\ExhibitionDocument\Resources\Icons\Undo.png" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\add.png" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\delete.gif" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\storyboard.png" />
-    <Resource Include="Modules\DevicesToolBox\Resources\Icons\devicesToolBox.png" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\addDev.png" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\addArea.gif" />
-    <Resource Include="Modules\Storyboard\Resources\Icons\addOpr.png" />
     <Content Include="Resources\devices.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -225,49 +149,15 @@
       <Project>{0E9CF658-EFE0-41C0-AFBD-A9C907A5C6B0}</Project>
       <Name>OpenRcp</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Modules\DevicesToolBox\Views\DevicesToolBoxView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\ExhibitionDocument\Views\ExhibitionEditorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Storyboard\Resources\Tree.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\ExhibitionDocument\Views\NewExhibitionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Storyboard\Views\NewAreaView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Storyboard\Views\StoryboardView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\Storyboard\Views\AddDeviceView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Storyboard\Views\AddOperationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\Storyboard\Controls\TimelineControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <ProjectReference Include="..\ShowMaker.Desktop.Models\ShowMaker.Desktop.Models.csproj">
+      <Project>{C9B6E2D2-D58D-4353-BFCB-1E99DFD23C38}</Project>
+      <Name>ShowMaker.Desktop.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28AnyCPU 和 x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
